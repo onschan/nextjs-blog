@@ -1,7 +1,10 @@
+import { toPixel } from ".";
 import { css } from "@emotion/react";
 
+import theme from "./theme";
+
 export const postListWrapper = css`
-  width: 1024px;
+  width: ${toPixel(theme.size.wrapper.main)};
 
   display: flex;
   flex-direction: column;

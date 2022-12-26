@@ -4,8 +4,16 @@ const theme = {
       height: 84,
       title: 26,
     },
+    wrapper: {
+      main: 1024,
+    },
+    postCard: {
+      height: 800,
+      width: 240,
+    },
   },
   colors: {
+    primary: "#68c1f8",
     black: "#272727",
     white: "#ffffff",
     red: "#ff6348",

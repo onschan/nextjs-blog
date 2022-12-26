@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 
-import { textEllipsis } from "@/styles";
+import { toPixel, makeTextEllipsisByLine } from "@/styles";
 import theme from "@/styles/theme";
 
 export const postContainer = css`
-  width: 800px;
-  height: 240px;
+  width: ${toPixel(theme.size.postCard.height)};
+  height: ${toPixel(theme.size.postCard.width)};
   margin: 32px;
 
   display: flex;
@@ -20,8 +20,14 @@ export const postContainer = css`
   }
 
   &:hover {
-    span:first-of-type {
-      color: #68c1f8;
+    span:nth-of-type(1),
+    span:nth-of-type(2) {
+      color: ${theme.colors.primary};
+      transition: 0.125s all ease-in;
+    }
+
+    img {
+      scale: calc(1.03);
       transition: 0.125s all ease-in;
     }
   }
@@ -34,10 +40,10 @@ export const textWrapper = css`
   flex-direction: column;
   justify-content: space-evenly;
 
-  width: calc(800px - 216px - 36px);
   height: 216px;
-
   margin-left: 36px;
+  width: ${`calc(${toPixel(theme.size.postCard.height)} - 216px - 36px)`};
+
   padding: 8px 16px;
 `;
 
@@ -45,13 +51,13 @@ export const title = css`
   font-size: 36px;
   font-weight: 600;
 
-  ${textEllipsis(2)}
+  ${makeTextEllipsisByLine(2)}
 `;
 
 export const description = css`
   font-size: 18px;
 
-  ${textEllipsis(2)}
+  ${makeTextEllipsisByLine(2)}
 `;
 
 export const date = css`

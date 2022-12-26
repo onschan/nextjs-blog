@@ -1,22 +1,27 @@
-import { cssVar } from ".";
+import { toCssVar } from ".";
 import { css } from "@emotion/react";
 
-export const themedPalette = {
-  text: cssVar("text"),
-  background: cssVar("background"),
-  toggleIcon: cssVar("toggleIcon"),
+import theme from "./theme";
+
+export const darkModePalette = {
+  text: toCssVar("text"),
+  background: toCssVar("background"),
+  toggleIcon: toCssVar("toggle-icon"),
+  toggleBackGround: toCssVar("toggle-background"),
 };
 
 const lightTheme = css`
-  --text: #1e272e;
-  --background: white;
-  --toggleIcon: tomato;
+  --text: ${theme.colors.black};
+  --background: ${theme.colors.white};
+  --toggle-icon: ${theme.colors.red};
+  --toggle-background: ${theme.colors.gray400};
 `;
 
 const darkTheme = css`
-  --text: white;
-  --background: #1e272e;
-  --toggleIcon: yellow;
+  --text: ${theme.colors.white};
+  --background: ${theme.colors.black};
+  --toggle-icon: yellow;
+  --toggle-background: ${theme.colors.gray500};
 `;
 
 const darkMode = css`
@@ -40,8 +45,8 @@ const darkMode = css`
   }
 
   body {
-    color: ${themedPalette.text};
-    background: ${themedPalette.background};
+    color: ${darkModePalette.text};
+    background: ${darkModePalette.background};
   }
 `;
 

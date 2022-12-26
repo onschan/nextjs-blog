@@ -1,18 +1,18 @@
 import { css } from "@emotion/react";
 
-import { pixelSize } from "@/styles";
+import { toOpacityColor, toPixel } from "@/styles";
 import theme from "@/styles/theme";
 
 export const headerWrapper = css`
   position: sticky;
   top: 0px;
 
-  backdrop-filter: blur(7px);
-  background-color: #21212180;
+  backdrop-filter: blur(16px);
+  background-color: ${toOpacityColor(theme.colors.primary, 99)};
   z-index: 100;
 
   width: 100%;
-  height: ${pixelSize(theme.size.header.height)};
+  height: ${toPixel(theme.size.header.height)};
 
   display: flex;
   justify-content: center;
@@ -21,8 +21,8 @@ export const headerWrapper = css`
 
 export const contents = css`
   width: 100%;
-  max-width: 1024px;
   height: 100%;
+  max-width: ${toPixel(theme.size.wrapper.main)};
 
   display: flex;
   justify-content: space-between;
@@ -37,9 +37,9 @@ export const left = css`
   cursor: pointer;
 
   span {
-    font-size: ${pixelSize(theme.size.header.title)};
+    font-size: ${toPixel(theme.size.header.title)};
     font-weight: bold;
-    height: ${pixelSize(theme.size.header.title)};
+    height: ${toPixel(theme.size.header.title)};
   }
 
   svg {
