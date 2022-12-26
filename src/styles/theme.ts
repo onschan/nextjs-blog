@@ -1,7 +1,10 @@
+export const pixelSize = (size: number) => `${size}px`;
+
 const theme = {
   size: {
     header: {
-      height: "84px",
+      height: 84,
+      title: 26,
     },
   },
   colors: {
@@ -27,6 +30,7 @@ const theme = {
     shadow70: "#00000060",
     shadow80: "#00000080",
     shadow90: "#00000060",
+    star: "#f9ca24",
   },
 } as const;
 

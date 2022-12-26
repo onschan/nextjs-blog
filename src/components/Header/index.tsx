@@ -10,12 +10,12 @@ export default function Header() {
 
   return (
     <header css={styles.headerWrapper}>
-      <div css={styles.left}>
-        <div css={styles.titleWrapper}>
-          <HiStar size={32} />
+      <div css={styles.contents}>
+        <div css={styles.left}>
+          <HiStar size={36} />
           <span>OnStar.Dev</span>
         </div>
-        <div>
+        <div css={styles.right}>
           <DarkModeToggle />
         </div>
       </div>

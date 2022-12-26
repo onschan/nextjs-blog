@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import theme from "@/styles/theme";
+import theme, { pixelSize } from "@/styles/theme";
 
 export const headerWrapper = css`
   position: sticky;
@@ -11,14 +11,14 @@ export const headerWrapper = css`
   z-index: 100;
 
   width: 100%;
-  height: ${theme.size.header.height};
+  height: ${pixelSize(theme.size.header.height)};
 
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const left = css`
+export const contents = css`
   width: 100%;
   max-width: 1024px;
   height: 100%;
@@ -28,19 +28,23 @@ export const left = css`
   align-items: center;
 `;
 
-export const titleWrapper = css`
-  span {
-    font-size: 24px;
-    font-weight: bold;
-    height: 24px;
-  }
-
+export const left = css`
   display: flex;
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+
+  span {
+    font-size: ${pixelSize(theme.size.header.title)};
+    font-weight: bold;
+    height: ${pixelSize(theme.size.header.title)};
+  }
+
   svg {
-    color: #f9ca24;
-    margin: 0 8px;
+    color: ${theme.colors.star};
+    margin: 0 4px;
   }
 `;
+
+export const right = css``;
