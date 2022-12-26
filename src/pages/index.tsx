@@ -1,6 +1,6 @@
 import PostCard from "@/components/PostCard";
 
-import * as styles from "./styles";
+import * as styles from "@/styles/pages";
 
 import MainLayout from "@/layout/MainLayout";
 
