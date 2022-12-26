@@ -1,6 +1,5 @@
+import { cssVar } from ".";
 import { css } from "@emotion/react";
-
-const cssVar = (name: string) => `var(--${name})`;
 
 export const themedPalette = {
   text: cssVar("text"),

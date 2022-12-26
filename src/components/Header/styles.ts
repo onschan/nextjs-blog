@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
-import theme, { pixelSize } from "@/styles/theme";
+import { pixelSize } from "@/styles";
+import theme from "@/styles/theme";
 
 export const headerWrapper = css`
   position: sticky;

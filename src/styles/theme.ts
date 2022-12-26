@@ -1,5 +1,3 @@
-export const pixelSize = (size: number) => `${size}px`;
-
 const theme = {
   size: {
     header: {

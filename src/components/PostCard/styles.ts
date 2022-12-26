@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+import { textEllipsis } from "@/styles";
 import theme from "@/styles/theme";
 
 export const postContainer = css`
@@ -44,17 +45,13 @@ export const title = css`
   font-size: 36px;
   font-weight: 600;
 
-  overflow: hidden;
-  white-space: normal;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: keep-all;
+  ${textEllipsis(2)}
 `;
 
 export const description = css`
   font-size: 18px;
+
+  ${textEllipsis(2)}
 `;
 
 export const date = css`
