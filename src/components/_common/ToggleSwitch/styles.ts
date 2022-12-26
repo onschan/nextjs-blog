@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { themedPalette } from "@/styles/darkMode";
 import theme from "@/styles/theme";
 
-const wrapper = css`
+export const wrapper = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,7 +16,7 @@ const wrapper = css`
   cursor: pointer;
 `;
 
-const element = (selector: boolean) => css`
+export const element = (selector: boolean) => css`
   width: 45%;
   border-radius: 15px;
   text-align: center;
@@ -29,7 +29,7 @@ const element = (selector: boolean) => css`
   align-items: center;
 `;
 
-const ball = (toggle: boolean) => css`
+export const ball = (toggle: boolean) => css`
   background-color: ${themedPalette.background};
   width: 48%;
   height: 80%;
@@ -44,7 +44,3 @@ const ball = (toggle: boolean) => css`
     transition: all 0.3s ease-in-out;
   `}
 `;
-
-const styles = { wrapper, element, ball };
-
-export default styles;

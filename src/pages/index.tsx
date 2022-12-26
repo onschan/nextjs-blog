@@ -1,5 +1,7 @@
 import { css } from "@emotion/react";
 
+import PostCard from "@/components/PostCard";
+
 export default function HomePage() {
   const 게시물 = [
     "게시물",
@@ -46,7 +48,7 @@ export default function HomePage() {
               margin: 24px;
             `}
           >
-            {item}
+            <PostCard />
             {index}
           </div>
         ))}

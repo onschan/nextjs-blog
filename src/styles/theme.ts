@@ -1,7 +1,7 @@
 const theme = {
   size: {
     header: {
-      height: "72px",
+      height: "84px",
     },
   },
   colors: {

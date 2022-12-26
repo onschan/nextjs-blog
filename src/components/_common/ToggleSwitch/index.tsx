@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import styles from "./styles";
+import * as styles from "./styles";
 
 interface Props {
   toggle: boolean;
