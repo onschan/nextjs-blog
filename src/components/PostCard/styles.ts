@@ -21,6 +21,7 @@ export const postContainer = css`
   &:hover {
     span:first-of-type {
       color: #68c1f8;
+      transition: 0.125s all ease-in;
     }
   }
 `;
