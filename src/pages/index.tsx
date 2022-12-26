@@ -1,58 +1,56 @@
-import { css } from "@emotion/react";
-
 import PostCard from "@/components/PostCard";
+
+import * as styles from "./styles";
+
+import MainLayout from "@/layout/MainLayout";
 
 export default function HomePage() {
   const 게시물 = [
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
-    "게시물",
+    {
+      thumbnail: "https://random.imagecdn.app/500/150",
+      title: "여기는 타이틀이 들어갈 자리입니다.",
+      description: "여기는 설명이 들어갈 자리입니다.",
+      date: new Date(),
+      tag: [],
+    },
+    {
+      thumbnail: "https://random.imagecdn.app/500/150",
+      title: "짧은 타이틀",
+      description: "여기는 설명이 들어갈 자리입니다.",
+      date: new Date(),
+      tag: [],
+    },
+    {
+      thumbnail: "https://random.imagecdn.app/500/150",
+      title: "적당한 타이틀, 적당한 타이틀",
+      description: "여기는 설명이 들어갈 자리입니다.",
+      date: new Date(),
+      tag: [],
+    },
+    {
+      thumbnail: "https://random.imagecdn.app/500/150",
+      title:
+        "긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀",
+      description: "여기는 설명이 들어갈 자리입니다.",
+      date: new Date(),
+      tag: [],
+    },
+    {
+      thumbnail: "https://random.imagecdn.app/500/150",
+      title: "",
+      description: "여기는 설명이 들어갈 자리입니다.",
+      date: new Date(),
+      tag: [],
+    },
   ];
+
   return (
-    <div
-      css={css`
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        padding: 64px 0;
-      `}
-    >
-      <div
-        css={css`
-          width: 1024px;
-
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        `}
-      >
-        {게시물.map((item, index) => (
-          <div
-            key={index}
-            css={css`
-              border: 1px solid black;
-              width: 540px;
-              height: 240px;
-              margin: 24px;
-            `}
-          >
-            <PostCard />
-            {index}
-          </div>
+    <MainLayout>
+      <div css={styles.postListWrapper}>
+        {게시물.map((post, index) => (
+          <PostCard key={index} post={post} />
         ))}
       </div>
-    </div>
+    </MainLayout>
   );
 }
