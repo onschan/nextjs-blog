@@ -1,6 +1,7 @@
 import ToggleSwitch from "../_common/ToggleSwitch";
 import useToggleSwitch from "../_common/ToggleSwitch/useToggleSwitch";
 import { css } from "@emotion/react";
+import { useEffect } from "react";
 import { HiStar } from "react-icons/hi";
 import { MdLightMode, MdNightlight } from "react-icons/md";
 
@@ -10,7 +11,16 @@ export default function Header() {
   // TODO: 홈버튼, 다크모드 버튼
   // TODO: 반응형
 
-  const { toggle, onClickToggle } = useToggleSwitch();
+  const { toggle, setToggle, onClickToggle } = useToggleSwitch();
+
+  useEffect(() => {
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setToggle(systemPrefersDark);
+  }, []);
+
+  useEffect(() => {
+    document.body.dataset.theme = toggle ? "dark" : "light";
+  }, [toggle]);
 
   return (
     <header

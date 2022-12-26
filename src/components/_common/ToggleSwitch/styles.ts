@@ -1,15 +1,16 @@
 import { css } from "@emotion/react";
 
+import { themedPalette } from "@/styles/darkMode";
 import theme from "@/styles/theme";
 
 const wrapper = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${theme.colors.shadow20};
+  background-color: ${theme.colors.gray800};
   border-radius: 16px;
   border: none;
-  width: 68px;
+  width: 66px;
   height: 28px;
   position: relative;
   cursor: pointer;
@@ -20,7 +21,7 @@ const element = (selector: boolean) => css`
   border-radius: 15px;
   text-align: center;
   font-size: 12px;
-  color: ${selector && theme.colors.shadow50};
+  color: ${selector ? themedPalette.text : themedPalette.toggleIcon};
   transition: all 0.3s ease-in-out;
   z-index: 1;
   display: flex;
@@ -29,7 +30,7 @@ const element = (selector: boolean) => css`
 `;
 
 const ball = (toggle: boolean) => css`
-  background-color: white;
+  background-color: ${themedPalette.background};
   width: 48%;
   height: 80%;
   border-radius: 12px;

@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 
+import darkMode from "./darkMode";
+
 const globalStyle = css`
+  ${darkMode}
+
   html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
