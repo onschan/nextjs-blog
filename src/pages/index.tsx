@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import PostCard from "@/components/PostCard";
 
 import * as styles from "@/styles/pages";
@@ -48,7 +50,9 @@ export default function HomePage() {
     <MainLayout>
       <div css={styles.postListWrapper}>
         {게시물.map((post, index) => (
-          <PostCard key={index} post={post} />
+          <Link key={index} href={`post/${index}`}>
+            <PostCard post={post} />
+          </Link>
         ))}
       </div>
     </MainLayout>

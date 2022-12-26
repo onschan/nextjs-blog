@@ -29,7 +29,8 @@ const globalStyle = css`
     font-size: 1em; /* 2 */
   }
   a {
-    background-color: transparent;
+    color: inherit;
+    text-decoration: inherit;
   }
   abbr[title] {
     border-bottom: none; /* 1 */
