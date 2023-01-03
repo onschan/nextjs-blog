@@ -1,7 +1,9 @@
-export type PostType = {
+export type PostType = { postInfo: PostInfoType; slug: string };
+
+export type PostInfoType = {
   thumbnail: string;
   title: string;
   description: string;
-  date: Date;
+  date: string;
   tag: string[];
 };

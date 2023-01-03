@@ -1,60 +1,51 @@
+import fs from "fs";
+import matter from "gray-matter";
 import Link from "next/link";
+import path from "path";
 
 import PostCard from "@/components/PostCard";
+
+import type { PostType } from "@/types";
 
 import * as styles from "@/styles/pages";
 
 import MainLayout from "@/layout/MainLayout";
 
-export default function HomePage() {
-  const 게시물 = [
-    {
-      thumbnail: "https://source.unsplash.com/random/1",
-      title: "여기는 타이틀이 들어갈 자리입니다.",
-      description: "여기는 설명이 들어갈 자리입니다.",
-      date: new Date(),
-      tag: [],
-    },
-    {
-      thumbnail: "https://source.unsplash.com/random/2",
-      title: "짧은 타이틀",
-      description: "여기는 설명이 들어갈 자리입니다.",
-      date: new Date(),
-      tag: [],
-    },
-    {
-      thumbnail: "https://source.unsplash.com/random/3",
-      title: "적당한 타이틀, 적당한 타이틀",
-      description: "여기는 설명이 들어갈 자리입니다.",
-      date: new Date(),
-      tag: [],
-    },
-    {
-      thumbnail: "https://source.unsplash.com/random/4",
-      title:
-        "긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀, 긴 타이틀",
-      description: "여기는 설명이 들어갈 자리입니다.",
-      date: new Date(),
-      tag: [],
-    },
-    {
-      thumbnail: "https://source.unsplash.com/random/5",
-      title: "",
-      description: "여기는 설명이 들어갈 자리입니다.",
-      date: new Date(),
-      tag: [],
-    },
-  ];
+interface Props {
+  postList: PostType[];
+}
 
+export default function HomePage({ postList }: Props) {
   return (
     <MainLayout>
       <div css={styles.postListWrapper}>
-        {게시물.map((post, index) => (
-          <Link key={index} href={`post/${index}`}>
-            <PostCard post={post} />
+        {postList.map((post, index) => (
+          <Link key={index} href={`post/${post.slug}`}>
+            <PostCard post={post.postInfo} />
           </Link>
         ))}
       </div>
     </MainLayout>
   );
 }
+
+export const getStaticProps = async () => {
+  const files = fs.readdirSync(path.join("src", "posts"));
+
+  const postList = files.map(filename => {
+    const markdownWithMeta = fs.readFileSync(path.join("src", "posts", filename), "utf-8");
+
+    const { data: postInfo } = matter(markdownWithMeta);
+
+    return {
+      postInfo,
+      slug: filename.split(".")[0],
+    };
+  });
+
+  return {
+    props: {
+      postList,
+    },
+  };
+};
