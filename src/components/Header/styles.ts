@@ -29,7 +29,7 @@ export const contents = css`
   align-items: center;
 `;
 
-export const left = css`
+export const home = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,4 +48,5 @@ export const left = css`
   }
 `;
 
+export const left = css``;
 export const right = css``;

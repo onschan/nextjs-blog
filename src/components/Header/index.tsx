@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { HiStar } from "react-icons/hi";
 
 import * as styles from "./styles";
@@ -12,8 +13,10 @@ export default function Header() {
     <header css={styles.headerWrapper}>
       <div css={styles.contents}>
         <div css={styles.left}>
-          <HiStar size={36} />
-          <span>OnStar.Dev</span>
+          <Link css={styles.home} href="/">
+            <HiStar size={36} />
+            <span>OnStar.Dev</span>
+          </Link>
         </div>
         <div css={styles.right}>
           <DarkModeToggle />
