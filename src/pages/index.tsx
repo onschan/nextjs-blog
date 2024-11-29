@@ -8,6 +8,7 @@ import PostCard from "@/components/PostCard";
 import type { PostType } from "@/types";
 
 import * as styles from "@/styles/pages";
+import { theme } from "@/styles/theme";
 
 import MainLayout from "@/layout/MainLayout";
 

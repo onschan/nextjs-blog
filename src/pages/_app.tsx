@@ -7,28 +7,23 @@ import Header from "@/components/Header";
 import globalStyle from "@/styles/globalStyle";
 
 const ColorModeScript = () => {
-  const script = `(function() {
-    const persistedPreferDark = window.localStorage.getItem('isDark');
-    const hasPersistedPreference = persistedPreferDark && typeof JSON.parse(persistedPreferDark) === 'boolean';
-
-    if (hasPersistedPreference) {
-      const isDark = JSON.parse(persistedPreferDark);      
-      document.body.dataset.theme = isDark ? 'dark' : 'light';
-      return;
-    }
-
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    const hasMediaQueryPreference = typeof mql.matches === 'boolean';
-
-    if (hasMediaQueryPreference) {
-      document.body.dataset.theme = mql.matches ? 'dark' : 'light';
-      window.localStorage.setItem('isDark', mql.matches);
-      return;
-    }
-
-    document.body.dataset.theme = 'light';
-    window.localStorage.setItem('isDark', false);
-})()`;
+  const script = `(function () {
+  var persistedPreferMode = window.localStorage.getItem('theme-mode');
+  var hasPersistedPreference = typeof persistedPreferMode === 'string' && ['light', 'dark'].includes(persistedPreferMode);
+  if (hasPersistedPreference) {
+    document.body.dataset.theme = persistedPreferMode;
+    return;
+  }
+  var mql = window.matchMedia('(prefers-color-scheme: dark)');
+  var hasMediaQueryPreference = typeof mql.matches === 'boolean';
+  if (hasMediaQueryPreference) {
+    document.body.dataset.theme = 'system';
+    window.localStorage.setItem('theme-mode', 'system');
+    return;
+  }
+  document.body.dataset.theme = 'system';
+  window.localStorage.setItem('theme-mode', 'system');
+})();`;
 
   return <script dangerouslySetInnerHTML={{ __html: script }} />;
 };

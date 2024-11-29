@@ -1,29 +1,29 @@
 import Link from "next/link";
-import { HiStar } from "react-icons/hi";
+import { useWindowScroll } from "react-use";
 
 import * as styles from "./styles";
 
-import DarkModeToggle from "./DarkModeToggle";
+import { ThemeSwitch } from "./elements";
 
 export default function Header() {
-  // TODO: 홈버튼, 다크모드 버튼
-  // TODO: 반응형
+  const { y } = useWindowScroll();
 
   return (
-    <header css={styles.headerWrapper}>
+    <header
+      css={styles.headerWrapper({
+        isScrolled: y > 0,
+      })}
+    >
       <div css={styles.contents}>
         <div css={styles.left}>
           <Link css={styles.home} href="/">
-            <HiStar size={36} />
             <span>OnStar.Dev</span>
           </Link>
         </div>
         <div css={styles.right}>
-          <DarkModeToggle />
+          <ThemeSwitch />
         </div>
       </div>
     </header>
   );
 }
-
-// 홈 버튼 // 버튼s

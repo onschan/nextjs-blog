@@ -6,7 +6,7 @@ const nextConfig = {
     defaultLocale: "ko",
   },
   images: {
-    domains: ["source.unsplash.com"],
+    domains: [],
   },
 };
 

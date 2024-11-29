@@ -1,9 +1,5 @@
 import { css } from "@emotion/react";
 
-export const toCssVar = (name: string) => `var(--${name})`;
-
-export const toPixel = (size: number) => `${size}px`;
-
 export const toOpacityColor = (color: string, rate: number) => `${color}${rate}`;
 
 export const makeTextEllipsisByLine = (line: number) => css`
