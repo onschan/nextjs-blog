@@ -1,27 +1,21 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { MdLightMode, MdNightlight } from "react-icons/md";
 
 import ToggleSwitch from "@/components/_common/ToggleSwitch";
-import useToggleSwitch from "@/components/_common/ToggleSwitch/useToggleSwitch";
 
 export default function DarkModeToggle() {
-  const { toggle, setToggle, onClickToggle } = useToggleSwitch();
-
-  useEffect(() => {
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setToggle(systemPrefersDark);
-  }, []);
-
-  useEffect(() => {
-    document.body.dataset.theme = toggle ? "dark" : "light";
-  }, [toggle]);
+  const [toggle, setToggle] = useState(false);
 
   return (
     <ToggleSwitch
       left={<MdLightMode size={16} />}
       right={<MdNightlight size={16} />}
       toggle={toggle}
-      onClickSwitch={onClickToggle}
+      onClickSwitch={value => {
+        setToggle(value);
+        document.body.dataset.theme = value ? "dark" : "light";
+        window.localStorage.setItem("isDark", `${value}`);
+      }}
     />
   );
 }

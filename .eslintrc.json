@@ -4,5 +4,5 @@
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "next", "next/core-web-vitals", "plugin:prettier/recommended"]
+  "extends": ["@typescript-eslint/recommended", "plugin:prettier/recommended"]
 }
