@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
 
-import { resetCSS } from "./resetCSS";
 import { theme, themeCSS } from "@/theme";
+
+import { resetCSS } from "./resetCSS";
 
 export const globalStyle = css`
   ${resetCSS}
@@ -26,6 +27,11 @@ export const globalStyle = css`
     background: ${theme.background.primary};
   }
 
+  main {
+    display: flex;
+    justify-content: center;
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;
@@ -33,8 +39,8 @@ export const globalStyle = css`
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0); /* 구형 브라우저를 위해 사용 */
-    clip-path: polygon(0 0, 0 0, 0 0); /* inset(50%) 와 동일한 표현 */
+    clip: rect(0, 0, 0, 0);
+    clip-path: polygon(0 0, 0 0, 0 0);
     border: 0;
   }
 `;

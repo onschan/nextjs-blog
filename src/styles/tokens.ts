@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+
 export const colors = {
   black: "#272727",
   white: "#ffffff",
@@ -69,4 +71,142 @@ export const colors = {
   },
 } as const;
 
-export const typography = {};
+// UI 컴포넌트용 타이포그래피
+export const typography = {
+  // 메인 제목용 크기들
+  hero: css`
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  `,
+  large: css`
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  `,
+  medium: css`
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  `,
+
+  // 섹션 제목용
+  section: css`
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.4;
+  `,
+  subsection: css`
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.4;
+  `,
+
+  // 본문용
+  bodyLarge: css`
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+  `,
+  body: css`
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+  `,
+
+  // 부가 정보
+  caption: css`
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+  `,
+
+  // 네비게이션
+  nav: css`
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.5;
+  `,
+} as const;
+
+// 블로그 포스트용 타이포그래피
+export const prose = {
+  // 포스트 제목
+  title: css`
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  `,
+
+  // 헤딩 계층
+  h1: css`
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 2em 0 1em;
+  `,
+  h2: css`
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin: 1.5em 0 1em;
+  `,
+  h3: css`
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 1.5em 0 1em;
+  `,
+  h4: css`
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 1.5em 0 1em;
+  `,
+
+  // 본문 요소들
+  paragraph: css`
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 1em 0;
+  `,
+
+  quote: css`
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+    margin: 2em 0;
+    padding-left: 1em;
+    border-left: 4px solid #ddd;
+  `,
+
+  code: css`
+    font-family: "Fira Code", monospace;
+    font-size: 15px;
+    line-height: 1.6;
+  `,
+
+  inlineCode: css`
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 0.2em 0.4em;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  `,
+
+  list: css`
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 1em 0 1em 1.5em;
+  `,
+} as const;

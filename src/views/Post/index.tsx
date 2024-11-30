@@ -19,6 +19,7 @@ export default function Post(props: Props) {
 
   return (
     <Layout>
+      <div />
       <ArticleAnchorContext.Provider value={{ anchors, setAnchors }}>
         <Article postInfo={postInfo} mdxSource={mdxSource} />
         <Anchor />

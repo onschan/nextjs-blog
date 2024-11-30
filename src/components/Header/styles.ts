@@ -24,7 +24,7 @@ export const contents = css`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 80rem;
+  max-width: 96rem;
   height: 100%;
   padding: 0 20px;
 `;

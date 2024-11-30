@@ -1,13 +1,12 @@
+import { css } from "@emotion/react";
 import { MDXRemote } from "next-mdx-remote";
-import { useRef } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { useMount } from "react-use";
 
 import type { PostInfoType } from "@/types";
 
-import { useArticleAnchor } from "./hooks";
+import { prose } from "@/styles";
 
-import { useArticleAnchorContext } from "../../contexts";
+import { useArticleAnchor } from "./hooks";
 
 interface Props {
   postInfo: PostInfoType;
@@ -21,7 +20,43 @@ export default function Article(props: Props) {
   const { articleRef } = useArticleAnchor();
 
   return (
-    <article ref={articleRef}>
+    <article
+      ref={articleRef}
+      css={css`
+        * {
+          scroll-margin-top: 50px;
+        }
+
+        h1 {
+          ${prose.h1}
+        }
+        h2 {
+          ${prose.h2}
+        }
+        h3 {
+          ${prose.h3}
+        }
+        h4 {
+          ${prose.h4}
+        }
+        p {
+          ${prose.paragraph}
+        }
+        blockquote {
+          ${prose.quote}
+        }
+        ul,
+        ol {
+          ${prose.list}
+        }
+        code {
+          ${prose.inlineCode}
+        }
+        pre code {
+          ${prose.code}
+        }
+      `}
+    >
       <h1>{title}</h1>
       <h2>{date}</h2>
       <MDXRemote {...mdxSource} components={{ SyntaxHighlighter }} />

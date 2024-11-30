@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMount } from "react-use";
 
 import { useArticleAnchorContext } from "../../contexts";
@@ -13,15 +13,15 @@ export const useArticleAnchor = () => {
       return;
     }
 
-    const headers = ref.current.querySelectorAll("h1, h2, h3, h4");
+    const headers = ref.current.querySelectorAll("h1, h2");
 
     const headerIds = Array.from(headers)
-      .map((header, index) => ({
-        id: `${header.id}-${index}`,
-        title: header.id,
+      .map(header => ({
+        id: header.id,
+        title: header.textContent || "",
         level: Number(header.tagName.slice(1)),
       }))
-      .filter(Boolean);
+      .filter(item => item.id);
 
     setAnchors(headerIds);
   });

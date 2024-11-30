@@ -1,4 +1,4 @@
-export default function Script() {
+export default function RenderBlockScript() {
   const script = `(function () {
   var persistedPreferMode = window.localStorage.getItem('theme-mode');
   var hasPersistedPreference = typeof persistedPreferMode === 'string' && ['light', 'dark'].includes(persistedPreferMode);
