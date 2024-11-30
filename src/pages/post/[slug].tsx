@@ -1,29 +1,21 @@
 import fs from "fs";
 import matter from "gray-matter";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import rehypeSlug from "rehype-slug";
+
+import { PostView } from "@/views";
 
 import type { PostInfoType } from "@/types";
-
-import MainLayout from "@/layout/MainLayout";
 
 interface Props {
   postInfo: PostInfoType;
   mdxSource: MDXRemoteSerializeResult;
 }
 
-const components = { SyntaxHighlighter };
-
-export default function Post({ postInfo: { title, date }, mdxSource }: Props) {
-  return (
-    <MainLayout>
-      <h1>{title}</h1>
-      <h2>{date}</h2>
-      <MDXRemote {...mdxSource} components={components} />
-    </MainLayout>
-  );
+export default function Post({ postInfo, mdxSource }: Props) {
+  return <PostView postInfo={postInfo} mdxSource={mdxSource} />;
 }
 
 export const getStaticPaths = async () => {
@@ -48,6 +40,7 @@ export const getStaticProps = async ({ params: { slug } }: any) => {
   const mdxSource = await serialize(content, {
     mdxOptions: {
       development: false,
+      rehypePlugins: [rehypeSlug],
     },
   });
 

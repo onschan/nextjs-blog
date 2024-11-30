@@ -1,33 +1,17 @@
 import fs from "fs";
 import matter from "gray-matter";
-import Link from "next/link";
 import path from "path";
 
-import PostCard from "@/components/PostCard";
+import { HomeView } from "@/views";
 
 import type { PostType } from "@/types";
-
-import * as styles from "@/styles/pages";
-import { theme } from "@/styles/theme";
-
-import MainLayout from "@/layout/MainLayout";
 
 interface Props {
   postList: PostType[];
 }
 
 export default function HomePage({ postList }: Props) {
-  return (
-    <MainLayout>
-      <div css={styles.postListWrapper}>
-        {postList.map((post, index) => (
-          <Link key={index} href={`post/${post.slug}`}>
-            <PostCard post={post.postInfo} />
-          </Link>
-        ))}
-      </div>
-    </MainLayout>
-  );
+  return <HomeView postList={postList} />;
 }
 
 export const getStaticProps = async () => {

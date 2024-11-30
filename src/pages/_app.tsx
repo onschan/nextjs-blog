@@ -2,31 +2,11 @@ import { Global } from "@emotion/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import Header from "@/components/Header";
+import { Header } from "@/components";
 
-import globalStyle from "@/styles/globalStyle";
+import { globalStyle } from "@/styles";
 
-const ColorModeScript = () => {
-  const script = `(function () {
-  var persistedPreferMode = window.localStorage.getItem('theme-mode');
-  var hasPersistedPreference = typeof persistedPreferMode === 'string' && ['light', 'dark'].includes(persistedPreferMode);
-  if (hasPersistedPreference) {
-    document.body.dataset.theme = persistedPreferMode;
-    return;
-  }
-  var mql = window.matchMedia('(prefers-color-scheme: dark)');
-  var hasMediaQueryPreference = typeof mql.matches === 'boolean';
-  if (hasMediaQueryPreference) {
-    document.body.dataset.theme = 'system';
-    window.localStorage.setItem('theme-mode', 'system');
-    return;
-  }
-  document.body.dataset.theme = 'system';
-  window.localStorage.setItem('theme-mode', 'system');
-})();`;
-
-  return <script dangerouslySetInnerHTML={{ __html: script }} />;
-};
+import { ThemeModeScript } from "@/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -37,12 +17,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="기술 블로그" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ThemeModeScript />
       <Header />
-      <ColorModeScript />
       <main>
         <Component {...pageProps} />
       </main>
-      <footer></footer>
+      <footer>
+        <p>©onschan.dev</p>
+      </footer>
     </>
   );
 }

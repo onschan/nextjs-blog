@@ -1,14 +1,19 @@
 import { css } from "@emotion/react";
 
 import { resetCSS } from "./resetCSS";
-import { theme, themeCSS } from "./theme";
+import { theme, themeCSS } from "@/theme";
 
-const globalStyle = css`
+export const globalStyle = css`
   ${resetCSS}
+
   ${themeCSS}
 
   *:focus {
     outline: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -33,5 +38,3 @@ const globalStyle = css`
     border: 0;
   }
 `;
-
-export default globalStyle;

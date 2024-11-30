@@ -16,7 +16,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-syntax-highlighter": "^15.5.0",
-    "react-use": "^17.5.1"
+    "react-use": "^17.5.1",
+    "rehype-slug": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

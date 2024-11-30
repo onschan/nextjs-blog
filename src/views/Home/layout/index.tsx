@@ -6,6 +6,6 @@ interface Props {
   children: ReactNode;
 }
 
-export default function MainLayout({ children }: Props) {
+export default function Layout({ children }: Props) {
   return <div css={styles.layout}>{children}</div>;
 }

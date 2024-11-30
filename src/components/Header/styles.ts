@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { theme } from "@/styles/theme";
+import { theme } from "@/theme";
 
 export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
   z-index: 9999;
@@ -11,7 +11,7 @@ export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
   align-items: center;
   width: 100%;
   height: 50px;
-  background-color: ${theme.background.secondary};
+  background-color: ${theme.background.primary};
 
   ${isScrolled &&
   css`

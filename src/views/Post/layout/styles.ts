@@ -1,11 +1,8 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  width: 100%;
-
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  justify-content: center;
+  width: 100%;
   padding: 64px 0;
 `;

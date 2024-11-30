@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { colors, theme } from "@/styles/theme";
+import { theme } from "@/theme";
 
 export const wrapper = css`
   display: flex;

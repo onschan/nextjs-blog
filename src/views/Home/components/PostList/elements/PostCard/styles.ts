@@ -1,11 +1,14 @@
 import { css } from "@emotion/react";
 
-import { makeTextEllipsisByLine } from "@/styles";
+import { makeTextEllipsisByLine } from "@/utils";
+
+import { theme } from "@/theme";
 
 export const postContainer = css`
   display: flex;
-  justify-content: flex-start;
+  gap: 32px;
   align-items: center;
+  justify-content: flex-start;
   margin: 32px;
   cursor: pointer;
 `;
@@ -14,24 +17,26 @@ export const textWrapper = css`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 216px;
-  margin-left: 36px;
+  height: 240px;
+  width: 300px;
   padding: 8px 16px;
 `;
 
 export const title = css`
+  ${makeTextEllipsisByLine(2)}
   font-size: 36px;
   font-weight: 600;
-
-  ${makeTextEllipsisByLine(2)}
+  line-height: 1.2;
 `;
 
 export const description = css`
-  font-size: 18px;
-
   ${makeTextEllipsisByLine(2)}
+  color: ${theme.text.secondary};
+  font-size: 18px;
+  line-height: 1.5;
 `;
 
 export const date = css`
+  color: ${theme.text.tertiary};
   font-size: 16px;
 `;

@@ -10,15 +10,18 @@
   "bracketSpacing": true,
   "importOrderSeparation": true,
   "importOrder": [
+    "^(@/theme)(.*|$)",
     "^(@/pages)(.*|$)",
-    "^(@/components/_common)(.*|$)",
+    "^(@/views)(.*|$)",
     "^(@/components)(.*|$)",
     "^(@/hooks)(.*|$)",
+    "^(@/utils)(.*|$)",
     "^(@/types)(.*|$)",
     "^(@/constants/)(.*|$)",
     "^(@/assets/)(.*|$)",
     "^(@/styles)(.*|$)",
     "^(./styles)(.*|$)",
-    "^(./)(.*|$)"
+    "^(./)(.*|$)",
+    "^(../)(.*|$)"
   ]
 }

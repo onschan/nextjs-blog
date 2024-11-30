@@ -1,33 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { MdLightMode, MdNightlight, MdDesktopMac } from "react-icons/md";
-
-import { THEME } from "@/styles/theme";
+import { MdDesktopMac, MdLightMode, MdNightlight } from "react-icons/md";
 
 import * as styles from "./styles";
 
-const DEFAULT = "system";
+import { useThemeSwitch } from "./hooks";
 
 export default function ThemeSwitch() {
-  const [mode, setMode] = useState<THEME | undefined>(undefined);
-
-  const handleClickSwitch = (mode: THEME) => {
-    setMode(mode);
-    document.body.dataset.theme = mode;
-    window.localStorage.setItem("theme-mode", mode);
-  };
-
-  useLayoutEffect(() => {
-    const mode = window.localStorage.getItem("theme-mode") || "system";
-
-    if (!["light", "dark", "system"].includes(mode)) {
-      document.body.dataset.theme = DEFAULT;
-      setMode(DEFAULT);
-      return;
-    }
-
-    setMode(mode as THEME);
-    document.body.dataset.theme = mode;
-  }, []);
+  const { mode, handleClickSwitch } = useThemeSwitch();
 
   return (
     <fieldset css={styles.wrapper}>

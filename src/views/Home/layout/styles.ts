@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 
-export const postListWrapper = css`
+export const layout = css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  width: 100%;
+  padding: 64px 0;
 `;
