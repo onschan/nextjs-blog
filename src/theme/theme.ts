@@ -19,23 +19,12 @@ export const themeVariables = {
     strong: "--border-strong",
     focus: "--border-focus",
   },
-  status: {
-    success: "--status-success",
-    warning: "--status-warning",
-    error: "--status-error",
-    info: "--status-info",
-  },
   interactive: {
     primary: "--interactive-primary",
     primaryHover: "--interactive-primary-hover",
     secondary: "--interactive-secondary",
     secondaryHover: "--interactive-secondary-hover",
     disabled: "--interactive-disabled",
-  },
-  elevation: {
-    small: "--elevation-small",
-    medium: "--elevation-medium",
-    large: "--elevation-large",
   },
 } as const;
 
@@ -55,27 +44,16 @@ export const themeColors = {
       disabled: colors.gray[400],
     },
     border: {
-      default: colors.gray[200],
-      strong: colors.gray[300],
-      focus: colors.blue[500],
-    },
-    status: {
-      success: colors.green[700],
-      warning: colors.yellow[700],
-      error: colors.red[700],
-      info: colors.blue[700],
+      default: colors.gray[300],
+      strong: colors.gray[400],
+      focus: colors.primary[500],
     },
     interactive: {
-      primary: colors.blue[700],
-      primaryHover: colors.blue[800],
+      primary: colors.primary[600],
+      primaryHover: colors.primary[700],
       secondary: colors.gray[200],
       secondaryHover: colors.gray[300],
       disabled: colors.gray[300],
-    },
-    elevation: {
-      small: colors.shadow[10],
-      medium: colors.shadow[20],
-      large: colors.shadow[30],
     },
   },
   dark: {
@@ -95,25 +73,14 @@ export const themeColors = {
     border: {
       default: colors.gray[700],
       strong: colors.gray[600],
-      focus: colors.blue[400],
-    },
-    status: {
-      success: colors.green[400],
-      warning: colors.yellow[400],
-      error: colors.red[400],
-      info: colors.blue[400],
+      focus: colors.primary[400],
     },
     interactive: {
-      primary: colors.blue[400],
-      primaryHover: colors.blue[300],
+      primary: colors.primary[400],
+      primaryHover: colors.primary[300],
       secondary: colors.gray[700],
       secondaryHover: colors.gray[600],
       disabled: colors.gray[800],
-    },
-    elevation: {
-      small: colors.shadow[40],
-      medium: colors.shadow[60],
-      large: colors.shadow[80],
     },
   },
 } as const;

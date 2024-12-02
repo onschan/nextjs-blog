@@ -1,1 +1,1 @@
-type Anchor = { id: string; title: string; level: number };
+export type Anchor = { id: string; title: string; level: number };

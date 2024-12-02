@@ -1,59 +1,17 @@
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
 
 import { theme } from "@/theme";
 
+import { colors, typography } from "@/styles";
+
+import { useActiveAnchor } from "./hooks";
+
 import { useArticleAnchorContext } from "../../contexts";
 
-export default function Article() {
+export default function Anchor() {
   const { anchors } = useArticleAnchorContext();
 
-  const [activeAnchor, setActiveAnchor] = useState("");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!anchors) {
-        return;
-      }
-
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // 최상단일 경우 첫 번째 앵커 선택
-      if (scrollPosition === 0) {
-        setActiveAnchor(anchors[0]?.id);
-        return;
-      }
-
-      //   // 최하단일 경우 마지막 앵커 선택
-      if (scrollPosition + windowHeight >= documentHeight - 10) {
-        setActiveAnchor(anchors[anchors.length - 1]?.id);
-        return;
-      }
-
-      //   // 각 섹션의 위치를 확인하여 현재 보이는 섹션 찾기
-      const activeSectionId = anchors.find(section => {
-        const element = document.getElementById(section.id);
-
-        if (!element) {
-          return;
-        }
-        const rect = element.getBoundingClientRect();
-
-        return rect.top <= 52 && rect.bottom > 52;
-      })?.id;
-
-      if (activeSectionId) {
-        setActiveAnchor(activeSectionId);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // 초기 로드시 실행
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [anchors]);
+  const { activeAnchor } = useActiveAnchor(anchors);
 
   return (
     <aside
@@ -68,19 +26,26 @@ export default function Article() {
           position: "sticky",
           top: "80px",
           display: "flex",
+          gap: "2px",
           flexDirection: "column",
           alignItems: "flex-start",
-          padding: "20px",
+          paddingLeft: "12px",
+          borderLeft: `1px solid ${theme.border.default}`,
         }}
       >
-        {anchors.map(({ id, title, level }, index) => (
+        {anchors.map(({ id, title, level }) => (
           <li
             key={`${id}`}
             css={css`
-              margin-left: ${`${(level - 1) * 16}px`};
+              ${typography.caption}
+              color: ${theme.text.secondary};
+              margin-left: ${`${(level - 1) * 8}px`};
+              padding: 2px 6px;
+              border-radius: 8px;
 
               ${activeAnchor === id &&
               css`
+                ${typography.nav}
                 color: ${theme.interactive.primary};
               `}
             `}

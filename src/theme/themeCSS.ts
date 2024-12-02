@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+import { materialLightStyle, materialOceanicStyle } from "./primesStyle";
 import { themeColors, themeVariables } from "./theme";
 
 const createThemeStyles = (type: keyof typeof themeColors) => {
@@ -19,14 +20,20 @@ const createThemeStyles = (type: keyof typeof themeColors) => {
 export const themeCSS = css`
   body {
     ${createThemeStyles("light")}
+    color-scheme: light;
+    ${materialLightStyle}
 
     &[data-theme="dark"] {
       ${createThemeStyles("dark")}
+      color-scheme: dark;
+      ${materialOceanicStyle}
     }
 
     &[data-theme="system"] {
       @media (prefers-color-scheme: dark) {
         ${createThemeStyles("dark")}
+        color-scheme: dark;
+        ${materialOceanicStyle}
       }
     }
   }

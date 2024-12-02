@@ -2,11 +2,12 @@ import { Global } from "@emotion/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
+import { theme, themeCSS, ThemeModeScript } from "@/theme";
+import { themeVariables } from "@/theme/theme";
+
 import { Header } from "@/components";
 
 import { globalStyle } from "@/styles";
-
-import { ThemeModeScript } from "@/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

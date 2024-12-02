@@ -1,5 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 
+import type { Anchor } from "../types";
+
 export const ArticleAnchorContext = createContext<{
   anchors: Anchor[];
   setAnchors: Dispatch<SetStateAction<Anchor[]>>;
