@@ -16,7 +16,7 @@ tags: ["test"]
 
 → 구조적 할당 가능한 검사와 잉여 속성 체크는 별도의 과정이다.
 
-```tsx
+```typescript
 // 잉여 속성 체크
 
 interface SomeInterface {
@@ -32,6 +32,211 @@ const someVariable: SomeInterface = { x: "x", y: "y", z: "z" };
 Type '{ x: string; y: string; z: string; }' is not assignable to type 'SomeInterface'.
 Object literal may only specify known properties, and 'z' does not exist in type 'SomeInterface'.(2322)
 */
+```
+
+```ts
+// 구조적 타이핑
+
+interface SomeInterface {
+  x: string;
+  y: string;
+}
+
+const anotherVariable = { x: "x", y: "y", z: "z" };
+// SomeInterface의 서브타입
+
+// {x:string, y:string} <- { x:string; y: string; z: string } Ok
+const someVariable: SomeInterface = anotherVariable; // 정상 실행
+```
+
+```c
+<article
+  ref={articleRef}
+  css={css`
+    * {
+      scroll-margin-top: 50px;
+    }
+
+    pre {
+      position: relative;
+
+      &::after {
+        ${typography.caption}
+        content: attr(data-language);
+        position: absolute;  // sticky 대신 absolute 사용
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: right;
+        color: ${theme.text.tertiary};
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: translate(-14px, 14px);  // 위치 조정
+        background: inherit;  // 코드 배경색과 동일하게
+        border-radius: 0 12px 0 4px;  // 오른쪽 상단 모서리만 둥글게
+        padding: 4px 8px;  // 여백 추가
+      }
+
+      code {
+        display: inline-block;
+      }
+    }
+  `}
+>
+```
+
+```c++
+<article
+  ref={articleRef}
+  css={css`
+    * {
+      scroll-margin-top: 50px;
+    }
+
+    pre {
+      position: relative;
+
+      &::after {
+        ${typography.caption}
+        content: attr(data-language);
+        position: absolute;  // sticky 대신 absolute 사용
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: right;
+        color: ${theme.text.tertiary};
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: translate(-14px, 14px);  // 위치 조정
+        background: inherit;  // 코드 배경색과 동일하게
+        border-radius: 0 12px 0 4px;  // 오른쪽 상단 모서리만 둥글게
+        padding: 4px 8px;  // 여백 추가
+      }
+
+      code {
+        display: inline-block;
+      }
+    }
+  `}
+>
+```
+
+```js
+<article
+  ref={articleRef}
+  css={css`
+    * {
+      scroll-margin-top: 50px;
+    }
+
+    pre {
+      position: relative;
+
+      &::after {
+        ${typography.caption}
+        content: attr(data-language);
+        position: absolute;  // sticky 대신 absolute 사용
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: right;
+        color: ${theme.text.tertiary};
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: translate(-14px, 14px);  // 위치 조정
+        background: inherit;  // 코드 배경색과 동일하게
+        border-radius: 0 12px 0 4px;  // 오른쪽 상단 모서리만 둥글게
+        padding: 4px 8px;  // 여백 추가
+      }
+
+      code {
+        display: inline-block;
+      }
+    }
+  `}
+>
+```
+
+```c
+<article
+  ref={articleRef}
+  css={css`
+    * {
+      scroll-margin-top: 50px;
+    }
+
+    pre {
+      position: relative;
+
+      &::after {
+        ${typography.caption}
+        content: attr(data-language);
+        position: absolute;  // sticky 대신 absolute 사용
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: right;
+        color: ${theme.text.tertiary};
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: translate(-14px, 14px);  // 위치 조정
+        background: inherit;  // 코드 배경색과 동일하게
+        border-radius: 0 12px 0 4px;  // 오른쪽 상단 모서리만 둥글게
+        padding: 4px 8px;  // 여백 추가
+      }
+
+      code {
+        display: inline-block;
+      }
+    }
+  `}
+>
+```
+
+```js
+<article
+  ref={articleRef}
+  css={css`
+    * {
+      scroll-margin-top: 50px;
+    }
+
+    pre {
+      position: relative;
+
+      &::after {
+        ${typography.caption}
+        content: attr(data-language);
+        position: absolute;  // sticky 대신 absolute 사용
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: right;
+        color: ${theme.text.tertiary};
+        font-family: monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        transform: translate(-14px, 14px);  // 위치 조정
+        background: inherit;  // 코드 배경색과 동일하게
+        border-radius: 0 12px 0 4px;  // 오른쪽 상단 모서리만 둥글게
+        padding: 4px 8px;  // 여백 추가
+      }
+
+      code {
+        display: inline-block;
+      }
+    }
+  `}
+>
+```
+
+```command
+"codepush:android": "appcenter codepush release-react -a <username>/<appname> -d Staging",
+"codepush:ios": "appcenter codepush release-react -a <username>/<appname> -d Staging"
 ```
 
 구조적 타이핑의 관점에서는 문제가 없다고 보일 수도 있지만,

@@ -113,6 +113,11 @@ export const typography = {
     font-size: 16px;
     line-height: 1.7;
   `,
+  bodySmall: css`
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+  `,
   caption: css`
     font-weight: 400;
     font-size: 13px;
@@ -123,11 +128,6 @@ export const typography = {
     font-size: 13px;
     line-height: 1.5;
   `,
-  nav: css`
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 1.5;
-  `,
 } as const;
 
 export const prose = {
@@ -135,65 +135,110 @@ export const prose = {
     font-weight: 800;
     font-size: 40px;
     line-height: 1.3;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.02rem;
   `,
   h1: css`
     font-weight: 700;
     font-size: 32px;
     line-height: 1.3;
-    letter-spacing: -0.02em;
-    margin: 2em 0 1em;
+    letter-spacing: -0.02rem;
+    margin: 2.5rem 0 1rem;
   `,
   h2: css`
     font-weight: 600;
     font-size: 24px;
     line-height: 1.4;
-    letter-spacing: -0.01em;
-    margin: 1.5em 0 1em;
+    letter-spacing: -0.01rem;
+    margin: 2rem 0 0.9rem;
   `,
   h3: css`
     font-weight: 600;
     font-size: 20px;
     line-height: 1.4;
-    margin: 1.5em 0 1em;
+    margin: 1.8rem 0 0.8rem;
   `,
   h4: css`
     font-weight: 600;
     font-size: 18px;
     line-height: 1.4;
-    margin: 1.5em 0 1em;
+    margin: 1.5rem 0 0.7rem;
+  `,
+  link: css`
+    color: ${colors.primary[500]};
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${colors.primary[600]};
+      text-decoration: underline;
+    }
   `,
   paragraph: css`
     font-weight: 400;
     font-size: 16px;
     line-height: 1.8;
-    margin: 1em 0;
+    margin: 0.5rem 0;
   `,
   quote: css`
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.6;
-    font-style: italic;
-    margin: 2em 0;
-    padding-left: 1em;
-    /* border-left: 4px solid #ddd; */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    margin: 1rem 0;
+    padding-left: 0.5rem;
+    border-radius: 0 12px 12px 0;
+
+    p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 0.8rem 1rem;
+    }
+  `,
+  ul: css`
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 32px;
+    unicode-bidi: isolate;
+    line-height: 2;
+
+    ul {
+      list-style-type: circle;
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+
+      ul {
+        list-style-type: square;
+      }
+    }
+  `,
+  ol: css`
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 32px;
+    unicode-bidi: isolate;
+  `,
+  li: css`
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+
+    p {
+      padding: 0;
+      margin: 0;
+      line-height: 2;
+    }
   `,
   code: css`
-    font-family: "Fira Code", monospace;
-    font-size: 15px;
-    line-height: 1.6;
-  `,
-  inlineCode: css`
-    font-family: "Fira Code", monospace;
-    font-size: 14px;
-    line-height: 1.4;
     padding: 0.2em 0.4em;
-    /* background-color: rgba(0, 0, 0, 0.05); */
-    border-radius: 4px;
-  `,
-  list: css`
-    font-size: 16px;
-    line-height: 1.8;
-    margin: 1em 0 1em 1.5em;
+    font-size: 85%;
+    border-radius: 3px;
   `,
 } as const;

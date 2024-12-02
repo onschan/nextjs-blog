@@ -9,3 +9,6 @@ export const makeTextEllipsisByLine = (line: number) => css`
   -webkit-box-orient: vertical;
   word-break: keep-all;
 `;
+
+export const toOpacityColor = (color: string, rate: number) =>
+  `${color}${String(rate).padStart(2, "0")}`;

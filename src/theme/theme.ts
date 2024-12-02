@@ -65,7 +65,7 @@ export const themeColors = {
     },
     text: {
       primary: colors.white,
-      secondary: colors.gray[300],
+      secondary: colors.gray[400],
       tertiary: colors.gray[500],
       inverse: colors.black,
       disabled: colors.gray[600],
@@ -77,9 +77,9 @@ export const themeColors = {
     },
     interactive: {
       primary: colors.primary[400],
-      primaryHover: colors.primary[300],
+      primaryHover: colors.primary[500],
       secondary: colors.gray[700],
-      secondaryHover: colors.gray[600],
+      secondaryHover: colors.gray[800],
       disabled: colors.gray[800],
     },
   },

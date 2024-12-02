@@ -1,6 +1,8 @@
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { useWindowSize } from "react-use";
+
+import { BREAK_POINT } from "@/constants";
 
 import type { PostInfoType } from "@/types";
 
@@ -19,12 +21,16 @@ export default function Post(props: Props) {
 
   const [anchors, setAnchors] = useState<AnchorType[]>([]);
 
+  const { width: browserWidth } = useWindowSize();
+
+  const isWide = browserWidth > BREAK_POINT;
+
   return (
     <Layout>
-      <div />
+      {isWide && <div />}
       <ArticleAnchorContext.Provider value={{ anchors, setAnchors }}>
         <Article postInfo={postInfo} mdxSource={mdxSource} />
-        <Anchor />
+        {isWide && <Anchor />}
       </ArticleAnchorContext.Provider>
     </Layout>
   );

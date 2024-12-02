@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { useSize, useWindowSize } from "react-use";
 
 import { theme } from "@/theme";
 
@@ -43,9 +44,13 @@ export default function Anchor() {
               padding: 2px 6px;
               border-radius: 8px;
 
+              :hover {
+                color: ${theme.interactive.primaryHover};
+              }
+
               ${activeAnchor === id &&
               css`
-                ${typography.nav}
+                ${typography.bodySmall}
                 color: ${theme.interactive.primary};
               `}
             `}

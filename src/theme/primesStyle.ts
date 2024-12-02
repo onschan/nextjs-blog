@@ -8,8 +8,8 @@ export const materialLightStyle = css`
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    color: #90a4ae !important;
-    background: #fafafa !important;
+    color: #90a4ae;
+    background: #f5f5f5;
     font-family: "Roboto Mono", monospace;
     font-size: 1em;
     line-height: 1.5em;
@@ -179,8 +179,8 @@ export const materialOceanicStyle = css`
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    color: #c3cee3 !important;
-    background: #263238 !important;
+    color: #c3cee3;
+    background: #263238;
     font-family: "Roboto Mono", monospace;
     font-size: 1em;
     line-height: 1.5em;
