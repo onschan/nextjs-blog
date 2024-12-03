@@ -25,9 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <main>
         <Component {...pageProps} />
       </main>
-      <footer>
-        <p>©onschan.dev</p>
-      </footer>
+      {pathname !== "/" && (
+        <footer>
+          <p>©onschan.dev</p>
+        </footer>
+      )}
     </>
   );
 }

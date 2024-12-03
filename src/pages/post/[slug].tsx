@@ -19,15 +19,13 @@ export default function Post({ postInfo, mdxSource }: Props) {
 }
 
 export const getStaticPaths = async () => {
-  const dirs = fs.readdirSync(path.join("src", "posts"));
+  const files = fs.readdirSync(path.join("src", "posts"));
 
-  const paths = dirs.map(dirName => {
-    return {
-      params: {
-        slug: dirName,
-      },
-    };
-  });
+  const paths = files.map(fileName => ({
+    params: {
+      slug: fileName.replace(".mdx", ""),
+    },
+  }));
 
   return {
     paths,
@@ -35,11 +33,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params: { slug: dirName } }: any) => {
-  const file = fs
-    .readdirSync(path.join("src", "posts", dirName))
-    .filter(file => file.endsWith(".mdx"))[0];
-  const markdownWithMeta = fs.readFileSync(path.join("src", "posts", dirName, file));
+export const getStaticProps = async ({ params: { slug } }: any) => {
+  const markdownWithMeta = fs.readFileSync(path.join("src", "posts", slug + ".mdx"));
 
   const { data: postInfo, content } = matter(markdownWithMeta);
   const mdxSource = await serialize(content, {
@@ -52,7 +47,7 @@ export const getStaticProps = async ({ params: { slug: dirName } }: any) => {
   return {
     props: {
       postInfo,
-      slug: dirName,
+      slug,
       mdxSource,
     },
   };

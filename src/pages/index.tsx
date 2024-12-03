@@ -15,20 +15,16 @@ export default function HomePage({ postList }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const dirs = fs.readdirSync(path.join("src", "posts"));
+  const files = fs.readdirSync(path.join("src", "posts"));
 
-  const postList = dirs.map(dirName => {
-    const fileName = fs
-      .readdirSync(path.join("src", "posts", dirName))
-      .filter(file => file.endsWith(".mdx"))[0];
-
-    const markdownWithMeta = fs.readFileSync(path.join("src", "posts", dirName, fileName), "utf-8");
+  const postList = files.map(fileName => {
+    const markdownWithMeta = fs.readFileSync(path.join("src", "posts", fileName), "utf-8");
 
     const { data: postInfo } = matter(markdownWithMeta);
 
     return {
       postInfo,
-      slug: dirName,
+      slug: fileName.replace(".mdx", ""),
     };
   });
 

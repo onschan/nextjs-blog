@@ -202,14 +202,14 @@ export const materialOceanicStyle = css`
   pre[class*="prismjs"]::-moz-selection,
   code[class*="language-"] ::-moz-selection,
   pre[class*="prismjs"] ::-moz-selection {
-    background: #363636;
+    background: #64748b;
   }
 
   code[class*="language-"]::selection,
   pre[class*="prismjs"]::selection,
   code[class*="language-"] ::selection,
   pre[class*="prismjs"] ::selection {
-    background: #363636;
+    background: #64748b;
   }
 
   :not(pre) > code[class*="language-"] {

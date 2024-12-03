@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export function Hero() {
+export default function ThreeHeartExample() {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -14,14 +14,14 @@ export function Hero() {
 
     const camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      containerRef.current.clientWidth / containerRef.current.clientHeight,
       0.1,
       1000
     );
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
 
     renderer.setPixelRatio(window.devicePixelRatio);
 
@@ -58,9 +58,9 @@ export function Hero() {
     };
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     };
 
     animate();
@@ -72,5 +72,5 @@ export function Hero() {
     };
   }, []);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100vh" }} />;
+  return <div ref={containerRef} style={{ width: "100%", height: "400px" }} />;
 }

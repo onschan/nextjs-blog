@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import { MDXRemote, MDXRemoteProps, MDXRemoteSerializeResult } from "next-mdx-remote";
-import Image from "next/image";
 import { ReactElement } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
@@ -12,6 +11,7 @@ import { colors, prose, typography } from "@/styles";
 
 import * as styles from "./styles";
 
+import { ThreeHeartExample } from "./examples";
 import { useArticleAnchor } from "./hooks";
 
 interface Props {
@@ -48,7 +48,7 @@ export default function Article(props: Props) {
       );
     },
     SyntaxHighlighter,
-    Image,
+    ThreeHeartExample,
   } as MDXRemoteProps["components"];
 
   return (
@@ -58,6 +58,8 @@ export default function Article(props: Props) {
       <article
         ref={articleRef}
         css={css`
+          padding: 24px 0;
+
           * {
             scroll-margin-top: 50px;
           }

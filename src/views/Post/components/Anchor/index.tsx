@@ -50,7 +50,7 @@ export default function Anchor() {
 
               ${activeAnchor === id &&
               css`
-                ${typography.bodySmall}
+                font-weight: 500;
                 color: ${theme.interactive.primary};
               `}
             `}

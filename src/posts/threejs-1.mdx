@@ -1,0 +1,387 @@
+---
+title: "Hello Three.js"
+date: "2024년 12월 03일"
+description: "Three.js의 기본 개념들을 정리하고 간단한 실습"
+thumbnail: "/assets/images/charcter.webp"
+tags: ["Three.js", "WebGL", "3D 개발"]
+---
+
+> Next.js 기반의 사이트 제작기의 일부분으로 실습 코드는 React 기반입니다.
+
+
+블로그 기능들을 추가하고 나니 좀 더 인터렉티브한 요소를 추가하고 꾸며보고 싶다는 욕심이 생겼습니다. <br/>
+이번 참에 Three.js로 이 사이트에 인터렉티브한 요소를 추가하면서 공부해보면 재밌겠다라는 생각이 들었고<br/>
+개념들을 정리하고 점차 사이트에 적용해가는 과정을 기록해보고자 합니다.
+
+
+이번에는 Three.js의 기본 개념과 핵심 기능들에 대해 먼저 살펴보고 실습을 해보도록 하겠습니다.
+
+---
+
+# Three.js란 무엇인가요?
+
+`Three.js`는 웹 브라우저에서 3D 그래픽을 쉽게 구현할 수 있도록 도와주는 JavaScript 라이브러리입니다.
+[WebGL](https://developer.mozilla.org/ko/docs/Web/API/WebGL_API)을 직접 다루지 않아도, Three.js의 직관적인 API를 사용하여 3D 장면(Scene), 카메라(Camera), 조명(Lighting) 등을 간단하게 설정할 수 있습니다.
+
+Three.js는 다음과 같은 기능을 제공합니다:
+
+- 3D 모델링: 다양한 도형 생성 및 텍스처 매핑
+- 카메라 설정: 원근법을 활용한 시점 구성
+- 애니메이션: 시간에 따른 객체의 동작 구현
+- 조명 효과: 빛과 그림자를 활용한 현실감 있는 표현
+- 포스트 프로세싱: 블룸, 필름 그레인 같은 시각 효과 추가
+
+---
+
+# 기본적인 장면 구성 요소
+
+Three.js의 그려내는 화면은 비어있는 `Scene(장면)`에 객체를 추가하고 `Camera(카메라)`를 통해 바라보고 `Render(렌더러)`를 통해 최종적으로 그려내는 화면입니다.
+
+## 1. Scene(장면)
+`3D 공간을 담는 컨테이너 역할`을 합니다. 모든 객체(Object), 조명(Light), 카메라(Camera)가 이 안에 배치됩니다.
+장면은 우리가 보고자 하는 전체적인 3D 공간을 표현한다고 생각하면 됩니다.
+
+```javascript
+// Scene 생성
+const scene = new THREE.Scene(); 
+
+// 객체 추가
+scene.add(object);
+
+// 객체 제거
+scene.remove(object);
+
+// 렌더링
+renderer.render(scene, camera);
+```
+
+### 1-1. Object3D
+
+장면(Scene)에 추가되는 모든 요소는 [Object3D](https://threejs.org/docs/index.html#api/ko/core/Object3D)를 상속받아 만들어집니다.
+
+Object3D는 Three.js에서 모든 3D 객체의 기본 클래스로 가상 공간안에 객체들의 위치, 회전, 크기, 부모자식 관계 등을 지정합니다.
+
+이를 기반으로 3D 공간에서 객체를 조작할 수 있습니다.
+
+
+#### 주요 Properties와 Methods
+
+- position
+    
+    객체의 위치를 정의하는 속성입니다.
+    
+    3D 공간의 x, y, z 좌표 값을 포함하며, 이를 통해 객체를 특정 위치로 이동할 수 있습니다.
+    
+    기본값은 (x = 0, y = 0, z = 0)으로, Scene의 원점에 위치합니다.
+
+    ex) `object.position.set(1, 2, 3);`는 객체를 x: 1, y: 2, z: 3의 위치로 이동합니다. 
+        
+
+- rotation
+
+    객체의 회전을 정의하는 속성으로, 각 축(x, y, z)별로 회전 각도를 설정할 수 있습니다.
+    
+    각도는 라디안 값으로 표현됩니다. (360도 = 2π 라디안)
+    
+    기본값은 (x = 0, y = 0, z = 0)으로, 객체가 회전하지 않은 상태를 의미합니다.
+
+    ex) `object.rotation.x = Math.PI / 2;`는 객체를 x축 기준으로 90도 회전시킵니다.
+
+- scale
+    
+    객체의 크기를 정의하는 속성으로, x, y, z 축별로 독립적으로 크기를 조정할 수 있습니다.
+    
+    기본값은 (1, 1, 1)으로, 원래 크기(100%)를 의미합니다.
+
+    ex) `object.scale.set(2, 1, 0.5);`는 객체의 크기를 x축으로 두 배, y축으로 동일, z축으로 절반으로 설정합니다.
+
+- parent & children
+
+    객체의 부모, 자식를 참조하는 속성입니다.
+
+- add(object)
+
+    객체를 자식으로 추가합니다.
+
+    추가된 객체는 부모 객체의 이동, 회전, 스케일 변환의 영향을 받습니다.
+
+- remove(object)
+
+    객체를 자식 목록에서 제거합니다.
+
+    제거된 객체는 부모와의 관계를 잃게 되고, Scene에서 렌더링되지 않습니다.
+
+- lookAt(vector | x,y,z)
+
+    객체가 특정 위치를 바라보도록 회전 방향을 설정합니다.
+    
+    입력 값은 THREE.Vector3 객체 혹은 x, y, z 표현되며, x, y, z 좌표를 가리킵니다.
+
+    ex) `camera.lookAt(new THREE.Vector3(0, 0, 0));` 또는 `camera.lookAt(0, 0, 0);` 는 카메라가 원점을 바라보도록 설정합니다.
+
+- clone()
+    
+    객체의 복사본을 생성합니다.
+    
+    새 객체는 원본과 동일한 속성을 가지지만, 원본과 독립적으로 조작할 수 있습니다.
+
+    ex) `const clone = object.clone();`는 객체의 복사본을 생성합니다.
+
+## 2. Camera(카메라)
+`장면을 보는 관찰자(시점)`입니다. 카메라를 통해 특정 위치에서 장면을 바라볼 수 있습니다.
+
+Three.js에서 많이 사용하는 카메라는 다음과 같습니다:
+
+- [PerspectiveCamera](https://threejs.org/docs/index.html#api/ko/cameras/PerspectiveCamera): 사람의 눈으로 보는 방식을 모방하여 설계하여 3D요소의 현실감 있는 원근법을 표현합니다.
+- [OrthographicCamera](https://threejs.org/docs/index.html#api/ko/cameras/OrthographicCamera): 원근감 없이 모든 객체를 동일한 크기로 표시하여 2D 장면과 UI 요소를 렌더링하는 데 유용합니다.
+
+### 2-1. PerspectiveCamera 
+
+```javascript
+// PerspectiveCamera 생성
+const camera = new THREE.PerspectiveCamera(
+    75,                                     // FOV(카메라 절두체 수직 시야각FOV): 50~75(기본값: 75, 대부분의 3D 장면에 적합)
+    window.innerWidth / window.innerHeight, // Aspect(카메라 절두체 종횡비): window.innerWidth / window.innerHeight (화면 비율에 맞게 설정)
+    0.1,                                    // Near(카메라 절두체 근평면): 0.1~1 (카메라 가까운 객체도 보이게 설정)
+    1000                                    // Far(카메라 절두체 원평면): 500~1000 (렌더링 성능을 고려해 적절히 설정)
+);
+
+// 렌더링
+renderer.render(scene, camera);
+```
+
+> <strong>🤔 절두체(Frustum)란?</strong> <br/>
+    기하학적 정의에서 절두체는 원래는 끝이 뾰족한 피라미드나 원뿔에서, 한쪽 면(꼭대기)이나 양쪽 면을 평평하게 잘라낸 모양입니다.<br/>
+    Three.js에서 `카메라 절두체(Camera Frustum)`는 카메라가 볼 수 있는 3D 공간의 범위를 나타냅니다.<br/>
+    이 절두체는 카메라의 근평면(가까이 있는 평면)과 원평면(멀리있는 평면)에 의해 잘려 만들어진 공간입니다.<br/>
+    쉽게 말해, 카메라의 "시야각에 맞는 자른 피라미드"라고 생각하면 됩니다.
+
+절두체의 역할
+카메라가 볼 수 있는 시야 영역을 결정합니다.
+절두체 내부에 있는 객체만 렌더링되고, 그 외의 객체는 렌더링되지 않습니다.
+
+#### Parameters
+1. <strong>FOV (Field of View, 수직 시야각)</strong>
+
+    FOV는 `카메라가 장면을 바라보는 수직 방향의 시야각(각도)`을 의미합니다.
+
+    단위는 `도(degree)`이며, 값이 클수록 더 넓은 영역이 보이고, 값이 작을수록 더 좁은 영역이 보입니다.
+
+    카메라 렌즈의 줌과 유사한 개념으로, 값이 작아질수록 줌인(Zoom In) 효과를, 값이 커질수록 줌아웃(Zoom Out) 효과를 제공합니다.
+    
+    - FOV가 90도: 넓은 시야, 주변이 많이 보임. (예: 넓은 풍경 촬영)
+    - FOV가 30도: 좁은 시야, 특정 객체에 집중. (예: 망원 렌즈처럼 줌인)
+
+
+2. <strong>Aspect (종횡비)</strong>
+    
+    Aspect는 화면의 가로(너비)와 세로(높이)의 비율을 의미합니다. 일반적으로 브라우저 화면의 너비와 높이를 기반으로 설정합니다.
+
+3. <strong>Near (근평면)</strong>
+
+    Near는 카메라 절두체의 가까운 평면을 나타냅니다.
+
+    카메라와의 거리 중에서 이 값보다 가까운 객체는 화면에 렌더링되지 않습니다.
+
+    값이 작을수록 카메라 가까이 있는 객체도 보이게 됩니다.
+  
+    - near = 0.1일 경우: 카메라와 매우 가까운 객체도 보임.
+
+        (Near 값을 너무 작게 설정하면, 렌더링 품질이 떨어질 수 있으므로 적절한 값을 설정)
+
+    - near = 10일 경우: 카메라에서 10미터 이상 떨어진 객체만 보임.
+
+
+4. <strong>Far (원평면)</strong>
+
+    Far는 카메라 절두체의 가장 먼 평면을 나타냅니다.
+
+    카메라와의 거리 중에서 이 값보다 먼 객체는 화면에 렌더링되지 않습니다.
+
+    - far = 1000일 경우: 카메라에서 1000미터 거리까지의 객체가 보임.
+
+    - far = 100일 경우: 카메라에서 100미터 이상 떨어진 객체는 보이지 않음.
+        
+        (값이 클수록 먼 곳의 객체까지 보이지만, 너무 큰 값을 설정하면 렌더링 성능에 영향을 줄 수 있음)
+
+
+### 2-2. OrthographicCamera 
+
+```javascript
+// OrthographicCamera 생성
+const camera = new THREE.OrthographicCamera( 
+    window.innerWidth / - 2,    // left(카메라 절두체 좌평면): 경우에 따라 고정값 혹은 확대를 위한 변수 사용
+    window.innerWidth / 2,      // right(카메라 절두체 우평면): 경우에 따라 고정값 혹은 확대를 위한 변수 사용
+    window.innerHeight / 2,     // top(카메라 절두체 상평면): 경우에 따라 고정값 혹은 확대를 위한 변수 사용
+    window.innerHeight / - 2,   // bottom(카메라 절두체 하평면): 경우에 따라 고정값 혹은 확대를 위한 변수 사용
+    1,                          // near(카메라 절두체 근평면): 0.1~1
+    1000                        // far(카메라 절두체 원평면): 500~2000
+);
+
+// Scene에 객체로 포함
+scene.add( camera );
+```
+
+> <strong>🤔 카메라를 Scene에 포함하는 경우는?</strong><br/>
+    `독립적인 렌더링 도구로만 사용한다 → scene.add(camera) 생략`<br/>
+    <span style={{fontSize: '14px'}}>ex) PerspectiveCamera는 독립적인 렌더링 도구로 보는 경우가 많음</span><br/>
+    `Scene의 일부로 동작해야 한다 → scene.add(camera)`<br/>
+    <span style={{fontSize: '14px'}}>ex) OrthographicCamera는 Scene의 일부로 취급하는 경우가 많음</span>
+    
+---
+
+## 3. Renderer(렌더러)    
+장면(Scene)과 카메라(Camera)의 정보를 바탕으로 `3D 장면을 2D 화면에 그려주는 역할`을 합니다.<br/>
+Three.js의 WebGLRenderer를 사용해 브라우저에서 장면을 렌더링합니다.
+
+
+```javascript
+// 기본적인 렌더러 생성
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,        // 계단 현상 방지: true (기본값 false, 자글거림 제거를 위해 true로 켜주는 것이 좋음)
+    alpha: true,            // 배경 투명도 허용: 기본값 false
+    precision: "highp",     // 렌더링 정밀도 (highp: 고품질 렌더링, mediump: 중간 품질, lowp: 저품질, 높은 성능)
+    });
+
+// 크기 설정
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// 픽셀 비율 설정 (고해상도 디스플레이 대응)
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// 배경색 설정
+renderer.setClearColor(0x000000);    // 검은색 배경
+renderer.setClearColor(0x000000, 0); // 투명한 배경
+
+// HTML에 캔버스 추가
+document.body.appendChild(renderer.domElement);
+
+// 장면 렌더링
+renderer.render(scene, camera);
+```
+
+기본적인 설정으로 브라우저 크기 변경에 따라 render 및 카메라 설정도 변경이 되어야합니다.
+
+```javascript
+window.addEventListener('resize', () => {
+    // 렌더러 크기 업데이트
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 카메라 비율 업데이트도 필요
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix(); // 변경된 카메라 속성을 시야각에 맞추어 수학적으로 맞추어 계산해주는 메서드로 카메라 속성을 변경할 때마다 호출해 함.
+});
+```
+
+일반적으로 렌더러는 렌더링 주기에 맞추어 애니메이션 루프 안에서 사용됩니다.
+
+```javascript
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // 장면 업데이트 코드
+    ...
+    
+    // 렌더링 실행
+    renderer.render(scene, camera);
+}
+animate();
+```
+
+---
+
+# 실습
+
+아직 다루진 않았지만 다음에 다룰 예정인 기본 도형에 형태(Geometry)와 재질(Material)로 구성된 Mesh(메쉬)를 통해 도형 객체를 장면에 추가하고 Scene 생성, 카메라 추가, 렌더링하는 기본적인 과정을 거쳐보겠습니다. <br/>
+
+Scene 추가할 도형 객체는 공식 문서 [ShapeGeometry](https://threejs.org/docs/index.html#api/ko/geometries/ShapeGeometry)의 예시에 있는 하트 모양으로 렌더링 주기에 맞추어 회전하도록 하겠습니다.
+
+
+```javascript
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+
+export default function ThreeHeartExample() {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x000000);
+    containerRef.current.appendChild(renderer.domElement);
+
+    // 도형 객체 추가하는 영역
+     const x = 0,
+      y = 0;
+
+    const heartShape = new THREE.Shape();
+
+    heartShape.moveTo(x + 5, y + 5);
+    heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+    heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+    heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+    heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
+    heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+    heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+    const geometry = new THREE.ShapeGeometry(heartShape);
+    const material = new THREE.MeshBasicMaterial({ color: "red" });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    // 도형을 노출하기 적합한 위치로 변경
+    camera.position.z = 50;
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      // 렌더링 주기에 맞추어 회전
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    };
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    animate();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <div ref={containerRef} style={{ width: "100%", height: "100vh" }} />;
+}
+```
+
+## 실행 결과
+
+<ThreeHeartExample />
+
+---
+
+# 마무리
+
+이렇게 관리해도 될까 싶지만 직접 블로그를 만든 덕분에 그대로 동작하는 실행 예시를 담을 수 있어서 일단은 아주 만족스럽습니다.
+
+다음 게시글에서는 Mesh에 대한 개념과 재질과 조명을 이용하여 좀 더 현실감있는 객체를 생성해보도록 하겠습니다.

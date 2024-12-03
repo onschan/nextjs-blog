@@ -176,8 +176,8 @@ export const prose = {
   paragraph: css`
     font-weight: 400;
     font-size: 16px;
-    line-height: 1.8;
-    margin: 0.5rem 0;
+    line-height: 2;
+    margin: 0.6rem 0;
   `,
   quote: css`
     overflow-wrap: break-word;
@@ -185,12 +185,12 @@ export const prose = {
     hyphens: auto;
     margin: 1rem 0;
     padding-left: 0.5rem;
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 8px 8px 0;
 
     p {
       font-weight: 400;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 2;
       padding: 0.8rem 1rem;
     }
   `,
