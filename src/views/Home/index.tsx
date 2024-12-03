@@ -1,6 +1,7 @@
 import type { PostType } from "@/types";
 
 import { PostList } from "./components";
+import { Hero } from "./components/Hero/Three";
 import Layout from "./layout";
 
 interface Props {
@@ -12,7 +13,7 @@ export default function Home(props: Props) {
 
   return (
     <Layout>
-      Frontend Developer
+      <Hero />
       <PostList postList={postList} />
     </Layout>
   );

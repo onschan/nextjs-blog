@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { MDXRemote, MDXRemoteProps, MDXRemoteSerializeResult } from "next-mdx-remote";
+import Image from "next/image";
 import { ReactElement } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
@@ -47,6 +48,7 @@ export default function Article(props: Props) {
       );
     },
     SyntaxHighlighter,
+    Image,
   } as MDXRemoteProps["components"];
 
   return (
