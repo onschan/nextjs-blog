@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import Link from "next/link";
 
 import type { PostType } from "@/types";
@@ -12,7 +13,11 @@ export default function PostList(props: Props) {
   const { postList } = props;
 
   return (
-    <div>
+    <div
+      css={css`
+        width: 100%;
+      `}
+    >
       {postList.map((post, index) => (
         <Link key={index} href={`post/${post.slug}`}>
           <PostCard post={post.postInfo} />

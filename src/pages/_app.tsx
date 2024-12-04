@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { theme, themeCSS, ThemeModeScript } from "@/theme";
 import { themeVariables } from "@/theme/theme";
 
-import { Header } from "@/components";
+import { Footer, Header } from "@/components";
 
 import { globalStyle } from "@/styles";
 
@@ -21,15 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeModeScript />
-      {pathname !== "/" && <Header />}
+      <Header />
       <main>
         <Component {...pageProps} />
       </main>
-      {pathname !== "/" && (
-        <footer>
-          <p>©onschan.dev</p>
-        </footer>
-      )}
+      <Footer />
     </>
   );
 }

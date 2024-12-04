@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 
-import { makeTextEllipsisByLine } from "@/utils";
-
 import { theme } from "@/theme";
+
+import { makeTextEllipsisByLine } from "@/utils";
 
 export const postContainer = css`
   display: flex;
@@ -18,7 +18,7 @@ export const textWrapper = css`
   flex-direction: column;
   justify-content: space-evenly;
   height: 240px;
-  width: 300px;
+  width: 100%;
   padding: 8px 16px;
 `;
 
