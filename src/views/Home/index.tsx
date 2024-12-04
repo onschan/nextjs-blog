@@ -1,11 +1,11 @@
-import type { PostType } from "@/types";
+import type { Post } from "@/types";
 
 import { PostList } from "./components";
 import { Hero } from "./components/Hero/Three";
 import Layout from "./layout";
 
 interface Props {
-  postList: PostType[];
+  postList: Post[];
 }
 
 export default function Home(props: Props) {

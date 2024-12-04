@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import type { PostInfoType } from "@/types";
+import type { Post } from "@/types";
 
 import * as styles from "./styles";
 
 interface Props {
-  post: PostInfoType;
+  post: Post;
 }
 
 export default function PostCard({ post }: Props) {

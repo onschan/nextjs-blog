@@ -7,19 +7,19 @@ import rehypeSlug from "rehype-slug";
 
 import { PostView } from "@/views";
 
-import type { PostInfoType } from "@/types";
+import type { Post as PostType } from "@/types";
 
 interface Props {
-  postInfo: PostInfoType;
+  post: PostType;
   mdxSource: MDXRemoteSerializeResult;
 }
 
-export default function Post({ postInfo, mdxSource }: Props) {
-  return <PostView postInfo={postInfo} mdxSource={mdxSource} />;
+export default function Post({ post, mdxSource }: Props) {
+  return <PostView post={post} mdxSource={mdxSource} />;
 }
 
 export const getStaticPaths = async () => {
-  const files = fs.readdirSync(path.join("src", "posts"));
+  const files = fs.readdirSync(path.join("_posts"));
 
   const paths = files.map(fileName => ({
     params: {
@@ -34,9 +34,9 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }: any) => {
-  const markdownWithMeta = fs.readFileSync(path.join("src", "posts", slug + ".mdx"));
+  const markdownWithMeta = fs.readFileSync(path.join("_posts", slug + ".mdx"));
 
-  const { data: postInfo, content } = matter(markdownWithMeta);
+  const { data: postData, content } = matter(markdownWithMeta);
   const mdxSource = await serialize(content, {
     mdxOptions: {
       development: false,
@@ -46,8 +46,7 @@ export const getStaticProps = async ({ params: { slug } }: any) => {
 
   return {
     props: {
-      postInfo,
-      slug,
+      post: { ...postData, slug },
       mdxSource,
     },
   };

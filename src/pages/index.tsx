@@ -4,10 +4,10 @@ import path from "path";
 
 import { HomeView } from "@/views";
 
-import type { PostType } from "@/types";
+import type { Post } from "@/types";
 
 interface Props {
-  postList: PostType[];
+  postList: Post[];
 }
 
 export default function HomePage({ postList }: Props) {
@@ -15,17 +15,14 @@ export default function HomePage({ postList }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("src", "posts"));
+  const files = fs.readdirSync(path.join("_posts"));
 
   const postList = files.map(fileName => {
-    const markdownWithMeta = fs.readFileSync(path.join("src", "posts", fileName), "utf-8");
+    const markdownWithMeta = fs.readFileSync(path.join("_posts", fileName), "utf-8");
 
-    const { data: postInfo } = matter(markdownWithMeta);
+    const { data: postData } = matter(markdownWithMeta);
 
-    return {
-      postInfo,
-      slug: fileName.replace(".mdx", ""),
-    };
+    return { ...postData, slug: fileName.replace(".mdx", "") };
   });
 
   return {

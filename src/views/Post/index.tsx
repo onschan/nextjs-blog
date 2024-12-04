@@ -4,7 +4,7 @@ import { useWindowSize } from "react-use";
 
 import { BREAK_POINT } from "@/constants";
 
-import type { PostInfoType } from "@/types";
+import type { Post as PostType } from "@/types";
 
 import { Anchor, Article } from "./components";
 import { ArticleAnchorContext } from "./contexts";
@@ -12,12 +12,12 @@ import Layout from "./layout";
 import type { Anchor as AnchorType } from "./types";
 
 interface Props {
-  postInfo: PostInfoType;
+  post: PostType;
   mdxSource: MDXRemoteSerializeResult;
 }
 
 export default function Post(props: Props) {
-  const { postInfo, mdxSource } = props;
+  const { post, mdxSource } = props;
 
   const [anchors, setAnchors] = useState<AnchorType[]>([]);
 
@@ -29,7 +29,7 @@ export default function Post(props: Props) {
     <Layout>
       {isWide && <div />}
       <ArticleAnchorContext.Provider value={{ anchors, setAnchors }}>
-        <Article postInfo={postInfo} mdxSource={mdxSource} />
+        <Article post={post} mdxSource={mdxSource} />
         {isWide && <Anchor />}
       </ArticleAnchorContext.Provider>
     </Layout>

@@ -5,7 +5,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 import { theme } from "@/theme";
 
-import type { PostInfoType } from "@/types";
+import type { Post } from "@/types";
 
 import { colors, prose, typography } from "@/styles";
 
@@ -15,13 +15,13 @@ import { ThreeHeartExample } from "./examples";
 import { useArticleAnchor } from "./hooks";
 
 interface Props {
-  postInfo: PostInfoType;
+  post: Post;
   mdxSource: MDXRemoteSerializeResult;
 }
 
 export default function Article(props: Props) {
-  const { postInfo, mdxSource } = props;
-  const { title, date } = postInfo;
+  const { post, mdxSource } = props;
+  const { title, date } = post;
 
   const { articleRef } = useArticleAnchor();
 
