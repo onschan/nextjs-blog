@@ -24,6 +24,7 @@ export default function Post({ post, mdxSource }: Props) {
         description={post.description}
         url={`/post/${post.slug}`}
         image={post.thumbnail}
+        keywords={post.tag}
       />
       <PostView post={post} mdxSource={mdxSource} />
     </>
