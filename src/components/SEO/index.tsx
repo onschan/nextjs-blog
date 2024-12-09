@@ -16,7 +16,7 @@ interface Props {
 export default function SEO(props: Props) {
   const { title, description, url, keywords, image } = props;
 
-  const ogImage = image ? `${DOMAIN}${image}` : `${DOMAIN}/assets/images/character.webp`;
+  const ogImage = image ? image : `/assets/images/character.webp`;
 
   return (
     <Head>
