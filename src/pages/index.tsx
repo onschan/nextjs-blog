@@ -4,6 +4,8 @@ import path from "path";
 
 import { HomeView } from "@/views";
 
+import { SEO } from "@/components";
+
 import type { Post } from "@/types";
 
 interface Props {
@@ -11,7 +13,12 @@ interface Props {
 }
 
 export default function HomePage({ postList }: Props) {
-  return <HomeView postList={postList} />;
+  return (
+    <>
+      <SEO title="온승찬 블로그" description="안녕하세요" url="/" />
+      <HomeView postList={postList} />
+    </>
+  );
 }
 
 export const getStaticProps = async () => {

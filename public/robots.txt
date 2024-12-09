@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://onschan.vercel.app/sitemap.xml

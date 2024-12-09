@@ -13,8 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Global styles={globalStyle} />
       <Head>
-        <title>OnStar.Dev</title>
-        <meta name="description" content="기술 블로그" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeModeScript />

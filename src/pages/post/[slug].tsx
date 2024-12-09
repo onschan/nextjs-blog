@@ -7,6 +7,8 @@ import rehypeSlug from "rehype-slug";
 
 import { PostView } from "@/views";
 
+import { SEO } from "@/components";
+
 import type { Post as PostType } from "@/types";
 
 interface Props {
@@ -15,7 +17,17 @@ interface Props {
 }
 
 export default function Post({ post, mdxSource }: Props) {
-  return <PostView post={post} mdxSource={mdxSource} />;
+  return (
+    <>
+      <SEO
+        title={post.title}
+        description={post.description}
+        url={`/post/${post.slug}`}
+        image={post.thumbnail}
+      />
+      <PostView post={post} mdxSource={mdxSource} />
+    </>
+  );
 }
 
 export const getStaticPaths = async () => {
