@@ -22,7 +22,10 @@ export const getStaticProps = async () => {
 
     const { data: postData } = matter(markdownWithMeta);
 
-    return { ...postData, slug: fileName.replace(".mdx", "") };
+    return {
+      ...postData,
+      slug: fileName.replace(".mdx", ""),
+    };
   });
 
   return {

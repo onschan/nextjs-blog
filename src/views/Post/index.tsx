@@ -1,6 +1,6 @@
+import { css } from "@emotion/react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useState } from "react";
-import { useWindowSize } from "react-use";
 
 import { BREAK_POINT } from "@/constants";
 
@@ -21,16 +21,19 @@ export default function Post(props: Props) {
 
   const [anchors, setAnchors] = useState<AnchorType[]>([]);
 
-  const { width: browserWidth } = useWindowSize();
-
-  const isWide = browserWidth > BREAK_POINT;
-
   return (
     <Layout>
-      {isWide && <div />}
+      <div
+        css={css`
+          @media screen and (max-width: ${BREAK_POINT}px) {
+            display: none;
+          }
+        `}
+      />
+
       <ArticleAnchorContext.Provider value={{ anchors, setAnchors }}>
         <Article post={post} mdxSource={mdxSource} />
-        {isWide && <Anchor />}
+        <Anchor />
       </ArticleAnchorContext.Provider>
     </Layout>
   );

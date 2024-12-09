@@ -3,6 +3,8 @@ import { useSize, useWindowSize } from "react-use";
 
 import { theme } from "@/theme";
 
+import { BREAK_POINT } from "@/constants";
+
 import { colors, typography } from "@/styles";
 
 import { useActiveAnchor } from "./hooks";
@@ -16,11 +18,15 @@ export default function Anchor() {
 
   return (
     <aside
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        height: "100%",
-      }}
+      css={css`
+        display: "flex";
+        align-items: "flex-start";
+        height: "100%";
+
+        @media screen and (max-width: ${BREAK_POINT}px) {
+          display: none;
+        }
+      `}
     >
       <ul
         style={{

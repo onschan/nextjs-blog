@@ -37,6 +37,7 @@ export const getStaticProps = async ({ params: { slug } }: any) => {
   const markdownWithMeta = fs.readFileSync(path.join("_posts", slug + ".mdx"));
 
   const { data: postData, content } = matter(markdownWithMeta);
+
   const mdxSource = await serialize(content, {
     mdxOptions: {
       development: false,
