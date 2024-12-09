@@ -57,20 +57,22 @@ export const colors = {
     400: "#FBBF24",
     500: "#F59E0B",
   },
-  code: {
-    bg: "#1A1B26",
-    text: "#A9B1D6",
-    keyword: "#BB9AF7",
-    string: "#9ECE6A",
-    function: "#7AA2F7",
-    comment: "#565F89",
-  },
   syntax: {
-    keyword: "#FF7B72",
-    string: "#A5D6FF",
-    function: "#D2A8FF",
-    comment: "#8B949E",
-    variable: "#FFA657",
+    lightBg: "#FAF3EB",
+    darkBg: {
+      1: "#121212", // Obsidian Black - 가장 어두운 톤
+      2: "#181818", // Raven Black - 약간의 부드러움 추가
+      3: "#1F1F1F", // Jet Black - 깔끔하고 균일한 어둠
+      4: "#212121", // Onyx - 깊고 차분한 느낌
+      5: "#2B2D42", // Charcoal Grey - 고급스러운 다크 그레이
+      6: "#1F2933", // Gunmetal - 약간의 블루 톤으로 모던한 느낌
+      7: "#0F172A", // Deep Space - 우주 같은 딥 블루 톤
+      8: "#12192C", // Midnight Blue - 부드러운 네이비 느낌
+      9: "#181A1E", // Eclipse - 약간의 그린 톤이 가미된 다크 블랙
+      10: "#202124", // Graphite - 차분하고 정갈한 다크 그레이
+      11: "#263238", // Ash Blue Grey - 부드럽고 편안한 느낌
+      12: "#37474F", // Blue Grey - 은은하고 세련된 밝은 다크 톤
+    },
   },
 } as const;
 

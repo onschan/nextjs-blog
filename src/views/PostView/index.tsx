@@ -16,7 +16,7 @@ interface Props {
   mdxSource: MDXRemoteSerializeResult;
 }
 
-export default function Post(props: Props) {
+export default function PostView(props: Props) {
   const { post, mdxSource } = props;
 
   const [anchors, setAnchors] = useState<AnchorType[]>([]);
