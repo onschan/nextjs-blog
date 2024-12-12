@@ -31,8 +31,8 @@ export const themeVariables = {
 export const themeColors = {
   light: {
     background: {
-      primary: colors.syntax.lightBg,
-      secondary: colors.gray[100],
+      primary: colors.gray[100],
+      secondary: colors.gray[200],
       tertiary: colors.gray[300],
       inverse: colors.black,
     },
@@ -58,7 +58,7 @@ export const themeColors = {
   },
   dark: {
     background: {
-      primary: colors.syntax.darkBg[10],
+      primary: colors.gray[900],
       secondary: colors.gray[800],
       tertiary: colors.gray[700],
       inverse: colors.white,
