@@ -49,11 +49,11 @@ export const themeColors = {
       focus: colors.primary[500],
     },
     interactive: {
-      primary: colors.primary[600],
-      primaryHover: colors.primary[700],
+      primary: colors.primary[500],
+      primaryHover: colors.primary[600],
       secondary: colors.gray[200],
       secondaryHover: colors.gray[300],
-      disabled: colors.gray[300],
+      disabled: colors.gray[400],
     },
   },
   dark: {
@@ -75,11 +75,11 @@ export const themeColors = {
       focus: colors.primary[400],
     },
     interactive: {
-      primary: colors.primary[400],
-      primaryHover: colors.primary[500],
-      secondary: colors.gray[700],
-      secondaryHover: colors.gray[800],
-      disabled: colors.gray[800],
+      primary: colors.primary[600],
+      primaryHover: colors.primary[700],
+      secondary: colors.gray[500],
+      secondaryHover: colors.gray[600],
+      disabled: colors.gray[700],
     },
   },
 } as const;

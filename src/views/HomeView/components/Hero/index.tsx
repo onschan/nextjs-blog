@@ -9,6 +9,8 @@ import { theme } from "@/theme/theme";
 
 import { BREAK_POINT } from "@/constants";
 
+import { colors } from "@/styles";
+
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +35,7 @@ export function Hero() {
     renderer.setClearColor(0x000000, 0);
 
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
 
     containerRef.current.appendChild(renderer.domElement);
 
@@ -41,12 +43,15 @@ export function Hero() {
     scene.add(ambientLight);
 
     const pointLight = new THREE.PointLight(0xffffff, 1.2);
-    pointLight.position.set(0, 60, 15);
+    pointLight.position.set(0, 75, 15);
     pointLight.castShadow = true;
-    scene.add(pointLight);
 
-    pointLight.shadow.mapSize.width = 1024;
-    pointLight.shadow.mapSize.height = 1024;
+    pointLight.shadow.mapSize.width = 4096;
+    pointLight.shadow.mapSize.height = 4096;
+
+    pointLight.shadow.radius = 16;
+
+    scene.add(pointLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -114,7 +119,6 @@ export function Hero() {
 
     const animate = () => {
       requestAnimationFrame(animate);
-
       const deltaTime = clock.getDelta();
 
       const elapsedTime = clock.elapsedTime;
@@ -129,6 +133,8 @@ export function Hero() {
         camera.fov = THREE.MathUtils.lerp(initialFOV, targetFOV, easeProgress);
         camera.updateProjectionMatrix();
       }
+
+      scene.rotation.y += 0.005;
 
       if (mixer) {
         mixer.update(deltaTime);
@@ -213,19 +219,16 @@ export function Hero() {
 
           p {
             font-size: 1.4em;
+            font-weight: 500;
             margin-top: 20px;
             letter-spacing: 1px;
 
             span {
               color: ${theme.text.secondary};
-              position: relative;
-              padding: 0 4px;
             }
 
             .separator {
-              color: ${theme.text.secondary};
-              margin: 0 2px;
-              opacity: 0.6;
+              margin: 0 8px;
             }
           }
         `}
@@ -236,6 +239,47 @@ export function Hero() {
           <span className="separator">|</span>
           <span>SeungChan On</span>
         </p>
+        <div
+          css={css`
+            display: flex;
+            gap: 20px;
+            margin-top: 32px;
+
+            button {
+              padding: 12px 24px;
+              border-radius: 8px;
+              background: ${theme.interactive.secondary};
+              color: ${theme.text.primary};
+              font-size: 1.2em;
+              font-weight: 600;
+              letter-spacing: 0.5px;
+              cursor: pointer;
+
+              &:hover {
+                background: ${theme.interactive.secondaryHover};
+              }
+
+              &:first-of-type {
+                background: ${theme.interactive.primary};
+                color: ${colors.white};
+
+                &:hover {
+                  background: ${theme.interactive.primaryHover};
+                }
+              }
+            }
+
+            @media screen and (max-width: ${BREAK_POINT}px) {
+              button {
+                padding: 10px 20px;
+                font-size: 1em;
+              }
+            }
+          `}
+        >
+          <button type="button">About</button>
+          <button type="button">Contact Me</button>
+        </div>
       </div>
       <div
         ref={containerRef}
@@ -251,8 +295,6 @@ export function Hero() {
           @media screen and (max-width: ${BREAK_POINT}px) {
             width: 80vw;
             height: 80vw;
-            max-width: 400px;
-            max-height: 400px;
           }
         `}
       >
