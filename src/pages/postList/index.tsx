@@ -15,7 +15,7 @@ interface Props {
 export default function PostListPage({ postList }: Props) {
   return (
     <>
-      <SEO title="온승찬 블로그" description="안녕하세요" url="/" />
+      <SEO title="All posts" url="/postList" />
       <PostListView postList={postList} />
     </>
   );

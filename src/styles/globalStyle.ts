@@ -2,12 +2,15 @@ import { css } from "@emotion/react";
 
 import { theme, themeCSS } from "@/theme";
 
+import { keyframesCSS } from "./keyframes";
 import { resetCSS } from "./resetCSS";
 
 export const globalStyle = css`
   ${resetCSS}
 
   ${themeCSS}
+
+  ${keyframesCSS}
 
   *:focus {
     outline: none;
@@ -18,7 +21,6 @@ export const globalStyle = css`
   }
 
   body {
-    // [MEMO] 타이포 관련 설정 추가 필요
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
