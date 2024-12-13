@@ -5,6 +5,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
+import { theme } from "@/theme/theme";
+
+import { BREAK_POINT } from "@/constants";
+
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +41,7 @@ export function Hero() {
     scene.add(ambientLight);
 
     const pointLight = new THREE.PointLight(0xffffff, 1.2);
-    pointLight.position.set(0, 20, 15);
+    pointLight.position.set(0, 60, 15);
     pointLight.castShadow = true;
     scene.add(pointLight);
 
@@ -53,13 +57,13 @@ export function Hero() {
     controls.enableZoom = false;
     controls.target.set(0, 0, 0);
 
-    const planeGeometry = new THREE.PlaneGeometry(500, 500);
-    const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-    plane.rotation.x = -Math.PI / 2;
-    plane.position.y = -1.15;
-    plane.receiveShadow = true;
-    scene.add(plane);
+    const planeGeometry = new THREE.PlaneGeometry(32, 32);
+    const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
+    const shadow = new THREE.Mesh(planeGeometry, shadowMaterial);
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.y = -1.15;
+    shadow.receiveShadow = true;
+    scene.add(shadow);
 
     let mixer: THREE.AnimationMixer | null = null;
 
@@ -104,7 +108,7 @@ export function Hero() {
     const initialFOV = 60;
     const targetCameraPosition = { x: 25, y: 5, z: 50 };
     const targetFOV = 25;
-    const animationDuration = 1.5;
+    const animationDuration = 2;
 
     const clock = new THREE.Clock();
 
@@ -155,39 +159,127 @@ export function Hero() {
 
   return (
     <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        height: "30vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-        cursor: "pointer",
-      }}
-    >
-      {isLoading && (
-        <div
-          css={css`
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: spin 1s linear infinite;
+      css={css`
+        display: flex;
+        gap: 60px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: calc(100vh - 150px);
+        height: 100%;
+        padding: 40px;
+        background: ${theme.background.primary};
+        font-size: 16px;
 
-            @keyframes spin {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
+        @media screen and (max-width: ${BREAK_POINT}px) {
+          flex-direction: column;
+          justify-content: center;
+          gap: 30px;
+          padding: 30px;
+          font-size: 10px;
+        }
+      `}
+    >
+      <div
+        css={css`
+          order: 2;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+
+          h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin: 0;
+            white-space: pre-line;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            background: linear-gradient(
+              135deg,
+              ${theme.text.primary} 0%,
+              ${theme.text.hero} 50%,
+              ${theme.text.primary} 100%
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            @media screen and (max-width: ${BREAK_POINT}px) {
+              font-size: 2rem;
             }
-          `}
-        >
-          <AiOutlineLoading3Quarters size={20} />
-        </div>
-      )}
+          }
+
+          p {
+            font-size: 1.4em;
+            margin-top: 20px;
+            letter-spacing: 1px;
+
+            span {
+              color: ${theme.text.secondary};
+              position: relative;
+              padding: 0 4px;
+            }
+
+            .separator {
+              color: ${theme.text.secondary};
+              margin: 0 2px;
+              opacity: 0.6;
+            }
+          }
+        `}
+      >
+        <h1>{`Solving Challenges,\nServing Users`}</h1>
+        <p>
+          <span>Frontend Developer</span>
+          <span className="separator">|</span>
+          <span>SeungChan On</span>
+        </p>
+      </div>
+      <div
+        ref={containerRef}
+        css={css`
+          order: 1;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 45vw;
+          height: 45vw;
+
+          @media screen and (max-width: ${BREAK_POINT}px) {
+            width: 80vw;
+            height: 80vw;
+            max-width: 400px;
+            max-height: 400px;
+          }
+        `}
+      >
+        {isLoading && (
+          <div
+            css={css`
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              animation: spin 1s linear infinite;
+              color: ${theme.interactive.primary};
+
+              @keyframes spin {
+                0% {
+                  transform: translate(-50%, -50%) rotate(0deg);
+                }
+                100% {
+                  transform: translate(-50%, -50%) rotate(360deg);
+                }
+              }
+            `}
+          >
+            <AiOutlineLoading3Quarters size={24} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

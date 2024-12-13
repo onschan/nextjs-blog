@@ -8,6 +8,7 @@ export const themeVariables = {
     inverse: "--background-inverse",
   },
   text: {
+    hero: "--text-hero",
     primary: "--text-primary",
     secondary: "--text-secondary",
     tertiary: "--text-tertiary",
@@ -31,12 +32,11 @@ export const themeVariables = {
 export const themeColors = {
   light: {
     background: {
-      primary: colors.gray[100],
-      secondary: colors.gray[200],
-      tertiary: colors.gray[300],
-      inverse: colors.black,
+      primary: colors.syntax.lightBg,
+      inverse: colors.gray[900],
     },
     text: {
+      hero: colors.syntax.lightStrongText,
       primary: colors.black,
       secondary: colors.gray[600],
       tertiary: colors.gray[400],
@@ -59,11 +59,10 @@ export const themeColors = {
   dark: {
     background: {
       primary: colors.gray[900],
-      secondary: colors.gray[800],
-      tertiary: colors.gray[700],
-      inverse: colors.white,
+      inverse: colors.syntax.lightBg,
     },
     text: {
+      hero: colors.gray[400],
       primary: colors.white,
       secondary: colors.gray[400],
       tertiary: colors.gray[500],

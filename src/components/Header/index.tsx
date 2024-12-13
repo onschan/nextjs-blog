@@ -17,7 +17,7 @@ export default function Header() {
       <div css={styles.contents}>
         <div css={styles.left}>
           <Link css={styles.home} href="/">
-            <span>OnStar.Dev</span>
+            <span>onschan.me</span>
           </Link>
         </div>
         <div css={styles.right}>

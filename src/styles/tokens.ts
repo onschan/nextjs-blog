@@ -59,17 +59,11 @@ export const colors = {
   },
   syntax: {
     lightBg: "#FAF3EB",
-    darkBg: "#202124",
+    lightStrongText: "#705D56",
   },
 } as const;
 
 export const typography = {
-  hero: css`
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  `,
   large: css`
     font-weight: 700;
     font-size: 40px;
