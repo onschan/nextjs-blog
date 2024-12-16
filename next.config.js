@@ -10,6 +10,15 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  async redirects() {
+    return [
+      {
+        source: "/generate-files",
+        destination: "/",
+        permanent: true, // 301 Redirect
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
