@@ -30,6 +30,11 @@ function generateSiteMap(posts: Post[]) {
 }
 
 export const generateRssFeed = (posts: Post[]) => {
+  const latestPubDate = posts.reduce((latest, post) => {
+    const pubDate = parseKoreanDate(post.date).toUTCString();
+    return pubDate > latest ? pubDate : latest;
+  }, new Date(0).toUTCString());
+
   const items = posts
     .map(post => {
       return `
@@ -55,7 +60,7 @@ export const generateRssFeed = (posts: Post[]) => {
         <title><![CDATA[onschan.me]]></title>
         <link>${DOMAIN}</link>
         <description><![CDATA[On's TechBlog]]></description>
-        <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+        <lastBuildDate>${latestPubDate}</lastBuildDate>
         <language>ko</language>
         <atom:link href="${DOMAIN}/rss.xml" rel="self" type="application/rss+xml"/>
         ${items}
