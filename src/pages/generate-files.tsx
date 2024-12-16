@@ -2,8 +2,6 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 
-import { parseKoreanDate } from "@/utils";
-
 import { DOMAIN } from "@/constants";
 
 import type { Post } from "@/types";
@@ -19,7 +17,7 @@ function generateSiteMap(posts: Post[]) {
         .map(
           post => `
         <url>
-          <loc>${DOMAIN}/${post.slug}</loc>
+          <loc>${DOMAIN}/post/${post.slug}</loc>
           <lastmod>${post.date}</lastmod>
           <priority>0.8</priority>
         </url>
@@ -31,7 +29,7 @@ function generateSiteMap(posts: Post[]) {
 
 export const generateRssFeed = (posts: Post[]) => {
   const latestPubDate = posts.reduce((latest, post) => {
-    const pubDate = parseKoreanDate(post.date).toUTCString();
+    const pubDate = new Date(post.date).toUTCString();
     return pubDate > latest ? pubDate : latest;
   }, new Date(0).toUTCString());
 
@@ -42,7 +40,7 @@ export const generateRssFeed = (posts: Post[]) => {
           <title><![CDATA[${post.title}]]></title>
           <link>${DOMAIN}/post/${post.slug}</link>
           <description><![CDATA[${post.description}]]></description>
-          <pubDate>${parseKoreanDate(post.date).toUTCString()}</pubDate>
+          <pubDate>${new Date(post.date).toUTCString()}</pubDate>
           <guid>${DOMAIN}/post/${post.slug}</guid>
           ${
             post.thumbnail
