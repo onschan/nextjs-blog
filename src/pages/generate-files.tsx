@@ -43,10 +43,10 @@ export const generateRssFeed = (posts: Post[]) => {
           <link>${DOMAIN}/${post.slug}</link>
           <description><![CDATA[${post.description}]]></description>
           <pubDate>${parseKoreanDate(post.date).toUTCString()}</pubDate>
-          <guid>${DOMAIN}${post.slug}</guid>
+          <guid>${DOMAIN}/${post.slug}</guid>
           ${
             post.thumbnail
-              ? `<enclosure url="${DOMAIN}/${post.thumbnail}" type="application/octet-stream" />`
+              ? `<enclosure url="${DOMAIN}${post.thumbnail}" type="application/octet-stream" />`
               : ""
           }
         </item>
