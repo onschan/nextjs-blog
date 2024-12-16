@@ -12,7 +12,7 @@ export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 60px;
   background-color: ${theme.background.primary};
 
   ${isScrolled &&
@@ -40,7 +40,7 @@ export const right = css`
 `;
 
 export const home = css`
-  ${typography.subsection}
+  ${typography.nav}
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,7 @@ export const home = css`
 `;
 
 export const linkStyle = css`
+  ${typography.nav}
   position: relative;
   text-decoration: none;
   display: inline-block;

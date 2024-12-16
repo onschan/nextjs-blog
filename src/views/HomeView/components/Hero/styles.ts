@@ -12,7 +12,7 @@ export const layout = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: calc(100vh - 100px - 50px);
+  min-height: calc(100vh - 100px - 60px);
   height: 100%;
   background: ${theme.background.primary};
   font-size: 16px;

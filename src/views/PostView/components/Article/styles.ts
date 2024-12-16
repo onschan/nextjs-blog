@@ -23,7 +23,7 @@ export const article = css`
   padding: 24px 0;
 
   * {
-    scroll-margin-top: 50px;
+    scroll-margin-top: 60px;
   }
 
   h1 {

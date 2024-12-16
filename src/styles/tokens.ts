@@ -86,6 +86,11 @@ export const typography = {
     font-size: 20px;
     line-height: 1.4;
   `,
+  nav: css`
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.4;
+  `,
   bodyLarge: css`
     font-weight: 400;
     font-size: 18px;
