@@ -32,7 +32,12 @@ export const contents = css`
 `;
 
 export const left = css``;
-export const right = css``;
+
+export const right = css`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
 export const home = css`
   ${typography.subsection}
@@ -40,4 +45,35 @@ export const home = css`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+export const linkStyle = css`
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0 5px;
+  color: ${theme.text.tertiary};
+  font-weight: 500;
+
+  &:hover {
+    color: ${theme.text.primary};
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: ${theme.text.tertiary};
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+  }
+
+  &:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 `;

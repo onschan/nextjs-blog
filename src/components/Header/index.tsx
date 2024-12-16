@@ -21,6 +21,15 @@ export default function Header() {
           </Link>
         </div>
         <div css={styles.right}>
+          <Link href="/postList">
+            <span css={styles.linkStyle}>Posts</span>
+          </Link>
+          <Link href="/about">
+            <span css={styles.linkStyle}>About</span>
+          </Link>
+          <Link href="/rss.xml">
+            <span css={styles.linkStyle}>RSS</span>
+          </Link>
           <ThemeSwitch />
         </div>
       </div>

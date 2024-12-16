@@ -21,7 +21,6 @@ export const layout = css`
     flex-direction: column;
     justify-content: center;
     gap: 30px;
-    padding: 30px;
     font-size: 10px;
   }
 `;

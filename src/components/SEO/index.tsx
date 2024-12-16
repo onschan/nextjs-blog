@@ -26,7 +26,7 @@ export default function SEO(props: Props) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta charSet="utf-8" />
 
-      <title>{title} | On's TechBlog</title>
+      <title>{`${title} | On's TechBlog`}</title>
       {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords.join(", ")} />}
 
