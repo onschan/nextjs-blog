@@ -10,8 +10,8 @@ export const footer = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100px;
-  padding: 32px 0;
+  height: 80px;
+  padding: 24px 0;
   ${typography.caption}
 `;
 

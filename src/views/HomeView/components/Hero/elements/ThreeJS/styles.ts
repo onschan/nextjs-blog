@@ -27,3 +27,15 @@ export const loadingSpinner = css`
   transform: translate(-50%, -50%);
   animation: spin 1s linear infinite;
 `;
+
+export const errorContainer = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: ${theme.text.secondary};
+  text-align: center;
+  white-space: pre;
+`;

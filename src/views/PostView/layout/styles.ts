@@ -8,7 +8,7 @@ export const layout = css`
   gap: 28px;
   grid-template-columns: 240px 1fr 240px;
   width: 100%;
-  max-width: 90rem;
+  max-width: 96rem;
   padding: 32px 20px;
 
   @media screen and (max-width: ${BREAK_POINT}px) {
