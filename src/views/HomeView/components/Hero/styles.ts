@@ -8,13 +8,12 @@ import { colors } from "@/styles";
 
 export const layout = css`
   display: flex;
-  gap: 60px;
+  gap: 80px;
   align-items: center;
   justify-content: center;
   width: 100%;
   min-height: calc(100vh - 100px - 50px);
   height: 100%;
-  padding: 40px;
   background: ${theme.background.primary};
   font-size: 16px;
 
@@ -71,7 +70,7 @@ export const subText = css`
   font-weight: 500;
   margin-top: 20px;
   letter-spacing: 1px;
-  color: ${theme.text.secondary};
+  color: ${theme.text.primary};
 `;
 
 export const separator = css`
@@ -86,24 +85,27 @@ export const buttons = css`
   button {
     padding: 12px 24px;
     border-radius: 8px;
-    background: ${theme.interactive.secondary};
-    color: ${theme.text.primary};
     font-size: 1.2em;
     font-weight: 500;
     letter-spacing: 0.5px;
     cursor: pointer;
+  }
+`;
 
-    &:hover {
-      background: ${theme.interactive.secondaryHover};
-    }
+export const primary = css`
+  background: ${theme.interactive.primary};
+  color: ${colors.white};
 
-    &:first-of-type {
-      background: ${theme.interactive.primary};
-      color: ${colors.white};
+  &:hover {
+    background: ${theme.interactive.primaryHover};
+  }
+`;
 
-      &:hover {
-        background: ${theme.interactive.primaryHover};
-      }
-    }
+export const secondary = css`
+  background: ${theme.interactive.secondary};
+  color: ${theme.text.primary};
+
+  &:hover {
+    background: ${theme.interactive.secondaryHover};
   }
 `;

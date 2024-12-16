@@ -58,8 +58,9 @@ export const article = css`
 
   blockquote {
     ${prose.quote}
-    border-left: 4px solid ${theme.border.focus};
-    background-color: ${theme.interactive.secondary};
+    border-left: 4px solid ${colors.accent[400]};
+    background-color: ${colors.accent[200]};
+    color: ${colors.black};
   }
 
   hr {
@@ -84,7 +85,8 @@ export const article = css`
   p {
     code {
       ${prose.code}
-      background-color: ${theme.interactive.secondaryHover};
+      background-color: ${colors.accent[500]};
+      color: ${colors.white};
     }
   }
 

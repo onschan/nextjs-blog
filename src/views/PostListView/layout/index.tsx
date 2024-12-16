@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { Footer, Header } from "@/components";
+
 import * as styles from "./styles";
 
 interface Props {
@@ -7,5 +9,11 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
-  return <div css={styles.layout}>{children}</div>;
+  return (
+    <>
+      <Header />
+      <main css={styles.layout}>{children}</main>
+      <Footer />
+    </>
+  );
 }

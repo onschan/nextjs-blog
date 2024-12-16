@@ -2,6 +2,8 @@ import { css } from "@emotion/react";
 
 import { theme, themeCSS } from "@/theme";
 
+import { BREAK_POINT } from "@/constants";
+
 import { keyframesCSS } from "./keyframes";
 import { resetCSS } from "./resetCSS";
 
@@ -29,6 +31,12 @@ export const globalStyle = css`
     background: ${theme.background.primary};
   }
 
+  #__next {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   main {
     display: flex;
     justify-content: center;
@@ -44,5 +52,11 @@ export const globalStyle = css`
     clip: rect(0, 0, 0, 0);
     clip-path: polygon(0 0, 0 0, 0 0);
     border: 0;
+  }
+
+  .wide-only {
+    @media screen and (max-width: ${BREAK_POINT}px) {
+      display: none;
+    }
   }
 `;

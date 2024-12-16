@@ -1,8 +1,10 @@
+import Link from "next/link";
+
 import * as styles from "./styles";
 
 import { ThreeJS } from "./elements";
 
-export function Hero() {
+export default function Hero() {
   return (
     <div css={styles.layout}>
       <ThreeJS />
@@ -14,8 +16,16 @@ export function Hero() {
           <span>SeungChan On</span>
         </p>
         <div css={styles.buttons}>
-          <button type="button">About</button>
-          <button type="button">Contact Me</button>
+          <Link href="/postList">
+            <button type="button" css={styles.primary}>
+              Read Posts
+            </button>
+          </Link>
+          <Link href="/postList">
+            <button type="button" css={styles.secondary}>
+              About
+            </button>
+          </Link>
         </div>
       </div>
     </div>

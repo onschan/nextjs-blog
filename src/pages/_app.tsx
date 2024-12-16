@@ -12,11 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Global styles={globalStyle} />
       <ThemeModeScript />
-      <Header />
-      <main>
-        <Component {...pageProps} />
-      </main>
-      <Footer />
+      <Component {...pageProps} />
     </>
   );
 }

@@ -23,14 +23,7 @@ export default function PostView(props: Props) {
 
   return (
     <Layout>
-      <div
-        css={css`
-          @media screen and (max-width: ${BREAK_POINT}px) {
-            display: none;
-          }
-        `}
-      />
-
+      <div className="wide-only" />
       <ArticleAnchorContext.Provider value={{ anchors, setAnchors }}>
         <Article post={post} mdxSource={mdxSource} />
         <Anchor />
