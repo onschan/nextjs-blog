@@ -31,6 +31,7 @@ export default function SEO(props: Props) {
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords.join(", ")} />}
 
+      <meta name="google-site-verification" content="9DoBHYCuB493rZqaJh7Z8pUM_-K9tR07xN3AsS1C6e4" />
       <meta name="naver-site-verification" content="41b9c8e93210d6d41b083d1b410e0474ca9b4235" />
 
       <meta property="og:title" content={title} />
