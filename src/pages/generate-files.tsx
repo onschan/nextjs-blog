@@ -44,11 +44,19 @@ export const generateRssFeed = (posts: Post[]) => {
           <description><![CDATA[${post.description}]]></description>
           <pubDate>${parseKoreanDate(post.date).toUTCString()}</pubDate>
           <guid>${DOMAIN}/${post.slug}</guid>
-          ${
-            post.thumbnail
-              ? `<enclosure url="${DOMAIN}${post.thumbnail}" type="application/octet-stream" />`
-              : ""
-          }
+             ${
+               post.thumbnail
+                 ? `
+                <media:content 
+                  url="${DOMAIN}${post.thumbnail}" 
+                  type="image/webp" 
+                  medium="image"
+                />
+                <media:thumbnail 
+                  url="${DOMAIN}${post.thumbnail}"
+                />`
+                 : ""
+             }
         </item>
       `;
     })
