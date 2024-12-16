@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function SEO(props: Props) {
-  const { title, description, url, keywords, image } = props;
+  const { title, description = "Deep Reflection.", url, keywords, image } = props;
 
   const ogImage = image ? image : `/assets/images/character.webp`;
 
@@ -26,8 +26,9 @@ export default function SEO(props: Props) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta charSet="utf-8" />
 
-      <title>{`${title} | On's TechBlog`}</title>
-      {description && <meta name="description" content={description} />}
+      <title>{`${title} | On's Tech Blog`}</title>
+      <meta name="author" content="SeungChan On" />
+      <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords.join(", ")} />}
 
       <meta property="og:title" content={title} />
@@ -35,13 +36,8 @@ export default function SEO(props: Props) {
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}${url}`} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="onschan blog" />
+      <meta property="og:site_name" content="On's Tech Blog" />
       <meta property="og:locale" content="ko_KR" />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
     </Head>
   );
 }
