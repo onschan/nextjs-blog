@@ -44,9 +44,9 @@ export const generateRssFeed = (posts: Post[]) => {
           <description><![CDATA[${post.description}]]></description>
           <pubDate>${parseKoreanDate(post.date).toUTCString()}</pubDate>
           <guid>${DOMAIN}/${post.slug}</guid>
-             ${
-               post.thumbnail
-                 ? `
+          ${
+            post.thumbnail
+              ? `
                 <media:content 
                   url="${DOMAIN}${post.thumbnail}" 
                   type="image/webp" 
@@ -55,15 +55,15 @@ export const generateRssFeed = (posts: Post[]) => {
                 <media:thumbnail 
                   url="${DOMAIN}${post.thumbnail}"
                 />`
-                 : ""
-             }
+              : ""
+          }
         </item>
       `;
     })
     .join("");
 
   return `<?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
       <channel>
         <title><![CDATA[onschan.me]]></title>
         <link>${DOMAIN}</link>
