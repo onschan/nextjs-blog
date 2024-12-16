@@ -40,10 +40,10 @@ export const generateRssFeed = (posts: Post[]) => {
       return `
         <item>
           <title><![CDATA[${post.title}]]></title>
-          <link>${DOMAIN}/${post.slug}</link>
+          <link>${DOMAIN}/post/${post.slug}</link>
           <description><![CDATA[${post.description}]]></description>
           <pubDate>${parseKoreanDate(post.date).toUTCString()}</pubDate>
-          <guid>${DOMAIN}/${post.slug}</guid>
+          <guid>${DOMAIN}/post/${post.slug}</guid>
           ${
             post.thumbnail
               ? `
