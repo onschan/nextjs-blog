@@ -8,16 +8,17 @@ import * as styles from "./styles";
 
 export default function ThreeJS() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const animationFrameRef = useRef<number>();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const animationFrameId = useRef<number>();
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    let isUnmounted = false;
+    let mixer: THREE.AnimationMixer | null = null;
     const scene = new THREE.Scene();
+
     const camera = new THREE.PerspectiveCamera(
       60,
       containerRef.current.clientWidth / containerRef.current.clientHeight,
@@ -33,7 +34,7 @@ export default function ThreeJS() {
     rendererRef.current = renderer;
 
     renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -68,65 +69,6 @@ export default function ThreeJS() {
     shadow.receiveShadow = true;
     scene.add(shadow);
 
-    let mixer: THREE.AnimationMixer | null = null;
-
-    const loader = new GLTFLoader();
-    loader.manager.onProgress = (_, loaded, total) => {
-      if (loaded === total) {
-        THREE.Cache.clear();
-      }
-    };
-
-    try {
-      loader.load(
-        "/assets/models/hero.glb",
-        gltf => {
-          if (isUnmounted) return;
-
-          try {
-            scene.add(gltf.scene);
-            gltf.scene.scale.set(1, 1, 1);
-
-            const box = new THREE.Box3().setFromObject(gltf.scene);
-            const center = box.getCenter(new THREE.Vector3());
-            gltf.scene.position.sub(center);
-
-            gltf.scene.traverse(node => {
-              if ((node as THREE.Mesh).isMesh) {
-                const mesh = node as THREE.Mesh;
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
-              }
-            });
-
-            if (gltf.animations?.length) {
-              mixer = new THREE.AnimationMixer(gltf.scene);
-              gltf.animations.forEach(clip => {
-                const action = mixer?.clipAction(clip);
-                action?.play();
-              });
-            }
-
-            setIsLoading(false);
-          } catch (error) {
-            console.error("Error setting up model:", error);
-            setHasError(true);
-            setIsLoading(false);
-          }
-        },
-        undefined,
-        error => {
-          console.error("Error loading GLB:", error);
-          setHasError(true);
-          setIsLoading(false);
-        }
-      );
-    } catch (error) {
-      console.error("Error initializing loader:", error);
-      setHasError(true);
-      setIsLoading(false);
-    }
-
     camera.position.set(150, 100, 150);
     const initialFOV = 60;
     const targetCameraPosition = { x: 25, y: 5, z: 50 };
@@ -134,14 +76,53 @@ export default function ThreeJS() {
     const animationDuration = 2;
 
     const clock = new THREE.Clock();
+    let isUnmounted = false;
+
+    const loader = new GLTFLoader();
+    loader.load(
+      "/assets/models/hero.glb",
+      gltf => {
+        if (isUnmounted) return;
+
+        scene.add(gltf.scene);
+        gltf.scene.scale.set(1, 1, 1);
+
+        const box = new THREE.Box3().setFromObject(gltf.scene);
+        const center = box.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
+
+        gltf.scene.traverse(node => {
+          if ((node as THREE.Mesh).isMesh) {
+            const mesh = node as THREE.Mesh;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+          }
+        });
+
+        if (gltf.animations?.length) {
+          mixer = new THREE.AnimationMixer(gltf.scene);
+          gltf.animations.forEach(clip => {
+            const action = mixer!.clipAction(clip);
+            action.play();
+          });
+        }
+
+        setIsLoading(false);
+      },
+      undefined,
+      error => {
+        console.error("Error loading GLB:", error);
+        setHasError(true);
+        setIsLoading(false);
+      }
+    );
 
     const animate = () => {
       if (isUnmounted) return;
 
-      animationFrameRef.current = requestAnimationFrame(animate);
       const deltaTime = clock.getDelta();
-
       const elapsedTime = clock.elapsedTime;
+
       if (elapsedTime < animationDuration) {
         const progress = elapsedTime / animationDuration;
         const easeProgress = 1 - Math.pow(1 - progress, 3);
@@ -162,6 +143,7 @@ export default function ThreeJS() {
 
       controls.update();
       renderer.render(scene, camera);
+      animationFrameId.current = requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
@@ -174,51 +156,34 @@ export default function ThreeJS() {
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
-        }
+        clock.stop();
       } else {
-        if (!isUnmounted) {
-          animate();
-        }
+        clock.start();
       }
     };
 
+    window.addEventListener("resize", handleResize);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     animate();
-    window.addEventListener("resize", handleResize);
 
     return () => {
       isUnmounted = true;
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
       }
 
       if (mixer) {
         mixer.stopAllAction();
       }
 
-      scene.traverse(object => {
-        if (object instanceof THREE.Mesh) {
-          object.geometry.dispose();
-          if (object.material instanceof THREE.Material) {
-            object.material.dispose();
-          }
-        }
-      });
-
       renderer.dispose();
-      renderer.forceContextLoss();
-      scene.clear();
       controls.dispose();
 
-      const gl = renderer.getContext();
-      if (gl) {
-        const extension = gl.getExtension("WEBGL_lose_context");
-        if (extension) extension.loseContext();
+      if (renderer.domElement.parentElement) {
+        renderer.domElement.parentElement.removeChild(renderer.domElement);
       }
 
       rendererRef.current = null;
@@ -227,15 +192,16 @@ export default function ThreeJS() {
 
   return (
     <div ref={containerRef} css={styles.canvasContainer}>
-      {isLoading ? (
+      {isLoading && (
         <div css={styles.loadingSpinner}>
           <AiOutlineLoading3Quarters size={32} />
         </div>
-      ) : !hasError ? (
+      )}
+      {hasError && (
         <div css={styles.errorContainer}>
           <p>Failed to load 3D model. Please refresh the page.</p>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
