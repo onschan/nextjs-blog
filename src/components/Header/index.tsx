@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { IoMenu } from "react-icons/io5";
 import { useWindowScroll } from "react-use";
 
@@ -12,7 +13,14 @@ import * as styles from "./styles";
 import { ThemeSwitch } from "./elements";
 
 export default function Header() {
+  const router = useRouter();
+
   const { y } = useWindowScroll();
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push("/");
+  };
 
   return (
     <header
@@ -22,9 +30,9 @@ export default function Header() {
     >
       <div css={styles.contents}>
         <div css={styles.left}>
-          <Link css={styles.home} href="/">
+          <a css={styles.home} href="/" onClick={handleHomeClick}>
             <span>onschan.me</span>
-          </Link>
+          </a>
         </div>
         <div css={styles.right}>
           <div>
@@ -33,15 +41,15 @@ export default function Header() {
                 display: flex;
                 gap: 8px;
 
-                @media screen and (max-width: ${BREAK_POINT}px) {
+                /* @media screen and (max-width: ${BREAK_POINT}px) {
                   display: none;
-                }
+                } */
               `}
             >
               <Link href="/">
                 <span css={styles.linkStyle}>Home</span>
               </Link>
-              <Link href="/postList">
+              {/* <Link href="/postList">
                 <span css={styles.linkStyle}>Posts</span>
               </Link>
               <Link href="/about">
@@ -49,9 +57,9 @@ export default function Header() {
               </Link>
               <Link href="/rss.xml">
                 <span css={styles.linkStyle}>RSS</span>
-              </Link>
+              </Link> */}
             </div>
-            <div
+            {/* <div
               css={css`
                 display: none;
 
@@ -74,7 +82,7 @@ export default function Header() {
               >
                 <IoMenu />
               </button>
-            </div>
+            </div> */}
           </div>
           <div>
             <ThemeSwitch />
