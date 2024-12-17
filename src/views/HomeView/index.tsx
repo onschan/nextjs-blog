@@ -4,7 +4,8 @@ import Layout from "./layout";
 export default function HomeView() {
   return (
     <Layout>
-      <Hero />
+      <div />
+      {/* <Hero /> */}
     </Layout>
   );
 }
