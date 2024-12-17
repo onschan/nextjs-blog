@@ -1,17 +1,12 @@
-import dynamic from "next/dynamic";
+import { HomeView } from "@/views";
 
 import { SEO } from "@/components";
-
-const LazyHomeView = dynamic(() => import("@/views/HomeView"), {
-  ssr: false,
-  loading: () => null,
-});
 
 export default function HomePage() {
   return (
     <>
       <SEO title="Home" url="/" />
-      <LazyHomeView />
+      <HomeView />
     </>
   );
 }
