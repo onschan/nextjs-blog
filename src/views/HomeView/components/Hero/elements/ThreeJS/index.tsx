@@ -8,11 +8,15 @@ import * as styles from "./styles";
 
 export default function ThreeJS() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const animationFrameRef = useRef<number>();
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    let isUnmounted = false;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -24,11 +28,13 @@ export default function ThreeJS() {
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
+      powerPreference: "high-performance",
     });
+    rendererRef.current = renderer;
+
     renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
-
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -40,12 +46,9 @@ export default function ThreeJS() {
     const pointLight = new THREE.PointLight(0xffffff, 1.2);
     pointLight.position.set(0, 75, 15);
     pointLight.castShadow = true;
-
     pointLight.shadow.mapSize.width = 4096;
     pointLight.shadow.mapSize.height = 4096;
-
     pointLight.shadow.radius = 16;
-
     scene.add(pointLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -68,41 +71,61 @@ export default function ThreeJS() {
     let mixer: THREE.AnimationMixer | null = null;
 
     const loader = new GLTFLoader();
-    loader.load(
-      "/assets/models/hero.glb",
-      gltf => {
-        scene.add(gltf.scene);
-
-        gltf.scene.scale.set(1, 1, 1);
-
-        const box = new THREE.Box3().setFromObject(gltf.scene);
-        const center = box.getCenter(new THREE.Vector3());
-        gltf.scene.position.sub(center);
-
-        gltf.scene.traverse(node => {
-          if ((node as THREE.Mesh).isMesh) {
-            const mesh = node as THREE.Mesh;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-          }
-        });
-
-        if (gltf.animations && gltf.animations.length) {
-          mixer = new THREE.AnimationMixer(gltf.scene);
-          gltf.animations.forEach(clip => {
-            const action = mixer!.clipAction(clip);
-            action.play();
-          });
-        }
-
-        setIsLoading(false);
-      },
-      undefined,
-      error => {
-        console.error("Error loading GLB:", error);
-        setIsLoading(false);
+    loader.manager.onProgress = (_, loaded, total) => {
+      if (loaded === total) {
+        THREE.Cache.clear();
       }
-    );
+    };
+
+    try {
+      loader.load(
+        "/assets/models/hero.glb",
+        gltf => {
+          if (isUnmounted) return;
+
+          try {
+            scene.add(gltf.scene);
+            gltf.scene.scale.set(1, 1, 1);
+
+            const box = new THREE.Box3().setFromObject(gltf.scene);
+            const center = box.getCenter(new THREE.Vector3());
+            gltf.scene.position.sub(center);
+
+            gltf.scene.traverse(node => {
+              if ((node as THREE.Mesh).isMesh) {
+                const mesh = node as THREE.Mesh;
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+              }
+            });
+
+            if (gltf.animations?.length) {
+              mixer = new THREE.AnimationMixer(gltf.scene);
+              gltf.animations.forEach(clip => {
+                const action = mixer?.clipAction(clip);
+                action?.play();
+              });
+            }
+
+            setIsLoading(false);
+          } catch (error) {
+            console.error("Error setting up model:", error);
+            setHasError(true);
+            setIsLoading(false);
+          }
+        },
+        undefined,
+        error => {
+          console.error("Error loading GLB:", error);
+          setHasError(true);
+          setIsLoading(false);
+        }
+      );
+    } catch (error) {
+      console.error("Error initializing loader:", error);
+      setHasError(true);
+      setIsLoading(false);
+    }
 
     camera.position.set(150, 100, 150);
     const initialFOV = 60;
@@ -113,7 +136,9 @@ export default function ThreeJS() {
     const clock = new THREE.Clock();
 
     const animate = () => {
-      requestAnimationFrame(animate);
+      if (isUnmounted) return;
+
+      animationFrameRef.current = requestAnimationFrame(animate);
       const deltaTime = clock.getDelta();
 
       const elapsedTime = clock.elapsedTime;
@@ -140,31 +165,77 @@ export default function ThreeJS() {
     };
 
     const handleResize = () => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || isUnmounted) return;
 
       camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      } else {
+        if (!isUnmounted) {
+          animate();
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     animate();
     window.addEventListener("resize", handleResize);
 
     return () => {
+      isUnmounted = true;
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("resize", handleResize);
+
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+
+      if (mixer) {
+        mixer.stopAllAction();
+      }
+
+      scene.traverse(object => {
+        if (object instanceof THREE.Mesh) {
+          object.geometry.dispose();
+          if (object.material instanceof THREE.Material) {
+            object.material.dispose();
+          }
+        }
+      });
+
       renderer.dispose();
+      renderer.forceContextLoss();
       scene.clear();
       controls.dispose();
+
+      const gl = renderer.getContext();
+      if (gl) {
+        const extension = gl.getExtension("WEBGL_lose_context");
+        if (extension) extension.loseContext();
+      }
+
+      rendererRef.current = null;
     };
   }, []);
 
   return (
     <div ref={containerRef} css={styles.canvasContainer}>
-      {isLoading && (
+      {isLoading ? (
         <div css={styles.loadingSpinner}>
           <AiOutlineLoading3Quarters size={32} />
         </div>
-      )}
+      ) : !hasError ? (
+        <div css={styles.errorContainer}>
+          <p>Failed to load 3D model. Please refresh the page.</p>
+        </div>
+      ) : null}
     </div>
   );
 }

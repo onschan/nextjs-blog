@@ -29,12 +29,10 @@ export const loadingSpinner = css`
 `;
 
 export const errorContainer = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: ${theme.text.secondary};
   text-align: center;
   white-space: pre;
