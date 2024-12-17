@@ -29,22 +29,11 @@ export default function ThreeJS() {
     renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
+
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
 
     containerRef.current.appendChild(renderer.domElement);
-
-    const handleContextLoss = () => {
-      console.warn("WebGL context lost. Reinitializing renderer...");
-      renderer.dispose();
-      renderer.forceContextLoss();
-      containerRef.current?.removeChild(renderer.domElement);
-    };
-
-    renderer.domElement.addEventListener("webglcontextlost", event => {
-      event.preventDefault();
-      handleContextLoss();
-    });
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
@@ -52,17 +41,22 @@ export default function ThreeJS() {
     const pointLight = new THREE.PointLight(0xffffff, 1.2);
     pointLight.position.set(0, 75, 15);
     pointLight.castShadow = true;
-    pointLight.shadow.mapSize.width = 2048;
-    pointLight.shadow.mapSize.height = 2048;
+
+    pointLight.shadow.mapSize.width = 4096;
+    pointLight.shadow.mapSize.height = 4096;
+
     pointLight.shadow.radius = 16;
+
     scene.add(pointLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
     controls.minDistance = 3;
     controls.maxDistance = 10;
     controls.enableZoom = false;
+    controls.target.set(0, 0, 0);
 
     const planeGeometry = new THREE.PlaneGeometry(32, 32);
     const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
@@ -80,9 +74,15 @@ export default function ThreeJS() {
     loader.setDRACOLoader(dracoLoader);
 
     loader.load(
-      "/assets/models/hero.glb?timestamp=" + new Date().getTime(),
+      "/assets/models/hero.glb",
       gltf => {
         scene.add(gltf.scene);
+
+        gltf.scene.scale.set(1, 1, 1);
+
+        const box = new THREE.Box3().setFromObject(gltf.scene);
+        const center = box.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
 
         gltf.scene.traverse(node => {
           if ((node as THREE.Mesh).isMesh) {
@@ -104,13 +104,8 @@ export default function ThreeJS() {
       },
       undefined,
       error => {
-        console.error("Failed to load GLTF model:", error);
-        alert(
-          "An error occurred while loading the model. Please refresh the page or try again later."
-        );
+        console.error("Error loading GLB:", error);
         setIsLoading(false);
-        renderer.dispose();
-        renderer.forceContextLoss();
       }
     );
 
@@ -122,41 +117,49 @@ export default function ThreeJS() {
 
     const clock = new THREE.Clock();
 
-    let animationFrameId: number;
     const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
       const deltaTime = clock.getDelta();
 
-      if (mixer) mixer.update(deltaTime);
+      const elapsedTime = clock.elapsedTime;
+      if (elapsedTime < animationDuration) {
+        const progress = elapsedTime / animationDuration;
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+        camera.position.x = THREE.MathUtils.lerp(150, targetCameraPosition.x, easeProgress);
+        camera.position.y = THREE.MathUtils.lerp(100, targetCameraPosition.y, easeProgress);
+        camera.position.z = THREE.MathUtils.lerp(150, targetCameraPosition.z, easeProgress);
+
+        camera.fov = THREE.MathUtils.lerp(initialFOV, targetFOV, easeProgress);
+        camera.updateProjectionMatrix();
+      }
+
+      scene.rotation.y += 0.005;
+
+      if (mixer) {
+        mixer.update(deltaTime);
+      }
+
       controls.update();
       renderer.render(scene, camera);
     };
 
-    animate();
-
     const handleResize = () => {
-      camera.aspect = containerRef.current!.clientWidth / containerRef.current!.clientHeight;
+      if (!containerRef.current) return;
+
+      camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(containerRef.current!.clientWidth, containerRef.current!.clientHeight);
+      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     };
 
+    animate();
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
-
       renderer.dispose();
-      renderer.forceContextLoss();
-      scene.traverse(child => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          if (child.material instanceof THREE.Material) {
-            child.material.dispose();
-          }
-        }
-      });
       scene.clear();
+      controls.dispose();
     };
   }, []);
 
