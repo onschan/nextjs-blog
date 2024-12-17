@@ -9,88 +9,72 @@ import * as styles from "./styles";
 export default function ThreeJS() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWebGLSupported, setIsWebGLSupported] = useState(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene, Camera, Renderer 초기화
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (!context) {
+      console.error("WebGL is not supported in this browser.");
+      setIsWebGLSupported(false);
+      return;
+    }
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      50,
+      60,
       containerRef.current.clientWidth / containerRef.current.clientHeight,
       0.1,
       1000
     );
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: false, // 성능 개선
+      antialias: true,
       alpha: true,
     });
     renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // 고해상도 제한
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x000000, 0);
 
     containerRef.current.appendChild(renderer.domElement);
 
-    // 조명 설정
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 0.8);
-    pointLight.position.set(0, 50, 20);
-    pointLight.castShadow = true;
-
-    // ShadowMap 해상도 낮춤
-    pointLight.shadow.mapSize.width = 1024;
-    pointLight.shadow.mapSize.height = 1024;
+    const pointLight = new THREE.PointLight(0xffffff, 1.2);
+    pointLight.position.set(0, 75, 15);
     scene.add(pointLight);
 
-    // OrbitControls 설정
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 3;
+    controls.maxDistance = 10;
     controls.enableZoom = false;
-
-    // 그림자 평면 추가
-    const planeGeometry = new THREE.PlaneGeometry(30, 30);
-    const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
-    const shadow = new THREE.Mesh(planeGeometry, shadowMaterial);
-    shadow.rotation.x = -Math.PI / 2;
-    shadow.position.y = -1.15;
-    shadow.receiveShadow = true;
-    scene.add(shadow);
+    controls.target.set(0, 0, 0);
 
     let mixer: THREE.AnimationMixer | null = null;
 
-    // GLTFLoader 설정
     const loader = new GLTFLoader();
     loader.load(
-      "/assets/models/hero.glb", // 경량화된 모델 사용 권장
+      "/assets/models/hero.glb",
       gltf => {
-        const model = gltf.scene;
+        scene.add(gltf.scene);
 
-        model.scale.set(1, 1, 1); // 모델 스케일 유지
-        const box = new THREE.Box3().setFromObject(model);
+        gltf.scene.scale.set(1, 1, 1);
+
+        const box = new THREE.Box3().setFromObject(gltf.scene);
         const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
+        gltf.scene.position.sub(center);
 
-        model.traverse(node => {
-          if ((node as THREE.Mesh).isMesh) {
-            const mesh = node as THREE.Mesh;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-          }
-        });
-
-        scene.add(model);
-
-        // 애니메이션 설정
         if (gltf.animations && gltf.animations.length) {
-          mixer = new THREE.AnimationMixer(model);
+          mixer = new THREE.AnimationMixer(gltf.scene);
           gltf.animations.forEach(clip => {
-            const action = mixer?.clipAction(clip);
-            action?.play();
+            const action = mixer!.clipAction(clip);
+            action.play();
           });
         }
 
@@ -103,37 +87,50 @@ export default function ThreeJS() {
       }
     );
 
-    // 카메라 위치 및 애니메이션 설정
-    camera.position.set(20, 10, 20);
+    camera.position.set(150, 100, 150);
+    const initialFOV = 60;
+    const targetCameraPosition = { x: 25, y: 5, z: 50 };
+    const targetFOV = 25;
+    const animationDuration = 2;
+
     const clock = new THREE.Clock();
 
-    let lastFrameTime = 0;
-    const fps = 30; // FPS 제한
-
-    const animate = (time: number) => {
+    const animate = () => {
       requestAnimationFrame(animate);
+      const deltaTime = clock.getDelta();
 
-      const deltaTime = time - lastFrameTime;
-      if (deltaTime < 1000 / fps) return;
+      const elapsedTime = clock.elapsedTime;
+      if (elapsedTime < animationDuration) {
+        const progress = elapsedTime / animationDuration;
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
 
-      lastFrameTime = time;
+        camera.position.x = THREE.MathUtils.lerp(150, targetCameraPosition.x, easeProgress);
+        camera.position.y = THREE.MathUtils.lerp(100, targetCameraPosition.y, easeProgress);
+        camera.position.z = THREE.MathUtils.lerp(150, targetCameraPosition.z, easeProgress);
 
-      if (mixer) mixer.update(clock.getDelta());
+        camera.fov = THREE.MathUtils.lerp(initialFOV, targetFOV, easeProgress);
+        camera.updateProjectionMatrix();
+      }
 
-      scene.rotation.y += 0.002; // 회전 속도 조절
+      scene.rotation.y += 0.005;
+
+      if (mixer) {
+        mixer.update(deltaTime);
+      }
+
       controls.update();
       renderer.render(scene, camera);
     };
 
-    animate(0);
-
-    // 창 크기 조정 핸들러
     const handleResize = () => {
-      camera.aspect = containerRef.current!.clientWidth / containerRef.current!.clientHeight;
+      if (!containerRef.current) return;
+
+      camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(containerRef.current!.clientWidth, containerRef.current!.clientHeight);
+      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
     };
 
+    animate();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -143,6 +140,14 @@ export default function ThreeJS() {
       controls.dispose();
     };
   }, []);
+
+  if (!isWebGLSupported) {
+    return (
+      <div>
+        <p>WebGL is not supported in your browser. Please upgrade or try a different browser.</p>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} css={styles.canvasContainer}>
