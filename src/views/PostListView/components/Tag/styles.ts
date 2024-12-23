@@ -20,6 +20,12 @@ export const tag = css`
   &:hover {
     text-decoration: underline;
   }
+
+  @media (hover: none) {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 export const activeTag = css`

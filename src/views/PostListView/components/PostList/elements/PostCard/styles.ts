@@ -15,9 +15,13 @@ export const postContainer = css`
   background: ${theme.background.primary};
   cursor: pointer;
 
-  &:hover {
-    .title {
-      text-decoration: underline;
+  &:hover .title {
+    text-decoration: underline;
+  }
+
+  @media (hover: none) {
+    &:hover .title {
+      text-decoration: none;
     }
   }
 `;
