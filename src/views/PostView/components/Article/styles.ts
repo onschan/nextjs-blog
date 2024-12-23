@@ -9,7 +9,7 @@ export const section = css`
 `;
 
 export const title = css`
-  ${typography.large}
+  ${prose.title}
 `;
 
 export const date = css`

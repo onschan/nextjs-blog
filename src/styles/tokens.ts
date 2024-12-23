@@ -1,5 +1,7 @@
 import { css } from "@emotion/react";
 
+import { BREAK_POINT } from "@/constants";
+
 export const colors = {
   black: "#18181B",
   white: "#ffffff",
@@ -125,10 +127,14 @@ export const typography = {
 
 export const prose = {
   title: css`
-    font-weight: 800;
+    font-weight: 700;
     font-size: 40px;
     line-height: 1.3;
     letter-spacing: -0.02rem;
+
+    @media screen and (max-width: ${BREAK_POINT}px) {
+      font-size: 30px;
+    }
   `,
   h1: css`
     font-weight: 700;
@@ -136,6 +142,10 @@ export const prose = {
     line-height: 1.3;
     letter-spacing: -0.02rem;
     margin: 2.5rem 0 1rem;
+
+    @media screen and (max-width: ${BREAK_POINT}px) {
+      font-size: 26px;
+    }
   `,
   h2: css`
     font-weight: 600;
@@ -143,6 +153,10 @@ export const prose = {
     line-height: 1.4;
     letter-spacing: -0.01rem;
     margin: 2rem 0 0.9rem;
+
+    @media screen and (max-width: ${BREAK_POINT}px) {
+      font-size: 22px;
+    }
   `,
   h3: css`
     font-weight: 600;
