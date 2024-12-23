@@ -5,6 +5,7 @@ import { theme } from "@/theme";
 import { typography } from "@/styles";
 
 export const footer = css`
+  ${typography.caption}
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +13,6 @@ export const footer = css`
   width: 100%;
   height: 80px;
   padding: 24px 0;
-  ${typography.caption}
 `;
 
 export const copyright = css`

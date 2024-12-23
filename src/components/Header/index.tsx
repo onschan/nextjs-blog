@@ -11,17 +11,6 @@ import * as styles from "./styles";
 
 import { ThemeSwitch } from "./elements";
 
-const slideDown = keyframes`
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`;
-
 export default function Header() {
   const { y } = useWindowScroll();
 
@@ -75,19 +64,7 @@ export default function Header() {
                 }
               `}
             >
-              <button
-                css={css`
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  width: 28px;
-                  height: 28px;
-                  border: 1px solid ${theme.border.default};
-                  border-radius: 9999px;
-                  color: ${theme.text.primary};
-                `}
-                onClick={toggle}
-              >
+              <button css={styles.menuButton} onClick={toggle}>
                 <IoMenu />
               </button>
             </div>
@@ -98,69 +75,17 @@ export default function Header() {
         </div>
       </div>
       {isOpen && (
-        <div
-          css={css`
-            position: absolute;
-            top: 58px;
-            width: calc(100vw);
-            height: calc(100vh - 60px + 2px);
-            background: ${theme.background.primary};
-            border-top: 1px solid ${theme.border.default};
-            animation: ${slideDown} 0.3s ease-out;
-            display: flex;
-            flex-direction: column;
-          `}
-        >
-          <Link
-            href="/"
-            css={css`
-              font-size: 18px;
-              color: ${theme.text.primary};
-              text-decoration: none;
-              padding: 20px;
-              border-bottom: 1px solid ${theme.border.default};
-              width: 100%;
-            `}
-          >
+        <div css={styles.menu}>
+          <Link href="/" onClick={toggle}>
             Home
           </Link>
-          <Link
-            href="/postList"
-            css={css`
-              font-size: 18px;
-              color: ${theme.text.primary};
-              text-decoration: none;
-              padding: 20px;
-              border-bottom: 1px solid ${theme.border.default};
-              width: 100%;
-            `}
-          >
+          <Link href="/postList" onClick={toggle}>
             Posts
           </Link>
-          <Link
-            href="/about"
-            css={css`
-              font-size: 18px;
-              color: ${theme.text.primary};
-              text-decoration: none;
-              padding: 20px;
-              border-bottom: 1px solid ${theme.border.default};
-              width: 100%;
-            `}
-          >
+          <Link href="/about" onClick={toggle}>
             About
           </Link>
-          <Link
-            href="/rss.xml"
-            css={css`
-              font-size: 18px;
-              color: ${theme.text.primary};
-              text-decoration: none;
-              padding: 20px;
-              border-bottom: 1px solid ${theme.border.default};
-              width: 100%;
-            `}
-          >
+          <Link href="/rss.xml" onClick={toggle}>
             RSS
           </Link>
         </div>

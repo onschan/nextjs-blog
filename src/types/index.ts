@@ -5,5 +5,4 @@ export type Post = {
   date: string;
   tag: string[];
   slug: string;
-  preview: string;
 };

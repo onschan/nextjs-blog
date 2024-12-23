@@ -79,3 +79,46 @@ export const linkStyle = css`
     transform-origin: left;
   }
 `;
+
+export const menuButton = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${theme.border.default};
+  border-radius: 9999px;
+  color: ${theme.text.primary};
+`;
+
+export const menu = css`
+  @keyframes slideDown {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  position: absolute;
+  top: 58px;
+  width: calc(100vw);
+  height: calc(100vh - 60px + 2px);
+  background: ${theme.background.primary};
+  border-top: 1px solid ${theme.border.default};
+  animation: slideDown 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+
+  > a {
+    font-size: 18px;
+    color: ${theme.text.primary};
+    text-decoration: none;
+    padding: 20px;
+    border-bottom: 1px solid ${theme.border.default};
+    width: 100%;
+  }
+`;
