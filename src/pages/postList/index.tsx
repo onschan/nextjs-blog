@@ -19,7 +19,7 @@ export default function PostListPage({ postList, tags, currentTag }: Props) {
   return (
     <>
       <SEO
-        title={currentTag ? `Posts about ${currentTag}` : "allPost"}
+        title={currentTag ? `Posts about ${currentTag}` : "All Posts."}
         url={currentTag ? `/postList?tag=${currentTag}` : "/postList"}
       />
       <PostListView postList={postList} tags={tags} currentTag={currentTag} />

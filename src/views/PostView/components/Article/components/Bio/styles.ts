@@ -10,7 +10,7 @@ export const container = css`
   display: flex;
   gap: 20px;
   border-top: 1px solid ${theme.border.default};
-  padding: 28px 0;
+  padding: 24px 0;
 `;
 
 export const avatar = css`
@@ -51,7 +51,7 @@ export const description = css`
 
 export const Links = css`
   display: flex;
-  gap: 8px;
+  gap: 16px;
 
   svg {
     color: ${theme.text.secondary};
