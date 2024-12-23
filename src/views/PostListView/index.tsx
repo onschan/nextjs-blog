@@ -5,16 +5,17 @@ import Layout from "./layout";
 
 interface Props {
   postList: Post[];
-  tags: string[];
+  tagsWithCount: { tag: string; count: number }[];
   currentTag: string | null;
+  totalPosts: number;
 }
 
 export default function PostListView(props: Props) {
-  const { postList, tags, currentTag } = props;
+  const { postList, tagsWithCount, currentTag, totalPosts } = props;
 
   return (
     <Layout>
-      <Tag tags={tags} currentTag={currentTag} />
+      <Tag tagsWithCount={tagsWithCount} currentTag={currentTag} totalPosts={totalPosts} />
       <PostList postList={postList} />
     </Layout>
   );

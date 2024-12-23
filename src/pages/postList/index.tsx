@@ -11,18 +11,24 @@ import type { Post } from "@/types";
 
 interface Props {
   postList: Post[];
-  tags: string[];
+  tagsWithCount: { tag: string; count: number }[];
   currentTag: string | null;
+  totalPosts: number;
 }
 
-export default function PostListPage({ postList, tags, currentTag }: Props) {
+export default function PostListPage({ postList, tagsWithCount, currentTag, totalPosts }: Props) {
   return (
     <>
       <SEO
         title={currentTag ? `Posts about ${currentTag}` : "All Posts."}
         url={currentTag ? `/postList?tag=${currentTag}` : "/postList"}
       />
-      <PostListView postList={postList} tags={tags} currentTag={currentTag} />
+      <PostListView
+        postList={postList}
+        tagsWithCount={tagsWithCount}
+        currentTag={currentTag}
+        totalPosts={totalPosts}
+      />
     </>
   );
 }
@@ -42,15 +48,20 @@ export const getServerSideProps: GetServerSideProps = async context => {
     };
   }) as Post[];
 
-  const tags = Array.from(new Set(allPosts.flatMap(post => post.tags))).sort();
+  const tagsWithCount = Array.from(
+    allPosts
+      .flatMap(post => post.tags)
+      .reduce((acc, tag) => acc.set(tag, (acc.get(tag) || 0) + 1), new Map<string, number>())
+  ).map(([tag, count]) => ({ tag, count }));
 
   const postList = tag ? allPosts.filter(post => post.tags.includes(tag as string)) : allPosts;
 
   return {
     props: {
       postList,
-      tags,
+      tagsWithCount,
       currentTag: tag || null,
+      totalPosts: allPosts.length,
     },
   };
 };

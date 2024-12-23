@@ -51,7 +51,7 @@ export const description = css`
 
 export const Links = css`
   display: flex;
-  gap: 16px;
+  gap: 12px;
 
   svg {
     color: ${theme.text.secondary};
