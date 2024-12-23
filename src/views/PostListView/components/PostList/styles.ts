@@ -6,5 +6,4 @@ export const container = css`
   gap: 12px;
   align-items: center;
   width: 100%;
-  padding: 20px;
 `;

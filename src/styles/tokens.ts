@@ -101,6 +101,11 @@ export const typography = {
     font-size: 16px;
     line-height: 1.7;
   `,
+  bodyAccent: css`
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.7;
+  `,
   bodySmall: css`
     font-weight: 500;
     font-size: 14px;

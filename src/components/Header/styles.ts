@@ -115,7 +115,6 @@ export const menu = css`
 
   > a {
     font-size: 18px;
-    color: ${theme.text.primary};
     text-decoration: none;
     padding: 20px;
     border-bottom: 1px solid ${theme.border.default};

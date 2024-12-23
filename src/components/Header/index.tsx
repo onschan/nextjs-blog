@@ -9,6 +9,7 @@ import { BREAK_POINT } from "@/constants";
 
 import * as styles from "./styles";
 
+import { NAVIGATION } from "./constants";
 import { ThemeSwitch } from "./elements";
 
 export default function Header() {
@@ -42,18 +43,11 @@ export default function Header() {
                 }
               `}
             >
-              <Link href="/">
-                <span css={styles.linkStyle}>Home</span>
-              </Link>
-              <Link href="/postList">
-                <span css={styles.linkStyle}>Posts</span>
-              </Link>
-              <Link href="/about">
-                <span css={styles.linkStyle}>About</span>
-              </Link>
-              <Link href="/rss.xml">
-                <span css={styles.linkStyle}>RSS</span>
-              </Link>
+              {NAVIGATION.map(({ href, label }) => (
+                <Link key={label} href={href}>
+                  <span css={styles.linkStyle}>{label}</span>
+                </Link>
+              ))}
             </div>
             <div
               css={css`
@@ -76,18 +70,11 @@ export default function Header() {
       </div>
       {isOpen && (
         <div css={styles.menu}>
-          <Link href="/" onClick={toggle}>
-            Home
-          </Link>
-          <Link href="/postList" onClick={toggle}>
-            Posts
-          </Link>
-          <Link href="/about" onClick={toggle}>
-            About
-          </Link>
-          <Link href="/rss.xml" onClick={toggle}>
-            RSS
-          </Link>
+          {NAVIGATION.map(({ href, label }) => (
+            <Link key={label} href={href} onClick={toggle}>
+              <span>{label}</span>
+            </Link>
+          ))}
         </div>
       )}
     </header>

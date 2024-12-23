@@ -3,6 +3,6 @@ export type Post = {
   title: string;
   description: string;
   date: string;
-  tag: string[];
+  tags: string[];
   slug: string;
 };
