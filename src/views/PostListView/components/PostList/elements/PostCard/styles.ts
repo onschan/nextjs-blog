@@ -4,13 +4,12 @@ import { theme } from "@/theme";
 
 import { makeTextEllipsisByLine } from "@/utils";
 
-import { colors } from "@/styles";
-
 export const postContainer = css`
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
+  max-width: 1200px;
   padding: 16px;
   border: 1px solid ${theme.border.default};
   border-radius: 8px;
@@ -18,8 +17,9 @@ export const postContainer = css`
   cursor: pointer;
 
   &:hover {
-    &:first-child {
-      color: ${colors.accent[500]};
+    & > :first-child {
+      color: ${theme.text.hero};
+      text-decoration: underline;
     }
   }
 `;

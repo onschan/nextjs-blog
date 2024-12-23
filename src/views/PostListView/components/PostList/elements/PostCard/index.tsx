@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Post } from "@/types";
 
@@ -10,10 +11,10 @@ interface Props {
 
 export default function PostCard({ post }: Props) {
   return (
-    <article css={styles.postContainer}>
+    <Link key={post.slug} href={`post/${post.slug}`} css={styles.postContainer}>
       <span css={styles.title}>{post.title || "무제"} </span>
       <span css={styles.description}>{post.description}</span>
       <span css={styles.date}>{post.date}</span>
-    </article>
+    </Link>
   );
 }

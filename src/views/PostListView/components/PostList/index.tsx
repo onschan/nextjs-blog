@@ -17,9 +17,7 @@ export default function PostList(props: Props) {
   return (
     <div css={styles.container}>
       {postList.map(post => (
-        <Link key={post.slug} href={`post/${post.slug}`}>
-          <PostCard post={post} />
-        </Link>
+        <PostCard key={post.slug} post={post} />
       ))}
     </div>
   );

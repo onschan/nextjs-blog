@@ -120,5 +120,10 @@ export const menu = css`
     padding: 20px;
     border-bottom: 1px solid ${theme.border.default};
     width: 100%;
+
+    &:hover {
+      background: ${theme.text.hero};
+      color: ${theme.text.inverse};
+    }
   }
 `;
