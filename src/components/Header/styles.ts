@@ -13,7 +13,7 @@ export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
   align-items: center;
   width: 100%;
   height: 60px;
-  background-color: ${theme.background.primary};
+  background: ${theme.background.primary};
 
   ${isScrolled &&
   css`
@@ -22,11 +22,12 @@ export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
 `;
 
 export const contents = css`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 96rem;
+  max-width: 88rem;
   height: 100%;
   padding: 0 20px;
 `;

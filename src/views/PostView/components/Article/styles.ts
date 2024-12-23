@@ -59,7 +59,7 @@ export const article = css`
   blockquote {
     ${prose.quote}
     border-left: 4px solid ${colors.accent[400]};
-    background-color: ${colors.accent[200]};
+    background: ${colors.accent[200]};
     color: ${colors.black};
   }
 
@@ -85,7 +85,7 @@ export const article = css`
   p {
     code {
       ${prose.code}
-      background-color: ${colors.accent[500]};
+      background: ${colors.accent[500]};
       color: ${colors.white};
     }
   }
@@ -111,7 +111,7 @@ export const article = css`
       font-size: 10px;
       text-transform: uppercase;
       transform: translateY(-32px);
-      background-color: ${theme.interactive.primary};
+      background: ${theme.interactive.primary};
       padding: 4px 8px;
       border-radius: 0 0 4px 4px;
     }

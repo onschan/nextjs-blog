@@ -3,8 +3,6 @@ import { colors } from "../styles/tokens";
 export const themeVariables = {
   background: {
     primary: "--background-primary",
-    secondary: "--background-secondary",
-    tertiary: "--background-tertiary",
     inverse: "--background-inverse",
   },
   text: {

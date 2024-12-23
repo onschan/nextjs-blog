@@ -16,10 +16,11 @@ export default function PostList(props: Props) {
     <div
       css={css`
         width: 100%;
+        padding: 20px;
       `}
     >
-      {postList.map((post, index) => (
-        <Link key={index} href={`post/${post.slug}`}>
+      {postList.map(post => (
+        <Link key={post.slug} href={`post/${post.slug}`}>
           <PostCard post={post} />
         </Link>
       ))}

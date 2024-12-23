@@ -1,8 +1,7 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { IoMenu } from "react-icons/io5";
-import { useWindowScroll } from "react-use";
+import { useBoolean, useLockBodyScroll, useWindowScroll } from "react-use";
 
 import { theme } from "@/theme";
 
@@ -12,15 +11,23 @@ import * as styles from "./styles";
 
 import { ThemeSwitch } from "./elements";
 
-export default function Header() {
-  const router = useRouter();
+const slideDown = keyframes`
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
+export default function Header() {
   const { y } = useWindowScroll();
 
-  const handleHomeClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    router.push("/");
-  };
+  const [isOpen, toggle] = useBoolean(false);
+
+  useLockBodyScroll(isOpen);
 
   return (
     <header
@@ -30,9 +37,9 @@ export default function Header() {
     >
       <div css={styles.contents}>
         <div css={styles.left}>
-          <a css={styles.home} href="/" onClick={handleHomeClick}>
+          <Link css={styles.home} href="/">
             <span>onschan.me</span>
-          </a>
+          </Link>
         </div>
         <div css={styles.right}>
           <div>
@@ -41,15 +48,15 @@ export default function Header() {
                 display: flex;
                 gap: 8px;
 
-                /* @media screen and (max-width: ${BREAK_POINT}px) {
+                @media screen and (max-width: ${BREAK_POINT}px) {
                   display: none;
-                } */
+                }
               `}
             >
               <Link href="/">
                 <span css={styles.linkStyle}>Home</span>
               </Link>
-              {/* <Link href="/postList">
+              <Link href="/postList">
                 <span css={styles.linkStyle}>Posts</span>
               </Link>
               <Link href="/about">
@@ -57,9 +64,9 @@ export default function Header() {
               </Link>
               <Link href="/rss.xml">
                 <span css={styles.linkStyle}>RSS</span>
-              </Link> */}
+              </Link>
             </div>
-            {/* <div
+            <div
               css={css`
                 display: none;
 
@@ -79,16 +86,85 @@ export default function Header() {
                   border-radius: 9999px;
                   color: ${theme.text.primary};
                 `}
+                onClick={toggle}
               >
                 <IoMenu />
               </button>
-            </div> */}
+            </div>
           </div>
           <div>
             <ThemeSwitch />
           </div>
         </div>
       </div>
+      {isOpen && (
+        <div
+          css={css`
+            position: absolute;
+            top: 58px;
+            width: calc(100vw);
+            height: calc(100vh - 60px + 2px);
+            background: ${theme.background.primary};
+            border-top: 1px solid ${theme.border.default};
+            animation: ${slideDown} 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+          `}
+        >
+          <Link
+            href="/"
+            css={css`
+              font-size: 18px;
+              color: ${theme.text.primary};
+              text-decoration: none;
+              padding: 20px;
+              border-bottom: 1px solid ${theme.border.default};
+              width: 100%;
+            `}
+          >
+            Home
+          </Link>
+          <Link
+            href="/postList"
+            css={css`
+              font-size: 18px;
+              color: ${theme.text.primary};
+              text-decoration: none;
+              padding: 20px;
+              border-bottom: 1px solid ${theme.border.default};
+              width: 100%;
+            `}
+          >
+            Posts
+          </Link>
+          <Link
+            href="/about"
+            css={css`
+              font-size: 18px;
+              color: ${theme.text.primary};
+              text-decoration: none;
+              padding: 20px;
+              border-bottom: 1px solid ${theme.border.default};
+              width: 100%;
+            `}
+          >
+            About
+          </Link>
+          <Link
+            href="/rss.xml"
+            css={css`
+              font-size: 18px;
+              color: ${theme.text.primary};
+              text-decoration: none;
+              padding: 20px;
+              border-bottom: 1px solid ${theme.border.default};
+              width: 100%;
+            `}
+          >
+            RSS
+          </Link>
+        </div>
+      )}
     </header>
   );
 }

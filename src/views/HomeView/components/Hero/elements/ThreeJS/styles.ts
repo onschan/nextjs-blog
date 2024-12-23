@@ -10,7 +10,9 @@ export const canvasContainer = css`
   align-items: center;
   justify-content: center;
   width: 38vw;
+  max-width: 800px;
   height: 38vw;
+  max-height: 800px;
   cursor: pointer;
 
   @media screen and (max-width: ${BREAK_POINT}px) {
