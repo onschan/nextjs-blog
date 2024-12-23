@@ -10,7 +10,7 @@ export const container = css`
   display: flex;
   gap: 20px;
   border-top: 1px solid ${theme.border.default};
-  padding: 32px 0;
+  padding: 28px 0;
 `;
 
 export const avatar = css`
