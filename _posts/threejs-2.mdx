@@ -1,0 +1,407 @@
+---
+title: Three.js로 현실감 있는 3D 객체 만들기
+date: "2024-12-10"
+description: Three.js와 친해지기 - 2편
+thumbnail: 
+tags: ["Three.js"]
+---
+
+> 💡 이 글은 [Three.js 공식 문서](https://threejs.org/docs/)를 기반으로 작성되었습니다.
+
+> 📍 Next.js 기반의 사이트 제작기의 일부분으로 실습 코드는 React 기반입니다.
+
+<a href="/post/threejs-1">지난 글</a>에서 Scene, Camera, Renderer라는 Three.js의 기본 개념들을 알아보았습니다.
+
+이번에는 실제로 3D 객체를 만들고 현실감 있게 표현하는 방법인 Mesh와 Light에 대해 알아보겠습니다.
+
+# Mesh란?
+
+<a href="https://threejs.org/docs/index.html#api/en/objects/Mesh">Mesh</a>는 Geometry(형태)와 Material(재질)을 결합하여 3D 객체를 생성하고 이를 장면(Scene)에 추가하는 데 사용됩니다.
+
+- Geometry (형태): 객체의 모양과 구조를 정의
+- Material (재질): 객체의 외관과 시각적 특성을 정의
+
+```javascript
+const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+```
+
+## Geometry (형태)
+
+<a href="https://threejs.org/docs/index.html#api/ko/core/BufferGeometry">Geometry</a>는 3D 객체의 뼈대를 형성하는 정점(vertices)과 면(faces)의 집합입니다. 
+
+Three.js는 다양한 기본 도형을 제공합니다.
+
+### 기본 도형들
+
+#### 1. BoxGeometry: 육면체
+```javascript
+const boxGeometry = new THREE.BoxGeometry(
+    width,   // x축 길이
+    height,  // y축 길이
+    depth    // z축 길이
+);
+```
+
+#### 2. SphereGeometry: 구체
+```javascript
+const sphereGeometry = new THREE.SphereGeometry(
+    radius,        // 반지름
+    widthSegments, // 가로 분할 수
+    heightSegments // 세로 분할 수
+);
+```
+
+#### 3. CylinderGeometry: 원통
+```javascript
+const cylinderGeometry = new THREE.CylinderGeometry(
+    radiusTop,    // 상단 반지름
+    radiusBottom, // 하단 반지름
+    height,       // 높이
+    radialSegments // 원통 둘레의 분할 수
+);
+```
+
+#### 4. PlaneGeometry: 평면
+```javascript
+const planeGeometry = new THREE.PlaneGeometry(
+    width,  // 가로 길이
+    height  // 세로 길이
+);
+```
+
+> 💡 내장되어있는 더 많은 도형들과 사용되는 속성은 [공식 문서](https://threejs.org/docs/index.html#api/ko/geometries/BoxGeometry)에서 `Geometries` 파트를 통해 확인할 수 있습니다.
+
+## Material (재질)
+
+<a href="https://threejs.org/docs/index.html#api/en/materials/Material">Material</a>은 객체의 시각적 특성을 정의합니다. 색상, 투명도, 텍스처 등을 설정할 수 있습니다.
+
+가장 기본적인 재질을 표현하는 MeshBasicMaterial은 아래처럼 작성할 수 있습니다.
+```javascript
+const basicMaterial = new THREE.MeshBasicMaterial({
+    color: 0xff0000,      // 색상
+    wireframe: false,     // 와이어프레임 모드
+    transparent: false,   // 투명도 사용 여부
+    opacity: 1.0          // 불투명도 (0~1)
+    ...
+});
+```
+
+### 내장되어있는 Material 종류
+
+  - ####  MeshBasicMaterial: 
+
+    조명 효과를 받지 않는 가장 기본적인 재질로, 단순한 색상과 텍스처만 표현
+
+  - #### MeshDepthMaterial: 
+
+    카메라로부터의 거리에 따라 흑백으로 렌더링되는 재질
+
+  - #### MeshDistanceMaterial: 
+
+    주로 그림자 매핑을 위해 내부적으로 사용되는 특수 재질
+
+  - #### MeshLambertMaterial: 
+
+    무광택 표면을 위한 기본적인 조명 계산(diffuse)만 하는 경제적인 재질
+
+  - #### MeshMatcapMaterial: 
+
+    미리 계산된 재질 캡처 이미지를 사용해 고성능으로 현실감 있는 효과를 내는 재질
+
+  - #### MeshNormalMaterial: 
+
+    표면의 법선 벡터를 RGB 색상으로 시각화하는 재질
+
+  - #### MeshPhongMaterial: 
+
+    광택 효과(specular highlight)를 포함한 기본적인 조명 계산을 하는 재질
+
+  - #### MeshPhysicalMaterial: 
+
+    MeshStandardMaterial을 확장해 clearcoat, sheen 등 고급 물리 속성을 추가한 재질
+
+  - #### MeshStandardMaterial: 
+
+    PBR 기반의 기본 재질로 metalness와 roughness를 주요 속성으로 사용
+
+  - #### MeshToonMaterial: 
+
+    카툰/셀 셰이딩 스타일의 이산적인 톤을 표현하는 재질
+
+  - #### LineBasicMaterial: 
+
+    실선으로 된 라인을 그리기 위한 기본 재질
+
+  - #### LineDashedMaterial: 
+
+    점선 스타일의 라인을 그리기 위한 재질
+
+  - #### PointsMaterial: 
+
+    점 구름(Point Cloud) 렌더링을 위한 재질
+
+  - #### RawShaderMaterial: 
+
+    WebGL 셰이더를 완전히 처음부터 직접 작성할 수 있는 기본 재질
+
+  - #### ShaderMaterial: 
+
+    Three.js의 기본 유니폼과 속성이 미리 정의된 커스텀 셰이더 재질
+
+  - #### ShadowMaterial: 
+
+    그림자만 시각화하기 위한 특수 재질
+
+  - #### SpriteMaterial: 
+
+    항상 카메라를 향하는 2D 평면 스프라이트를 위한 재질
+
+> 💡 대부분의 Material 생성자는 동일한 Material 객체를 상속받지만,<br/> 각 Material은 성격에 따라 고유한 프로퍼티를 가질 수 있으므로 사용 시 [공식 문서](https://threejs.org/docs/index.html#api/en/materials/Material)를 참고해주세요.
+
+# Light(조명)이란?
+
+[Light](https://threejs.org/docs/#api/en/lights/Light)는 3D 장면에 현실감을 더해주는 중요한 요소입니다.
+
+### 주요 조명 종류
+
+#### 1. AmbientLight
+- 장면 전체에 균일하게 적용되는 기본 조명
+- 그림자를 만들지 않음
+
+```javascript
+const light = new THREE.AmbientLight(
+    0xffffff,  // (선택 사항) 빛의 색상 (기본값: 0xffffff, 흰색)
+    0.5        // (선택 사항) 빛의 강도 (0 ~ 1 사이의 값)
+);
+scene.add( light );
+```
+
+#### 2. PointLight
+- 전구와 같이 한 점에서 모든 방향으로 빛을 방출
+- 거리에 따라 감쇄
+- 그림자 생성 가능 ([PointLightShadow](https://threejs.org/docs/index.html#api/en/lights/shadows/PointLightShadow))
+
+```javascript
+const light = new THREE.PointLight(
+    0xffffff,  // 빛의 색상 (기본값: 0xffffff, 흰색)
+    1.0,       // 빛의 강도 (0 ~ 1 사이의 값)
+    100        // 최대 거리 (빛의 영향을 받는 거리, 기본값: 0 = 무제한)
+    2          // 감쇠율 (빛이 거리 따라 줄어드는 정도, 기본값: 2)
+);
+light.position.set( 50, 50, 50 ); // 빛이 발생할 위치 설정
+scene.add( light );
+```
+
+#### 3. DirectionalLight
+- 태양광과 무한히 멀리있는 곳부터 발생하는 평행한 광선을 만드는 조명
+- 그림자 생성 가능 ([DirectionalLight](https://threejs.org/docs/#api/en/lights/DirectionalLight))
+
+```javascript
+const directionalLight = new THREE.DirectionalLight( 
+    0xffffff,  // (선택 사항) 빛의 색상 (기본값: 0xffffff, 흰색)
+    0.5        // (선택 사항) 빛의 강도 (0 ~ 1 사이의 값)
+);
+scene.add( directionalLight );
+```
+
+#### 4. HemisphereLight
+- 하늘과 지면에서 오는 빛을 시뮬레이션
+- 두 색상의 그라데이션 효과를 제공
+- 그림자를 만들지 않음
+
+```javascript
+const light = new THREE.HemisphereLight(
+    0x87ceeb,  // 하늘 색상 (sky color, 기본값: 0xffffff)
+    0x404040,  // 지면 색상 (ground color, 기본값: 0xffffff)
+    0.8        // 빛의 강도 (0 ~ 1 사이의 값, 기본값: 1)
+);
+scene.add( light );
+```
+
+#### 5. RectAreaLight
+- 밝은 창문, 스트립 조명 등 직사각형 광원을 시뮬레이션하는 데 적합
+- 정확한 빛 반사를 위해 사용
+- MeshStandardMaterial이나 MeshPhysicalMaterial에서만 호환 가능
+- 사용을 위해 [RectAreaLightUniformsLib](https://threejs.org/examples/jsm/lights/RectAreaLightUniformsLib.js)를 호출해야만함
+- 그림자를 만들지 않음
+
+```javascript
+const rectLight = new THREE.RectAreaLight(
+    0xffffff,  // 빛의 색상 (기본값: 0xffffff, 흰색)
+    1,         // 빛의 강도 (0 ~ 1 사이의 값)
+    10,         // 너비 (가로 크기, 기본값: 10)
+    10         // 높이 (세로 크기, 기본값: 10)
+);
+
+rectLight.add(rectLightHelper);
+rectLight.position.set( 5, 5, 0 ); // RectAreaLight의 위치 설정
+rectLight.lookAt( 0, 0, 0 ); // 조명의 방향 설정
+scene.add( rectLight ) // RectAreaLight를 장면에 추가
+
+const rectLightHelper = new RectAreaLightHelper( rectLight ); // RectAreaLightHelper를 사용해 조명의 영역 시각화
+rectLight.add( rectLightHelper );
+```
+
+#### 6. SpotLight
+- 한 지점에서 한 방향으로 방출되며, 빛에서 멀어질수록 크기가 커지는 원뿔을 형태로 방출
+- 무대 조명과 같은 효과
+- 그림자 생성 가능 ([SpotLightShadow](https://threejs.org/docs/index.html#api/en/lights/shadows/SpotLightShadow))
+
+```javascript
+const spotLight = new THREE.SpotLight(
+    0xffffff,      // 빛의 색상 (기본값: 0xffffff, 흰색)
+    1.0,           // 빛의 강도 (0 ~ 1 사이의 값, 기본값: 1)
+    100,           // 최대 거리 (빛의 영향을 받는 거리, 기본값: 0 = 무제한)
+    Math.PI / 4,   // 광선이 퍼지는 최대 각도 (라디안 값, 기본값: Math.PI/2)
+    0.1,           // 반그림자 비율 (0 ~ 1, 기본값: 0)
+    2              // 감쇠율 (빛이 거리 따라 줄어드는 정도, 기본값: 2)
+);
+
+// SpotLight의 위치 설정
+spotLight.position.set(100, 1000, 100);
+
+// 텍스처를 사용하여 빛의 모양을 조절
+spotLight.map = new THREE.TextureLoader().load('texture.jpg');
+
+// 그림자 설정
+spotLight.castShadow = true;
+
+// 그림자 품질 설정
+spotLight.shadow.mapSize.width = 1024;  // 그림자 텍스처 너비
+spotLight.shadow.mapSize.height = 1024; // 그림자 텍스처 높이
+
+// 그림자 카메라 설정
+spotLight.shadow.camera.near = 500;  // 그림자 시작 거리
+spotLight.shadow.camera.far = 4000; // 그림자 끝 거리
+spotLight.shadow.camera.fov = 30;   // 그림자 카메라의 시야각 (Field of View)
+
+// 장면(Scene)에 조명 추가
+scene.add(spotLight);
+```
+
+# 실습
+
+이전 예제의 하트 모양을 발전시켜, 다양한 재질과 조명을 적용해보겠습니다.
+
+```javascript
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+
+export default function ThreeHeartExample() {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    containerRef.current.appendChild(renderer.domElement);
+
+    const heartShape = new THREE.Shape();
+
+    const x = 0,
+      y = 0;
+    heartShape.moveTo(x + 5, y + 5);
+    heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+    heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+    heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+    heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
+    heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+    heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+   // 기존 코드에서 ShapeGeometry를 입체적인 표현을 위해 ExtrudeGeometry로 변경
+    const geometry = new THREE.ExtrudeGeometry(heartShape, {
+      depth: 2,
+      bevelEnabled: true,
+      bevelSegments: 2,
+      steps: 2,
+      bevelSize: 1,
+      bevelThickness: 1,
+    });
+
+    // 조명 효과를 위해 MeshBasicMaterial에서 MeshStandardMaterial로 변경
+    const material = new THREE.MeshStandardMaterial({
+      color: "red",
+      metalness: 0.3, // 0 ~ 1 / 0: 비금속성 (예: 플라스틱, 나무 등) 1: 금속성 (예: 철, 금 등)
+      roughness: 0.2, // 0 ~ 1 / 0: 매끄러운 표면 (예: 유리, 거울), 1: 매우 거친 표면 (예: 콘크리트, 천)
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    // 장면 전체에 균일하게 적용되는 기본 조명
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    // 입체적인 표현을 위한 한 점에서 빛을 발사하는 조명
+    const pointLight = new THREE.PointLight(0xffffff, 1, 0, 0);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
+
+    camera.position.z = 50;
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    };
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    animate();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <div ref={containerRef} style={{ width: "100%", height: "100vh" }} />;
+}
+
+```
+
+## 실행 결과
+
+<ThreeHeartExample2 />
+
+# 마무리
+
+3D 객체 답게 Mesh, Light를 이용하여 입체적인 도형을 장면에 추가하는 방법을 알아보았습니다.
+
+다행히도 이 모든 생성자와 그 특징을 알아야만 3D 객체를 화면에 표현할 수 있는 건 아닙니다.
+
+세상에는 이미 멋지게 만들어진 3D 객체들이 있고, 그 객체를 직접 불러와 렌더링 시킬 수 있는 방법이 있습니다.
+
+다음 게시글을 통해 알아봅시다! 🤓
+
+---
+
+### 관련 게시글
+
+1편: [Three.js 기본 개념 알아보기](/post/threejs-1)

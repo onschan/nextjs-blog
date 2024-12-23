@@ -18,7 +18,7 @@ export default function SEO(props: Props) {
 
   return (
     <Head>
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.png" />
       <link rel="canonical" href={`${DOMAIN}${url}`} />
 
       <meta name="robots" content="index,follow" />

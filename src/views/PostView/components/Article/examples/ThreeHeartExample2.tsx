@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function ThreeHeartExample() {
+export default function ThreeHeartExample2() {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -39,10 +39,30 @@ export default function ThreeHeartExample() {
     heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
     heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
 
-    const geometry = new THREE.ShapeGeometry(heartShape);
-    const material = new THREE.MeshBasicMaterial({ color: "red" });
+    const geometry = new THREE.ExtrudeGeometry(heartShape, {
+      depth: 2,
+      bevelEnabled: true,
+      bevelSegments: 2,
+      steps: 2,
+      bevelSize: 1,
+      bevelThickness: 1,
+    });
+
+    const material = new THREE.MeshStandardMaterial({
+      color: "red",
+      metalness: 0.3,
+      roughness: 0.2,
+    });
+
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1, 0, 0);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
 
     camera.position.z = 50;
 

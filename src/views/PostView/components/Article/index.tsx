@@ -7,7 +7,7 @@ import type { Post } from "@/types";
 import * as styles from "./styles";
 
 import { Bio, CaptionImage } from "./components";
-import { ThreeHeartExample } from "./examples";
+import { ThreeHeartExample, ThreeHeartExample2 } from "./examples";
 import { useArticleAnchor } from "./hooks";
 
 interface Props {
@@ -46,6 +46,7 @@ export default function Article(props: Props) {
     CaptionImage,
     SyntaxHighlighter,
     ThreeHeartExample,
+    ThreeHeartExample2,
   } as MDXRemoteProps["components"];
 
   return (
