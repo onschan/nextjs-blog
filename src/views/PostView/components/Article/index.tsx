@@ -6,7 +6,7 @@ import type { Post } from "@/types";
 
 import * as styles from "./styles";
 
-import { CaptionImage } from "./components";
+import { Bio, CaptionImage } from "./components";
 import { ThreeHeartExample } from "./examples";
 import { useArticleAnchor } from "./hooks";
 
@@ -55,6 +55,7 @@ export default function Article(props: Props) {
       <article ref={articleRef} css={styles.article}>
         <MDXRemote components={components} {...mdxSource} />
       </article>
+      <Bio />
     </section>
   );
 }
