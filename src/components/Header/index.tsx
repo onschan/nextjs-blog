@@ -1,9 +1,7 @@
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import { useBoolean, useLockBodyScroll, useWindowScroll } from "react-use";
-
-import { theme } from "@/theme";
 
 import { BREAK_POINT } from "@/constants";
 
@@ -49,22 +47,22 @@ export default function Header() {
                 </Link>
               ))}
             </div>
-            <div
-              css={css`
-                display: none;
-
-                @media screen and (max-width: ${BREAK_POINT}px) {
-                  display: block;
-                }
-              `}
-            >
-              <button css={styles.menuButton} onClick={toggle}>
-                <IoMenu />
-              </button>
-            </div>
           </div>
           <div>
             <ThemeSwitch />
+          </div>
+          <div
+            css={css`
+              display: none;
+
+              @media screen and (max-width: ${BREAK_POINT}px) {
+                display: block;
+              }
+            `}
+          >
+            <button css={styles.menuButton} onClick={toggle}>
+              <IoMenu />
+            </button>
           </div>
         </div>
       </div>

@@ -12,7 +12,9 @@ interface Props {
 export default function PostCard({ post }: Props) {
   return (
     <Link key={post.slug} href={`post/${post.slug}`} css={styles.postContainer}>
-      <span css={styles.title}>{post.title || "무제"} </span>
+      <span className="title" css={styles.title}>
+        {post.title || "무제"}
+      </span>
       <span css={styles.description}>{post.description}</span>
       <span css={styles.date}>{post.date}</span>
     </Link>

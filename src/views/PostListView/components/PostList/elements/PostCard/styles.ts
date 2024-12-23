@@ -9,16 +9,14 @@ export const postContainer = css`
   flex-direction: column;
   gap: 8px;
   width: 100%;
-  max-width: 1200px;
   padding: 16px;
-  border: 1px solid ${theme.border.default};
+  border: 1px dashed ${theme.border.default};
   border-radius: 8px;
   background: ${theme.background.primary};
   cursor: pointer;
 
   &:hover {
-    & > :first-child {
-      color: ${theme.text.hero};
+    .title {
       text-decoration: underline;
     }
   }
