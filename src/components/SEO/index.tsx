@@ -14,7 +14,7 @@ interface Props {
 export default function SEO(props: Props) {
   const { title, description = "Deep Reflection.", url, keywords, image } = props;
 
-  const ogImage = image ? image : `/assets/images/character.webp`;
+  const ogImage = image ? image : `/assets/images/thumbnail.webp`;
 
   return (
     <Head>
