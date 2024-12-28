@@ -141,7 +141,7 @@ export const prose = {
     font-size: 32px;
     line-height: 1.3;
     letter-spacing: -0.02rem;
-    margin: 2.5rem 0 1rem;
+    margin: 3rem 0 1rem;
 
     @media screen and (max-width: ${BREAK_POINT}px) {
       font-size: 26px;
@@ -152,7 +152,7 @@ export const prose = {
     font-size: 24px;
     line-height: 1.4;
     letter-spacing: -0.01rem;
-    margin: 2rem 0 0.9rem;
+    margin: 2.5rem 0 0.9rem;
 
     @media screen and (max-width: ${BREAK_POINT}px) {
       font-size: 22px;
@@ -162,7 +162,7 @@ export const prose = {
     font-weight: 600;
     font-size: 20px;
     line-height: 1.4;
-    margin: 1.8rem 0 0.8rem;
+    margin: 2rem 0 0.8rem;
   `,
   h4: css`
     font-weight: 600;
