@@ -21,11 +21,11 @@ export default function Hero() {
               Read Posts
             </button>
           </Link>
-          <Link href="/postList">
+          {/* <Link href="/postList">
             <button type="button" css={styles.secondary}>
               About
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
