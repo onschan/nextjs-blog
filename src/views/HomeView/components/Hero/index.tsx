@@ -1,4 +1,6 @@
+import { css } from "@emotion/react";
 import Link from "next/link";
+import { useRef } from "react";
 
 import * as styles from "./styles";
 

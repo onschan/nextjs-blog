@@ -7,6 +7,7 @@ import { BREAK_POINT } from "@/constants";
 import { colors } from "@/styles";
 
 export const layout = css`
+  z-index: 1;
   display: flex;
   gap: 80px;
   align-items: center;
@@ -14,7 +15,6 @@ export const layout = css`
   width: 100%;
   min-height: calc(100vh - 80px - 60px);
   height: 100%;
-  background: ${theme.background.primary};
   font-size: 16px;
 
   @media screen and (max-width: ${BREAK_POINT}px) {

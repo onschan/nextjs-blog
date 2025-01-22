@@ -13,11 +13,11 @@ export const headerWrapper = ({ isScrolled }: { isScrolled: boolean }) => css`
   align-items: center;
   width: 100%;
   height: 60px;
-  background: ${theme.background.primary};
 
   ${isScrolled &&
   css`
     border-bottom: 1px solid ${theme.border.default};
+    backdrop-filter: blur(32px);
   `}
 `;
 
