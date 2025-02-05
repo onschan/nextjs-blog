@@ -8,13 +8,13 @@ export default function Bio() {
     <div css={styles.container}>
       <div css={styles.Links}>
         <Link href="mailto:cks3066@naver.com" target="_blank">
-          <IoMail size={20} />
+          <IoMail size={24} />
         </Link>
         <Link href="https://github.com/onschan/" target="_blank">
-          <IoLogoGithub size={20} />
+          <IoLogoGithub size={24} />
         </Link>
         <Link href="https://www.linkedin.com/in/seungchan-on-a58000252/" target="_blank">
-          <IoLogoLinkedin size={20} />
+          <IoLogoLinkedin size={24} />
         </Link>
       </div>
     </div>

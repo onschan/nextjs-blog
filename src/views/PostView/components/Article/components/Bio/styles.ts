@@ -56,5 +56,9 @@ export const Links = css`
   svg {
     color: ${theme.text.secondary};
     cursor: pointer;
+
+    :hover {
+      color: ${theme.text.primary};
+    }
   }
 `;
