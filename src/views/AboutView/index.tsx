@@ -1,65 +1,207 @@
 import { css } from "@emotion/react";
 
+import { theme } from "@/theme";
+
+import { colors, typography } from "@/styles";
+
+import { Bio } from "./components";
 import Layout from "./layout";
 
-// 당신은 누구인가? 정보 페이지에서 대답해야 하는 가장 근본적인 질문은 "당신은 누구인가?"이다. 간단하고 간결한 설명으로 자신이나 조직을 소개한다. 이 진술은 귀하의 정체성, 가치, 사명을 간단히 전달해야 한다. 단순하고 매력적인 내용을 유지하여 방문자가 처음부터 누구인지 명확하게 이해할 수 있도록 해야한다.
+const containerStyle = css`
+  max-width: 72rem;
+  padding: 2rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+`;
 
-// 당신의 이야기는 무엇인가? 사람들은 이야기를 좋아하며 정보 페이지는 자신의 이야기를 공유하기에 좋은 장소이다. 현재의 위치로 이끈 여정을 설명한다. 비즈니스를 형성한 중요한 이정표, 경험 또는 과제를 강조한다. 스토리텔링은 청중과 개인적인 관계를 형성하고 공감을 높이는 데 도움이 될 수 있다.
+const sectionStyle = css`
+  ${typography.body}
+  display:flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
 
-// 일을 왜 하고 있는가? '이유'를 설명하는 것은 청중과 더 깊은 차원에서 소통할 수 있는 강력한 방법이다. 하는 일에 대한 열정과 목적을 공유한다. 이 길을 선택한 이유는 무엇이며, 계속 활동하게 된 동기는 무엇인지에 대해 공유한다.
+const title = css`
+  ${typography.large}
 
-// 타깃 고객은 누구인가? 정보 페이지는 청중에 관한 것이다. 타깃 고객이 누구인지 명확히 한다. 서비스를 제공하려는 사람들과 콘텐츠 또는 제품에 참여함으로써 그들이 무엇을 얻을 수 있는지 설명한다. 이를 통해 방문자는 웹사이트가 자신의 관심과 요구 사항에 부합하는지 판단하는 데 도움이 된다.
-// 나를 스카웃 하고 싶어하는 기업들, 프론트엔드 개발자로 성장하고 싶어하는 사람들, 내 글을 읽고 내가 궁금한 사람들
+  strong {
+    font-weight: bold;
+    color: ${colors.primary[500]};
+  }
+`;
 
-// 차별화하는 요소는 무엇인가? 혼잡한 디지털 환경에서는 자신을 차별화하는 것이 중요하다. 비즈니스를 특별하게 만드는 것이 무엇인지 설명한다. 경쟁업체와 차별화되는 강점, 기술 또는 자질을 강조한다. 이는 전문 지식, 접근 방식 또는 브랜드를 정의하는 특별한 특성일 수 있다.
+const headingStyle = css`
+  ${typography.medium}
+  margin-top: 1rem;
+`;
 
-// 무엇을 달성했나? 성과를 소개하면 청중의 신뢰와 신뢰를 구축할 수 있다. 해당 분야에서 달성한 관련 수상, 표창, 인증 또는 중요한 이정표를 공유한다. 이는 전문 지식을 확립할 뿐만 아니라 기술에 대한 헌신을 보여줄 수 있다.
+const subheadingStyle = css`
+  ${typography.subsection}
+`;
 
-// 방문자는 어떻게 연결할 수 있을까? 방문자가 쉽게 소통하거나 비즈니스에 대해 더 자세히 알아볼 수 있도록 한다. 이메일, 소셜 미디어 프로필, 문의 양식 등 다양한 문의 옵션을 제공한다. 방문자가 연락하고, 뉴스레터를 구독하고, 소셜 미디어에서 팔로우하도록 유도하는 클릭 유도 문구를 포함하는 것을 고려한다.
+const listStyle = css`
+  padding-left: 1.5rem;
+  list-style-type: circle;
+`;
 
-// 향후 계획은? 방문자에게 다음에 나올 내용을 간략하게 보여줌으로써 정보 페이지를 마무리한다. 웹사이트나 비즈니스에 대한 향후 목표, 프로젝트 또는 계획을 공유한다. 이는 기대감을 조성하고 청중의 참여를 유지한다. 이는 또한  발전하고 성장하는 데 전념하고 있음을 보여줄 수 있다.
+const contentStyle = css`
+  display: flex;
+  gap: 32px;
+  border-left: 2px solid ${colors.primary[500]};
+  padding-left: 1.2rem;
+`;
 
-export default function HomeView() {
+const contentTitleStyle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 280px;
+`;
+
+const subContentStyle = css`
+  ${typography.caption}
+  color: ${theme.text.secondary};
+`;
+
+export default function AboutView() {
   return (
     <Layout>
-      <section>
-        당신은 누구인가? 안녕하세요. 저는 프론트엔드 개발자 온승찬입니다. 저는 Why의 가치를 중요하게
-        생각하며, 끊임없이 배우고 성장하는 개발자가 되기 위해 노력하고 있습니다.
-      </section>
-      <section>
-        당신의 이야기는 무엇인가?
-        <ul>
-          <li>2022.12 ~ 현재 | Frontend Developer | 셀러허브</li>
-          <li>2022.02 ~ 2022.12 | Internship | 우아한테크코스</li>
-          <li>2015.03 ~ 2022.02 | 소프트웨어학부 복수전공 | 광운대학교</li>
-        </ul>
-        대학교에서 소프트웨어학부를 복수전공하며 프로그래밍에 대한 기초를 다졌습니다.
-        우아한테크코스에서 프론트엔드 개발자로 성장하기 위해 노력하며, 현재는 셀러허브에서
-        프론트엔드 개발자로 일하고 있습니다.
-      </section>
-      <section>
-        일을 왜 하고 있는가? 내가 생각하고 만드는 것이 눈에 보이는 결과물이 되어 나타나는 것에
-        흥미를 느껴 프론트엔드 개발자가 되었습니다. 제가 직접 만든 것이 누군가에게 도움이 되고,
-        그것이 눈에 보이는 것이 행복합니다. 개발 중에도 내가 첫번째 사용자가 되어 테스트하고
-        개선하는 것을 중요하게 생각합니다.
-      </section>
+      <div css={containerStyle}>
+        <section css={sectionStyle}>
+          <h1 css={title}>
+            안녕하세요. 개발자 <strong>온승찬</strong>입니다.
+          </h1>
+          <p>
+            법학을 전공하며 논리적인 사고를 배우고, 소프트웨어를 복수 전공하며 개발자로서의 길을
+            걷게 되었습니다. <br />
+            사용자에게 좋은 경험을 제공하는 것에 흥미를 느끼며, <strong>프론트엔드 개발자</strong>
+            로서 성장하고 있습니다.
+            <br />
+            개발자로서 <strong>'Why?'</strong>를 중요하게 생각하며 개발을 합니다. 선택의 이유를
+            고민하고 더 나은 사용자 경험을 제공하기 위해 노력합니다.
+            <br />
+            <strong>함께 자라기</strong>의 힘을 믿으며 깊이 있는 탐구와 공유를 통해 함께 성장하는
+            개발자가 되고자 합니다.
+          </p>
 
-      <section>
-        차별화하는 요소는 무엇인가?
-        <ul>
-          <li>프론트엔드 개발자로서의 열정</li>
-          <li>코드 리뷰에 대한 열정</li>
-          <li>테스트 코드 작성에 대한 열정</li>
-        </ul>
-      </section>
+          <Bio />
+        </section>
 
-      <section>
-        무엇을 달성했나?
-        <ul>
-          <li>우아한테크코스 4기 수료</li>
-          <li>셀러허브 프론트엔드 개발자로 취업</li>
-        </ul>
-      </section>
+        <section css={sectionStyle}>
+          <h2 css={headingStyle}>Work Experience</h2>
+
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>셀러허브</h3>
+              <p>Frontend Engineer</p>
+              <p css={subContentStyle}>2022.12 ~ 현재</p>
+            </div>
+            <ul css={listStyle}>
+              <li>
+                Next.js, TypeScript, Recoil, React Query 기반 이커머스 백오피스 SaaS 플랫폼 개발
+              </li>
+              <li>600개 이상의 옵션 데이터를 실시간으로 처리하는 상품 관리 시스템 구축</li>
+              <li>통합 인증 시스템 개발 및 사내 서비스 통합</li>
+              <li>디자인 시스템 구축 및 Storybook 문서화 진행</li>
+            </ul>
+          </div>
+        </section>
+
+        <section css={sectionStyle}>
+          <h2 css={headingStyle}>Other Experiences</h2>
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>우아한테크코스 리뷰어</h3>
+              <p css={subContentStyle}>2025.02 ~ 2025.06</p>
+            </div>
+            <ul css={listStyle}>
+              <li>우아한형제들이 주최하는 개발자 FE 양성 교육 리뷰어 참여</li>
+              <li>30명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
+            </ul>
+          </div>
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>코드잇 프론트엔드 멘토</h3>
+              <p css={subContentStyle}>2025.02 ~ 2025.04</p>
+            </div>
+            <ul css={listStyle}>
+              <li>코드잇에서 주관하는 프론트엔드 부트캠프 멘토 참여</li>
+              <li>학습 및 프로젝트에 대한 비대면 멘토링 진행</li>
+            </ul>
+          </div>
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>NEXTSTEP 리뷰어</h3>
+              <p css={subContentStyle}>2024.02 ~ 2024.06</p>
+            </div>
+            <ul css={listStyle}>
+              <li>NEXTSTEP에서 주관하는 TDD, 클린코드 with 리액트 3기 리뷰어 참여</li>
+              <li>5명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
+            </ul>
+          </div>
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>우아한테크코스</h3>
+              <p css={subContentStyle}>2025.02 ~ 2025.06</p>
+            </div>
+            <ul css={listStyle}>
+              <li>우아한형제들이 주최하는 개발자 FE 양성 교육 참여</li>
+              <li>클린코드, 협업, 서비스 개발 및 운영에 대한 학습</li>
+            </ul>
+          </div>
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>오픈 소스 컨트리뷰터</h3>
+            </div>
+            <ul css={listStyle}>
+              <li>리액트 공식 문서 한국어 번역 참여 - 2023.06.26</li>
+            </ul>
+          </div>
+        </section>
+
+        <section css={sectionStyle}>
+          <h2 css={headingStyle}>Projects</h2>
+
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>블로그 운영</h3>
+              <p css={subContentStyle}>2024.11 ~ 현재</p>
+            </div>
+            <ul css={listStyle}>
+              <li>
+                Next.js 기반 개인 블로그 <a href="https://www.onschan.me">onschan.me</a> 운영
+              </li>
+              <li>RSS 및 검색 엔진 최적화 적용</li>
+            </ul>
+          </div>
+
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>GongCheck</h3>
+              <p>Frontend Engineer</p>
+              <p css={subContentStyle}>2022.06 ~ 2022.10</p>
+            </div>
+            <ul css={listStyle}>
+              <li>React, TypeScript, Recoil 기반 공간 관리 및 체크리스트 제작 툴 개발</li>
+              <li>LCP 8초 → 3초 최적화, Lighthouse 성능 40점 → 80점 개선</li>
+              <li>실시간 데이터 동기화 SSE → WebSocket 마이그레이션</li>
+              <li>Webpack 최적화 및 E2E 테스트 자동화</li>
+            </ul>
+          </div>
+        </section>
+
+        <section css={sectionStyle}>
+          <h2 css={headingStyle}>Certificate</h2>
+
+          <div css={contentStyle}>
+            <div css={contentTitleStyle}>
+              <h3 css={subheadingStyle}>정보처리기사</h3>
+            </div>
+            <p>한국산업인력공단 | 2021.11.26</p>
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 }

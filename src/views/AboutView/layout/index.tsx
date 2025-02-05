@@ -13,7 +13,7 @@ export default function Layout({ children }: Props) {
     <>
       <Header />
       <main css={styles.layout}>{children}</main>
-      <Footer hasCopyright />
+      <Footer />
     </>
   );
 }

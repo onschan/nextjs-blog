@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IoLogoGithub, IoLogoLinkedin } from "react-icons/io5";
+import { IoLogoGithub, IoLogoLinkedin, IoMail } from "react-icons/io5";
 
 import * as styles from "./styles";
 
@@ -18,6 +18,9 @@ export default function Bio() {
           <Link href="/about">온승찬</Link> | Frontend Developer
         </p>
         <div css={styles.Links}>
+          <Link href="mailto:cks3066@naver.com" target="_blank">
+            <IoMail size={20} />
+          </Link>
           <Link href="https://github.com/onschan/" target="_blank">
             <IoLogoGithub size={20} />
           </Link>
