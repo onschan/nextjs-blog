@@ -2,24 +2,31 @@ import { css } from "@emotion/react";
 
 import { theme } from "@/theme";
 
+import { BREAK_POINT } from "@/constants";
+
 import { colors, typography } from "@/styles";
 
 import { Bio } from "./components";
 import Layout from "./layout";
 
 const containerStyle = css`
-  max-width: 72rem;
-  padding: 2rem 1.5rem 4rem;
+  font-size: 16px;
+  max-width: 72em;
+  padding: 2em 1.5em 4em;
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 3.5em;
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    font-size: 10px;
+  }
 `;
 
 const sectionStyle = css`
   ${typography.body}
   display:flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5em;
 `;
 
 const title = css`
@@ -33,7 +40,7 @@ const title = css`
 
 const headingStyle = css`
   ${typography.medium}
-  margin-top: 1rem;
+  margin-top: 1em;
 `;
 
 const subheadingStyle = css`
@@ -41,7 +48,7 @@ const subheadingStyle = css`
 `;
 
 const listStyle = css`
-  padding-left: 1.5rem;
+  padding-left: 1.5em;
   list-style-type: circle;
 `;
 
@@ -49,14 +56,18 @@ const contentStyle = css`
   display: flex;
   gap: 32px;
   border-left: 2px solid ${colors.primary[500]};
-  padding-left: 1.2rem;
+  padding-left: 1.2em;
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    flex-direction: column;
+  }
 `;
 
 const contentTitleStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 280px;
+  width: 15em;
 `;
 
 const subContentStyle = css`
