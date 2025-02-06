@@ -81,7 +81,9 @@ export default function AboutView() {
       <div css={containerStyle}>
         <section css={sectionStyle}>
           <h1 css={title}>
-            안녕하세요. 개발자 <strong>온승찬</strong>입니다.
+            안녕하세요.
+            <br />
+            개발자 <strong>온승찬</strong>입니다.
           </h1>
           <p>
             법학을 전공하며 논리적인 사고를 배우고, 소프트웨어를 복수 전공하며 개발자로서의 길을
