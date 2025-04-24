@@ -310,9 +310,9 @@ Work in Progress 트리에 기록된 변경 사항을 실제 DOM에 반영하는
 
 ## Fiber의 우선순위 스케줄링
 
-Fiber는 작업의 우선순위를 Lane 시스템으로 세분화하여 관리합니다.
+Fiber는 업데이트 작업의 우선순위를 세분화하고 명시적으로 관리하기 위해 Lane 시스템을 도입했습니다. 
 
-각 Lane은 비트 플래그로 표현되며, 작업의 중요도를 나타냅니다. 이를 통해 작업을 효율적으로 스케줄링할 수 있습니다.
+각 Lane은 비트 플래그로 표현되며, 총 31개의 Lane이 정의되어 있습니다.
 
 ```javascript
 // https://github.com/facebook/react/blob/fc8a898dd126198305fce458edd084c5d9c4b67a/packages/react-reconciler/src/ReactFiberLane.js
@@ -327,7 +327,7 @@ export const SyncLane: Lane = /*                        */ 0b0000000000000000000
 export const SyncLaneIndex: number = 1;
 ```
 
-31개의 Lane을 [Scheduler](https://github.com/facebook/react/blob/fc8a898dd126198305fce458edd084c5d9c4b67a/packages/scheduler/src/forks/Scheduler.js) 통해 5개의 우선순위로 그룹화하여 관리합니다.
+React Scheduler는 이러한 31개의 Lane을 [Scheduler](https://github.com/facebook/react/blob/fc8a898dd126198305fce458edd084c5d9c4b67a/packages/scheduler/src/forks/Scheduler.js) 통해 5개의 우선순위로 그룹화하여 관리합니다.
 
 
 ### React Scheduler의 5가지 우선순위
@@ -371,6 +371,8 @@ MessageChannel API는 브라우저 이벤트 루프를 차단하지 않고, 포�
 
 리액트 팀은 이 MessageChannel API를 사용하여 메시지 기반으로 작업을 연기하고 중단, 실행 시키도록 설계했습니다. 다만 브라우저 호환을 위해 setImmediate와 setTimeout을 폴백으로 두어 활용합니다.
 
+아래는 관련 코드입니다.
+
 ```javascript
 // https://github.com/facebook/react/blob/fc8a898dd126198305fce458edd084c5d9c4b67a/packages/scheduler/src/forks/Scheduler.js#L516-L547
 
@@ -408,7 +410,6 @@ if (typeof localSetImmediate === 'function') {
 }
 ```
 
-
 Fiber와 Scheduler는 통해 작업을 작은 단위로 분할하고, 아래와 같은 과정을 반복하며 작업을 처리합니다.
 
 1. 작업 시작:
@@ -422,6 +423,8 @@ Fiber와 Scheduler는 통해 작업을 작은 단위로 분할하고, 아래와 
 
 4. 작업 재개:
 MessageChannel이 호출되어 [performWorkUntilDeadline](https://github.com/facebook/react/blob/fc8a898dd126198305fce458edd084c5d9c4b67a/packages/scheduler/src/forks/Scheduler.js#L485-L514)으로 연기된 작업을 다시 실행합니다.
+
+이 구조 덕분에 React는 긴 트리 탐색 중에도 사용자 입력에 빠르게 응답할 수 있으며, 우선순위에 따라 작업을 선별적으로 실행할 수 있습니다.
 
 # 마무리
 

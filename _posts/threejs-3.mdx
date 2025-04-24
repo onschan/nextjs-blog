@@ -1,0 +1,198 @@
+---
+title: Three.js로 외부 3D 모델 불러오기
+date: "2024-01-14"
+description: (Three.js와 친해지기 3편) 인터넷에서 제공되는 외부 3D 모델 파일을 Three.js로 로드하는 방법을 살펴봅니다.
+thumbnail:
+tags: ["Three.js"]
+---
+
+> 💡 이 글은 [Three.js 공식 문서](https://threejs.org/docs/)를 기반으로 작성되었습니다.
+
+이전 글들에서 **Scene, Camera, Renderer**로 3D 장면을 구성하는 법과 **Mesh**와 **Light**로 입체감 있는 오브젝트를 만드는 법을 알아봤습니다.
+
+그러나 직접 코드를 통해 제작하는 오브젝트만으로는 복잡한 모양을 구현하기 어려울 때가 많습니다.  
+
+이미 만들어진 <b>3D 객체(모델)</b>를 활용하면, 훨씬 풍부하고 디테일한 장면을 쉽게 구성할 수 있습니다.
+
+이번 글에서는 인터넷에서 제공되는 외부 3D 모델 파일을 프로젝트에 가져와 사용하는 과정을 소개합니다.
+
+---
+
+# Three.js에서 사용할 수 있는 3D 모델 포맷
+
+Three.js는 다양한 3D 모델 파일 포맷을 지원하지만, 가장 추천되는 포맷은 `.glb` 입니다.
+
+GLTFLoader를 통해 .gltf, .glb 모두 로드할 수 있습니다.
+
+
+### .gltf (GL Transmission Format)
+
+JSON 기반의 포맷으로, 모델 구조, 메쉬, 머티리얼 등을 설명합니다.
+
+텍스처나 애니메이션 등은 별도의 외부 파일로 분리되어 있을 수 있습니다.
+
+### .glb (Binary glTF)
+
+.gltf의 바이너리 버전으로, 모든 리소스를 하나의 파일로 패키징합니다.
+
+더 빠르게 로딩되며, Three.js에서 가장 권장되는 포맷입니다.
+
+---
+
+# 3D 모델은 어디서 구할 수 있을까?
+
+## 1. 3D 모델을 다운로드할 수 있는 사이트
+
+검색을 통해 3D 모델을 제공하는 다양한 사이트들을 찾을 수 있습니다. 
+
+대표적으로는 아래와 같은 사이트들이 있습니다.
+
+- **[Sketchfab](https://sketchfab.com)** (블로그에 적용된 3D 모델은 해당 사이트에서 다운로드하였습니다.)
+
+- **[Free3D](https://free3d.com/)**  
+
+- **[CGTrader Free Models](https://www.cgtrader.com/free-3d-models)**  
+
+- **[Poly Pizza](https://poly.pizza/)**  
+
+
+원하는 모델을 찾고 glb 파일을 다운로드 받으면 됩니다.
+
+ 단, 모델을 다운로드하고 사용할 때는 반드시 **라이선스**를 확인하고 저작권을 지켜야합니다.
+
+
+## 2. 직접 3D 모델 제작
+
+고유한 모델이 필요하다면, 3D 모델링 툴을 배워서 직접 제작할 수도 있습니다.
+
+3D 모델을 제작하는 대표적인 툴로는 [Blender](https://www.blender.org/)가 있습니다. 필요에 따라 해당 부분을 학습해보아도 무방합니다.
+
+---
+
+# Three.js로 3D 모델 로드하기: GLTFLoader 핵심
+
+Three.js는 `.gltf` 또는 `.glb` 파일을 불러오는 전용 로더인 **GLTFLoader**를 제공합니다.  
+- **`.gltf`**: JSON 형태로 모델 정보를 담고, 텍스처·애니메이션 등은 별도 파일로 분리될 수 있음  
+- **`.glb`**: 위 정보를 모두 하나의 바이너리 파일로 패키징해, 더 간편하게 로드할 수 있음
+
+## 로더 임포트 & 기본 사용법
+
+**GLTFLoader**는 Three.js 예제 디렉토리에서 가져와야 합니다:
+
+```javascript
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+```
+
+이후 **`loader.load( url, onLoad, onProgress, onError )`** 형태로 호출합니다.  
+- **onLoad**: 성공적으로 로딩되면 모델이 담긴 `gltf.scene`이 반환됨  
+- **onProgress**: xhr 이벤트로 로딩 진행률을 알 수 있음  
+- **onError**: 오류가 있을 때 호출
+
+---
+
+# 예시 코드
+
+> 📍 Next.js 기반의 사이트 제작기의 일부분으로 React 기반의 코드입니다.
+
+`scene`, `camera`, `renderer` 설정은 1편·2편에서 다뤘던 내용과 동일합니다.
+아주 간단히 GLTFLoader를 이용하여 모델을 scene에 추가해보도록 하겠습니다.
+
+```javascript
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
+export default function ThreeLoadExample() {
+ const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      90,
+      window.clientWidth / window.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 1, 3);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x000000);
+
+    containerRef.current.appendChild(renderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    // GLTFLoader로 .glb 파일 불러오기
+    const loader = new GLTFLoader();
+    loader.load(
+      "/assets/models/hero.glb",
+      gltf => {
+        // 모델을 씬에 추가
+        scene.add(gltf.scene);
+        gltf.scene.scale.set(1, 1, 1);
+
+        // 모델이 로드된 후 한 번 렌더
+        renderer.render(scene, camera);
+      },
+      undefined, // onProgress 생략
+      error => {
+        console.error("Error loading model:", error);
+      }
+    );
+
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+
+    const handleResize = () => {
+      camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    };
+
+    animate();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <div ref={containerRef} style={{ display: "inline-block" }} />;
+}
+```
+
+## 실행 결과
+
+<ThreeHeartExample3 />
+
+---
+
+# 마무리
+
+이렇게 손쉽게 **3D 객체**를 가져오면, Three.js와의 조합으로 훨씬 다채로운 그래픽이 가능해집니다.
+
+마법처럼 느껴졌던 3D 작업들이 점점 실체화되고 있습니다. 따라오시면서 흥미를 느끼셨으면 좋겠네요.
+
+더 글을 쓸 기회가 있다면 이 3D 모델을 직접 조작하고 상호작용하는 법에 다뤄보도록 하겠습니다. 
+ 
+감사합니다.
+
+
+
+---
+
+### 관련 게시글
+
+1편: [Three.js 기본 개념 알아보기](/post/threejs-1)
+
+2편: [Three.js로 현실감 있는 3D 객체 만들기](/post/threejs-2)
