@@ -87,6 +87,8 @@ export default function ThreeHeartExample2() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+      scene.clear();
     };
   }, []);
 

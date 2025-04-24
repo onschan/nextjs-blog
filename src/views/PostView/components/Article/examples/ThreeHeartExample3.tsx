@@ -1,23 +1,24 @@
 // @ts-nocheck
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-export default function ThreeHeartExample() {
+export default function ThreeLoadExample() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!containerRef.current) {
-      return;
-    }
+    if (!containerRef.current) return;
 
+    // 장면 & 카메라 & 렌더러 생성
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
-      75,
+      90,
       containerRef.current.clientWidth / containerRef.current.clientHeight,
       0.1,
       1000
     );
+    camera.position.set(0, 1, 3);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -27,33 +28,31 @@ export default function ThreeHeartExample() {
 
     containerRef.current.appendChild(renderer.domElement);
 
-    const heartShape = new THREE.Shape();
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
 
-    const x = 0,
-      y = 0;
-    heartShape.moveTo(x + 5, y + 5);
-    heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
-    heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
-    heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
-    heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
-    heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
-    heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+    // GLTFLoader로 .glb 파일 불러오기
+    const loader = new GLTFLoader();
+    loader.load(
+      "/assets/models/hero.glb",
+      gltf => {
+        // 모델을 씬에 추가
+        scene.add(gltf.scene);
+        gltf.scene.scale.set(1, 1, 1);
 
-    const geometry = new THREE.ShapeGeometry(heartShape);
-    const material = new THREE.MeshBasicMaterial({ color: "red" });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+        // 모델이 로드된 후 한 번 렌더
+        renderer.render(scene, camera);
+      },
+      undefined, // onProgress 생략
+      error => {
+        console.error("Error loading model:", error);
+      }
+    );
 
-    camera.position.z = 50;
-
-    const animate = () => {
+    function animate() {
       requestAnimationFrame(animate);
-
-      mesh.rotation.x += 0.01;
-      mesh.rotation.y += 0.01;
-
       renderer.render(scene, camera);
-    };
+    }
 
     const handleResize = () => {
       camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;

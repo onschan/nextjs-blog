@@ -1,86 +1,14 @@
-import { css } from "@emotion/react";
-
-import { theme } from "@/theme";
-
-import { BREAK_POINT } from "@/constants";
-
-import { colors, typography } from "@/styles";
+import * as styles from "./styles";
 
 import { Bio } from "./components";
 import Layout from "./layout";
 
-const containerStyle = css`
-  font-size: 16px;
-  max-width: 72em;
-  padding: 2em 1.5em 4em;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5em;
-
-  @media screen and (max-width: ${BREAK_POINT}px) {
-    font-size: 10px;
-  }
-`;
-
-const sectionStyle = css`
-  ${typography.body}
-  display:flex;
-  flex-direction: column;
-  gap: 1.5em;
-`;
-
-const title = css`
-  ${typography.large}
-
-  strong {
-    font-weight: bold;
-    color: ${colors.primary[500]};
-  }
-`;
-
-const headingStyle = css`
-  ${typography.medium}
-  margin-top: 1em;
-`;
-
-const subheadingStyle = css`
-  ${typography.subsection}
-`;
-
-const listStyle = css`
-  padding-left: 1.5em;
-  list-style-type: circle;
-`;
-
-const contentStyle = css`
-  display: flex;
-  gap: 32px;
-  border-left: 2px solid ${colors.primary[500]};
-  padding-left: 1.2em;
-
-  @media screen and (max-width: ${BREAK_POINT}px) {
-    flex-direction: column;
-  }
-`;
-
-const contentTitleStyle = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 15em;
-`;
-
-const subContentStyle = css`
-  ${typography.caption}
-  color: ${theme.text.secondary};
-`;
-
 export default function AboutView() {
   return (
     <Layout>
-      <div css={containerStyle}>
-        <section css={sectionStyle}>
-          <h1 css={title}>
+      <div css={styles.container}>
+        <section css={styles.section}>
+          <h1 css={styles.title}>
             안녕하세요.
             <br />
             개발자 <strong>온승찬</strong>입니다.
@@ -101,16 +29,16 @@ export default function AboutView() {
           <Bio />
         </section>
 
-        <section css={sectionStyle}>
-          <h2 css={headingStyle}>Work Experience</h2>
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Work Experience</h2>
 
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>셀러허브</h3>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>셀러허브</h3>
               <p>Frontend Engineer</p>
-              <p css={subContentStyle}>2022.12 ~ 현재</p>
+              <p css={styles.subContent}>2022.12 ~ 현재</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>
                 Next.js, TypeScript, Recoil, React Query 기반 이커머스 백오피스 SaaS 플랫폼 개발
               </li>
@@ -121,67 +49,67 @@ export default function AboutView() {
           </div>
         </section>
 
-        <section css={sectionStyle}>
-          <h2 css={headingStyle}>Other Experiences</h2>
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>우아한테크코스 리뷰어</h3>
-              <p css={subContentStyle}>2025.02 ~ 2025.06</p>
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Other Experiences</h2>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>우아한테크코스 리뷰어</h3>
+              <p css={styles.subContent}>2025.02 ~ 2025.06</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>우아한형제들이 주최하는 개발자 FE 양성 교육 리뷰어 참여</li>
               <li>30명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
             </ul>
           </div>
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>코드잇 프론트엔드 멘토</h3>
-              <p css={subContentStyle}>2025.02 ~ 2025.04</p>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>코드잇 프론트엔드 멘토</h3>
+              <p css={styles.subContent}>2025.02 ~ 2025.04</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>코드잇에서 주관하는 프론트엔드 부트캠프 멘토 참여</li>
               <li>학습 및 프로젝트에 대한 비대면 멘토링 진행</li>
             </ul>
           </div>
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>NEXTSTEP 리뷰어</h3>
-              <p css={subContentStyle}>2024.02 ~ 2024.06</p>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>NEXTSTEP 리뷰어</h3>
+              <p css={styles.subContent}>2024.02 ~ 2024.06</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>NEXTSTEP에서 주관하는 TDD, 클린코드 with 리액트 3기 리뷰어 참여</li>
               <li>5명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
             </ul>
           </div>
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>우아한테크코스</h3>
-              <p css={subContentStyle}>2025.02 ~ 2025.06</p>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>우아한테크코스</h3>
+              <p css={styles.subContent}>2025.02 ~ 2025.06</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>우아한형제들이 주최하는 개발자 FE 양성 교육 참여</li>
               <li>클린코드, 협업, 서비스 개발 및 운영에 대한 학습</li>
             </ul>
           </div>
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>오픈 소스 컨트리뷰터</h3>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>오픈 소스 컨트리뷰터</h3>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>리액트 공식 문서 한국어 번역 참여 - 2023.06.26</li>
             </ul>
           </div>
         </section>
 
-        <section css={sectionStyle}>
-          <h2 css={headingStyle}>Projects</h2>
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Projects</h2>
 
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>블로그 운영</h3>
-              <p css={subContentStyle}>2024.11 ~ 현재</p>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>블로그 운영</h3>
+              <p css={styles.subContent}>2024.11 ~ 현재</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>
                 Next.js 기반 개인 블로그 <a href="https://www.onschan.me">onschan.me</a> 운영
               </li>
@@ -189,13 +117,13 @@ export default function AboutView() {
             </ul>
           </div>
 
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>GongCheck</h3>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>GongCheck</h3>
               <p>Frontend Engineer</p>
-              <p css={subContentStyle}>2022.06 ~ 2022.10</p>
+              <p css={styles.subContent}>2022.06 ~ 2022.10</p>
             </div>
-            <ul css={listStyle}>
+            <ul css={styles.list}>
               <li>React, TypeScript, Recoil 기반 공간 관리 및 체크리스트 제작 툴 개발</li>
               <li>LCP 8초 → 3초 최적화, Lighthouse 성능 40점 → 80점 개선</li>
               <li>실시간 데이터 동기화 SSE → WebSocket 마이그레이션</li>
@@ -204,12 +132,12 @@ export default function AboutView() {
           </div>
         </section>
 
-        <section css={sectionStyle}>
-          <h2 css={headingStyle}>Certificate</h2>
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Certificate</h2>
 
-          <div css={contentStyle}>
-            <div css={contentTitleStyle}>
-              <h3 css={subheadingStyle}>정보처리기사</h3>
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>정보처리기사</h3>
             </div>
             <p>한국산업인력공단 | 2021.11.26</p>
           </div>
