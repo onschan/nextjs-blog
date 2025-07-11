@@ -1,15 +1,14 @@
-import { useState } from "react";
 import { useMount } from "react-use";
 
-import { THEME } from "@/theme";
+import { THEME, useTheme } from "@/theme";
 
 const DEFAULT = "system";
 
 export const useThemeSwitch = () => {
-  const [mode, setMode] = useState<THEME | undefined>(undefined);
+  const { mode, changeMode } = useTheme();
 
   const handleClickSwitch = (mode: THEME) => {
-    setMode(mode);
+    changeMode(mode);
     document.body.dataset.theme = mode;
     window.localStorage.setItem("theme-mode", mode);
   };
@@ -19,11 +18,11 @@ export const useThemeSwitch = () => {
 
     if (!["light", "dark", "system"].includes(mode)) {
       document.body.dataset.theme = DEFAULT;
-      setMode(DEFAULT);
+      changeMode(DEFAULT);
       return;
     }
 
-    setMode(mode as THEME);
+    changeMode(mode as THEME);
     document.body.dataset.theme = mode;
   });
 
