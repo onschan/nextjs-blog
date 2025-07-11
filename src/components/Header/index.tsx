@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { useBoolean, useLockBodyScroll, useWindowScroll } from "react-use";
 
@@ -15,12 +16,18 @@ export default function Header() {
 
   const [isOpen, toggle] = useBoolean(false);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
   useLockBodyScroll(isOpen);
+
+  useEffect(() => {
+    setIsScrolled(y > 0);
+  }, [y]);
 
   return (
     <header
       css={styles.headerWrapper({
-        isScrolled: y > 0,
+        isScrolled,
       })}
     >
       <div css={styles.contents}>

@@ -14,16 +14,13 @@ export default function AboutView() {
             개발자 <strong>온승찬</strong>입니다.
           </h1>
           <p>
-            법학을 전공하며 논리적인 사고를 배우고, 소프트웨어를 복수 전공하며 개발자로서의 길을
-            걷게 되었습니다. <br />
-            사용자에게 좋은 경험을 제공하는 것에 흥미를 느끼며, <strong>프론트엔드 개발자</strong>
-            로서 성장하고 있습니다.
+            사용자 중심 사고와 기술적 깊이를 겸비한 프론트엔드 개발자입니다.
             <br />
-            개발자로서 <strong>'Why?'</strong>를 중요하게 생각하며 개발을 합니다. 선택의 이유를
-            고민하고 더 나은 사용자 경험을 제공하기 위해 노력합니다.
+            복잡한 비즈니스 로직을 직관적인 UX로 구현하는 것을 즐기며, 성능 최적화와 확장 가능한
+            아키텍처 설계에 관심이 많습니다.
             <br />
-            <strong>함께 자라기</strong>의 힘을 믿으며 깊이 있는 탐구와 공유를 통해 함께 성장하는
-            개발자가 되고자 합니다.
+            Clean Code와 협업을 위한 문서화를 중시하며, 깊이 있는 기술 탐구와 지식 공유를 통해 팀과
+            함께 성장합니다.
           </p>
 
           <Bio />
@@ -44,13 +41,45 @@ export default function AboutView() {
               </li>
               <li>600개 이상의 옵션 데이터를 실시간으로 처리하는 상품 관리 시스템 구축</li>
               <li>통합 인증 시스템 개발 및 사내 서비스 통합</li>
-              <li>디자인 시스템 구축 및 Storybook 문서화 진행</li>
+              <li>WebSocket 기반 실시간 이벤트 수신함 개발</li>
+              <li>디자인 시스템 구축 및 Storybook 문서화</li>
+            </ul>
+          </div>
+        </section>
+
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Projects</h2>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>개인 기술 블로그 운영</h3>
+              <p css={styles.subContent}>2024.11 ~ 현재</p>
+            </div>
+            <ul css={styles.list}>
+              <li>Next.js 기반 블로그 운영</li>
+              <li>개발 고민과 해결 과정 지식 공유</li>
+              <li>RSS 및 검색 엔진 최적화 적용</li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>GongCheck</h3>
+              <p>Frontend Developer</p>
+              <p css={styles.subContent}>2022.06 ~ 2022.10 (우아한테크코스)</p>
+            </div>
+            <ul css={styles.list}>
+              <li>React, TypeScript, Recoil 기반 공간 관리 및 체크리스트 제작 툴 개발</li>
+              <li>LCP 8초 → 3초 최적화, Lighthouse 성능 40점 → 80점 개선</li>
+              <li>실시간 데이터 동기화 SSE → WebSocket 마이그레이션</li>
+              <li>Webpack 최적화 및 E2E 테스트 자동화</li>
             </ul>
           </div>
         </section>
 
         <section css={styles.section}>
           <h2 css={styles.heading}>Other Experiences</h2>
+
           <div css={styles.content}>
             <div css={styles.contentTitle}>
               <h3 css={styles.subheading}>우아한테크코스 리뷰어</h3>
@@ -61,6 +90,7 @@ export default function AboutView() {
               <li>30명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
             </ul>
           </div>
+
           <div css={styles.content}>
             <div css={styles.contentTitle}>
               <h3 css={styles.subheading}>코드잇 프론트엔드 멘토</h3>
@@ -71,6 +101,7 @@ export default function AboutView() {
               <li>학습 및 프로젝트에 대한 비대면 멘토링 진행</li>
             </ul>
           </div>
+
           <div css={styles.content}>
             <div css={styles.contentTitle}>
               <h3 css={styles.subheading}>NEXTSTEP 리뷰어</h3>
@@ -81,53 +112,24 @@ export default function AboutView() {
               <li>5명 이상의 수강생 대상 코드 리뷰 및 페어 프로그래밍 진행</li>
             </ul>
           </div>
+
           <div css={styles.content}>
             <div css={styles.contentTitle}>
               <h3 css={styles.subheading}>우아한테크코스</h3>
-              <p css={styles.subContent}>2025.02 ~ 2025.06</p>
+              <p css={styles.subContent}>2022.02 ~ 2022.12</p>
             </div>
             <ul css={styles.list}>
               <li>우아한형제들이 주최하는 개발자 FE 양성 교육 참여</li>
               <li>클린코드, 협업, 서비스 개발 및 운영에 대한 학습</li>
             </ul>
           </div>
+
           <div css={styles.content}>
             <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>오픈 소스 컨트리뷰터</h3>
+              <h3 css={styles.subheading}>오픈소스 기여</h3>
             </div>
             <ul css={styles.list}>
               <li>리액트 공식 문서 한국어 번역 참여 - 2023.06.26</li>
-            </ul>
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <h2 css={styles.heading}>Projects</h2>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>블로그 운영</h3>
-              <p css={styles.subContent}>2024.11 ~ 현재</p>
-            </div>
-            <ul css={styles.list}>
-              <li>
-                Next.js 기반 개인 블로그 <a href="https://www.onschan.me">onschan.me</a> 운영
-              </li>
-              <li>RSS 및 검색 엔진 최적화 적용</li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>GongCheck</h3>
-              <p>Frontend Engineer</p>
-              <p css={styles.subContent}>2022.06 ~ 2022.10</p>
-            </div>
-            <ul css={styles.list}>
-              <li>React, TypeScript, Recoil 기반 공간 관리 및 체크리스트 제작 툴 개발</li>
-              <li>LCP 8초 → 3초 최적화, Lighthouse 성능 40점 → 80점 개선</li>
-              <li>실시간 데이터 동기화 SSE → WebSocket 마이그레이션</li>
-              <li>Webpack 최적화 및 E2E 테스트 자동화</li>
             </ul>
           </div>
         </section>
