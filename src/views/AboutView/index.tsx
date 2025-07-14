@@ -14,13 +14,12 @@ export default function AboutView() {
             개발자 <strong>온승찬</strong>입니다.
           </h1>
           <p>
-            사용자 중심 사고와 기술적 깊이를 겸비한 프론트엔드 개발자입니다.
+            법학과 소프트웨어를 함께 공부하며 개발자의 길을 걷게 되었습니다.
             <br />
-            복잡한 비즈니스 로직을 직관적인 UX로 구현하는 것을 즐기며, 성능 최적화와 확장 가능한
-            아키텍처 설계에 관심이 많습니다.
+            사용자에게 좋은 경험을 제공하는 <strong>프론트엔드 개발</strong>에 관심이 많으며, 항상
+            선택의 이유를 고민하며 개발합니다.
             <br />
-            Clean Code와 협업을 위한 문서화를 중시하며, 깊이 있는 기술 탐구와 지식 공유를 통해 팀과
-            함께 성장합니다.
+            지속적인 학습과 경험 공유를 통해 함께 성장하는 개발자가 되고자 합니다.
           </p>
 
           <Bio />
@@ -65,8 +64,8 @@ export default function AboutView() {
           <div css={styles.content}>
             <div css={styles.contentTitle}>
               <h3 css={styles.subheading}>GongCheck</h3>
-              <p>Frontend Developer</p>
-              <p css={styles.subContent}>2022.06 ~ 2022.10 (우아한테크코스)</p>
+              <p>Frontend Engineer</p>
+              <p css={styles.subContent}>2022.06 ~ 2022.10</p>
             </div>
             <ul css={styles.list}>
               <li>React, TypeScript, Recoil 기반 공간 관리 및 체크리스트 제작 툴 개발</li>
