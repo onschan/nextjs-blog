@@ -16,7 +16,7 @@ export const footer = css`
 `;
 
 export const copyright = css`
-  font-size: 10px;
+  font-size: 8px;
   color: ${theme.text.secondary};
 
   a {

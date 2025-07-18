@@ -50,14 +50,27 @@ export const title = css`
   line-height: 1.2;
   letter-spacing: -1px;
   background: linear-gradient(
-    135deg,
+    90deg,
     ${theme.text.primary} 0%,
-    ${theme.text.hero} 50%,
+    ${colors.gray[400]} 25%,
+    ${colors.gray[500]} 50%,
+    ${colors.gray[400]} 75%,
     ${theme.text.primary} 100%
   );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: titleShine 7s linear infinite;
+
+  @keyframes titleShine {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
 
   @media screen and (max-width: ${BREAK_POINT}px) {
     font-size: 2rem;
@@ -89,6 +102,11 @@ export const buttons = css`
     letter-spacing: 0.5px;
     cursor: pointer;
   }
+`;
+
+export const buttonIcon = css`
+  margin-right: 8px;
+  font-size: 1em;
 `;
 
 export const primary = css`
