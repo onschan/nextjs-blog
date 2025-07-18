@@ -53,7 +53,9 @@ export const getStaticProps = async () => {
     allPosts
       .flatMap(post => post.tags)
       .reduce((acc, tag) => acc.set(tag, (acc.get(tag) || 0) + 1), new Map<string, number>())
-  ).map(([tag, count]) => ({ tag, count }));
+  )
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count);
 
   return {
     props: {
