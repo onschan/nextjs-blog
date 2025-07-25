@@ -4,6 +4,10 @@ export const NAVIGATION = [
     label: "Posts",
   },
   {
+    href: "/ai-chatbot",
+    label: "AI Chatbot",
+  },
+  {
     href: "/about",
     label: "About",
   },
