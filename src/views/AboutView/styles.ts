@@ -12,7 +12,7 @@ export const container = css`
   padding: 2em 1.5em 4em;
   display: flex;
   flex-direction: column;
-  gap: 3.5em;
+  gap: 3.25em;
 
   @media screen and (max-width: ${BREAK_POINT}px) {
     font-size: 10px;
@@ -49,6 +49,10 @@ export const list = css`
   list-style-type: circle;
 `;
 
+export const listItem = css`
+  margin-bottom: 1em;
+`;
+
 export const content = css`
   display: flex;
   gap: 20px;
@@ -65,9 +69,19 @@ export const contentTitle = css`
   flex-direction: column;
   justify-content: flex-start;
   width: 15em;
+  min-width: 15em;
 `;
 
 export const subContent = css`
   ${typography.caption}
   color: ${theme.text.secondary};
+`;
+
+export const link = css`
+  ${typography.caption}
+  color: ${colors.primary[500]};
+
+  :hover {
+    color: ${colors.primary[600]};
+  }
 `;
