@@ -1,81 +1,386 @@
 ---
-title: React Server Component (RSC)
+title: React Server Components (RSC)
 date: "2025-04-24"
-description: React Server Component(RSC)가 무엇인지, 왜 등장했으며 어떻게 동작하는지 공식 문서와 Dan Abramov의 글을 바탕으로 정리
+description: RSC의 개념, SSR과의 차이점, 실제 구현 방법을 학습하며 정리한 내용
 thumbnail:
-tags: ["React", "Server Components", "RSC"]
+tags: ["React", "Server Components", "RSC", "Next.js"]
 ---
 
-최근 들어 React 생태계에서 가장 많이 언급되는 개념 중 하나는 바로 React Server Components(RSC)입니다. 
+React Server Components(RSC)에 대해 학습하며 정리한 내용입니다. RSC의 정확한 정의부터 기존 방식과의 차이점, 실제 구현 예시까지 포함했습니다.
 
-이 글에서는 React, Next.js 공식 문서와 Dan Abramov가 직접 쓴 [RSC From Scratch](https://github.com/reactwg/server-components/discussions/5) 글을 바탕으로 RSC의 등장 배경부터 실제 구현 원리까지 깊이 있게 탐구해 보겠습니다.
+## React Server Components의 정의
 
-# React Server Component, 왜 필요할까?
+**React Server Components(RSC)는 서버에서 실행되는 React 컴포넌트입니다.** 
 
-기존의 React 애플리케이션은 대부분 클라이언트에서 모든 렌더링 작업을 수행합니다. 
+기존 React 컴포넌트와 동일하게 JSX를 작성하지만, 서버에서만 실행되고 브라우저로는 결과만 전송됩니다.
 
-이 방식은 유연성과 인터랙티브한 사용자 경험을 제공하지만, 몇 가지 근본적인 한계도 함께 가지고 있었습니다.
+```jsx
+// RSC 예시
+async function BlogPost({ id }) {
+  // 이 코드는 서버에서만 실행됨
+  const post = await db.post.findUnique({ where: { id } });
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  );
+}
+```
 
-첫째로, 데이터 페칭의 비효율성입니다. 클라이언트가 데이터를 로딩하기 위해 별도의 API 호출을 수행하고, 응답을 기다린 후에야 화면에 표시할 수 있습니다. 이는 초기 로딩 속도 저하와 사용자 경험 악화로 이어집니다.
+위 컴포넌트에서 `db.post.findUnique` 같은 데이터베이스 호출 코드는 브라우저로 전송되지 않습니다. 렌더링 결과만 브라우저로 전달됩니다.
 
-둘째, 보안적인 측면에서 민감한 데이터나 API 키를 클라이언트에 노출시키지 않으려면 별도의 보안 계층을 구현해야 하는 복잡함이 존재합니다.
+## 기존 React 방식의 문제점
 
-셋째, 클라이언트 자바스크립트의 비대화 문제입니다. 마크다운 파서를 포함한 큰 라이브러리들을 클라이언트로 전송하여 번들 크기를 키우고, 클라이언트가 이를 모두 다운로드하고 파싱하여 실행해야 하므로 성능에 부정적인 영향을 끼칩니다.
+기존 React 애플리케이션에서 사용하던 일반적인 패턴은 다음과 같습니다:
 
-이러한 문제들을 해결하고자 등장한 것이 바로 React Server Components(RSC)입니다.
+```jsx
+// 기존 방식: 클라이언트에서 데이터 페칭
+function BlogPost({ id }) {
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
 
---- 
+  useEffect(() => {
+    // 1. 페이지 로드 후 API 호출
+    fetch(`/api/posts/${id}`)
+      .then(res => res.json())
+      .then(post => {
+        setPost(post);
+        setLoading(false);
+      });
+  }, [id]);
 
-# Dan Abramov가 말하는 RSC
+  if (loading) return <div>로딩중...</div>;
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  );
+}
+```
 
-Dan Abramov는 자신의 글 "RSC From Scratch"에서 RSC의 개념과 동작 원리를 처음부터 구현해보며 설명합니다. 
+이 방식의 주요 문제점들:
+- **로딩 지연**: 페이지 로드 후 추가 API 호출 필요
+- **API 엔드포인트 증가**: `/api/posts/${id}` 같은 중간 레이어 필요  
+- **보안 취약점**: 클라이언트 코드에 민감한 정보 노출 위험
+- **번들 크기 증가**: 데이터 처리용 라이브러리까지 클라이언트로 전송
 
-그가 제시한 접근법은 기존의 React 컴포넌트를 서버에서 미리 렌더링 가능한 형태로 점진적으로 확장하는 것입니다.
+RSC는 이러한 문제점들을 해결합니다.
 
-Abramov의 글에서 첫 번째로 등장하는 중요한 개념은 JSX입니다. 기존 PHP나 Node.js 방식으로 HTML 문자열을 직접 조합하던 방식에서 JSX를 이용해 마크업을 직접 JavaScript 코드 안에 넣을 수 있게 하여 문자열 조작 실수를 방지합니다. React는 JSX를 통해 내부적으로 React Element라는 트리 구조를 생성합니다.
+## SSR과 RSC의 차이점
 
-하지만 JSX 트리를 그대로 클라이언트에 보낼 수는 없습니다. 최종적으로 클라이언트가 받는 것은 HTML이어야 하며, React는 서버에서 JSX 트리를 렌더링하여 HTML 문자열로 변환하는 과정을 수행합니다. 이것이 바로 서버 사이드 렌더링(SSR)의 기본 개념입니다.
+SSR(Server-Side Rendering)과 RSC는 서로 다른 개념입니다.
 
-React Server Components는 이 SSR 개념을 더 확장하여 JSX 트리 자체를 특수한 형태의 데이터(RSC Payload)로 변환하고, 이를 클라이언트로 전달하여 클라이언트에서 최종적으로 DOM을 업데이트하게 합니다. 이 과정에서 클라이언트는 번거롭게 큰 번들을 받을 필요 없이 미리 렌더링된 HTML과 최소한의 자바스크립트만을 다운로드합니다.
+### SSR (Server-Side Rendering)
+
+```jsx
+// SSR: 서버에서 HTML 문자열 생성
+function BlogPost({ post }) {
+  return <h1>{post.title}</h1>;
+}
+
+// 서버에서 이렇게 됨:
+// "<h1>제목입니다</h1>" (HTML 문자열)
+```
+
+- 서버에서 컴포넌트를 HTML 문자열로 변환
+- 클라이언트에서 **hydration** 과정을 통해 상호작용 가능하게 만듦
+- 여전히 모든 컴포넌트 코드가 클라이언트로 전송됨
+
+### RSC (React Server Components)
+
+```jsx
+// RSC: 서버에서 RSC Payload 생성
+async function BlogPost({ id }) {
+  const post = await db.post.findUnique({ where: { id } });
+  return <h1>{post.title}</h1>;
+}
+
+// 서버에서 이렇게 됨:
+// { type: "h1", props: { children: "제목입니다" } } (RSC Payload)
+```
+
+- 서버에서 컴포넌트를 **RSC Payload**라는 특수한 JSON으로 변환
+- 클라이언트에서 이 JSON을 받아 Virtual DOM 구성
+- **서버 컴포넌트 코드는 클라이언트로 전송되지 않음**
+
+핵심 차이점: **SSR은 HTML 문자열을 생성하고, RSC는 JSON 데이터를 생성합니다.**
+
+## RSC Payload의 개념
+
+RSC Payload는 서버 컴포넌트를 직렬화한 JSON 데이터입니다.
+
+```jsx
+// 서버 컴포넌트
+function UserProfile({ user }) {
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+      <ClientButton userId={user.id} />
+    </div>
+  );
+}
+```
+
+이것이 RSC Payload로 변환되면 다음과 같습니다:
+
+```json
+{
+  "type": "div",
+  "props": {
+    "children": [
+      {
+        "type": "h1", 
+        "props": { "children": "홍길동" }
+      },
+      {
+        "type": "p",
+        "props": { "children": "hong@example.com" }
+      },
+      {
+        "type": "ClientButton",
+        "props": { "userId": 123 }
+      }
+    ]
+  }
+}
+```
+
+클라이언트에서는 이 JSON을 처리하는 과정:
+1. Virtual DOM 트리로 변환
+2. 필요한 클라이언트 컴포넌트만 로드 (위 예시에서는 `ClientButton`)
+3. 최종 DOM 업데이트
+
+## RSC 적용 전후 비교
+
+기존 방식과 RSC 방식을 비교하면 다음과 같습니다.
+
+### Before: 기존 React 방식
+
+```jsx
+// pages/blog/[id].js (기존 방식)
+import { useState, useEffect } from 'react';
+import { marked } from 'marked'; // 50KB 라이브러리
+import hljs from 'highlight.js'; // 100KB 라이브러리
+
+function BlogPost({ id }) {
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // 1. API 호출
+    fetch(`/api/posts/${id}`)
+      .then(res => res.json())
+      .then(post => {
+        setPost(post);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) return <div>로딩중...</div>;
+
+  // 2. 클라이언트에서 마크다운 파싱 (라이브러리들이 모두 번들에 포함)
+  const htmlContent = marked(post.content);
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    </article>
+  );
+}
+```
+
+**주요 문제점:**
+- 초기 로딩 시 빈 화면 표시
+- 마크다운 파서가 클라이언트 번들에 포함
+- API 라우트 별도 구현 필요
+- 로딩 상태 관리 로직 필요
+
+### After: RSC 방식
+
+```jsx
+// app/blog/[id]/page.js (RSC 방식)
+import { marked } from 'marked'; // 클라이언트 번들에 포함 안됨!
+import hljs from 'highlight.js'; // 클라이언트 번들에 포함 안됨!
+
+async function BlogPost({ params }) {
+  // 1. 서버에서 직접 데이터베이스 접근
+  const post = await db.post.findUnique({ 
+    where: { id: params.id } 
+  });
+
+  // 2. 서버에서 마크다운 파싱 (클라이언트 번들에 영향 없음)
+  const htmlContent = marked(post.content);
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    </article>
+  );
+}
+```
+
+**주요 개선점:**
+- 페이지 접속과 동시에 완성된 콘텐츠 표시
+- 마크다운 파서가 클라이언트 번들에서 제외 (번들 사이즈 절약)
+- API 라우트 불필요
+- 로딩 상태 관리 불필요
+- 데이터베이스 직접 접근 가능
+
+## 서버/클라이언트 컴포넌트 조합
+
+RSC의 핵심 장점은 서버 컴포넌트와 클라이언트 컴포넌트를 조합할 때 나타납니다:
+
+```jsx
+// 서버 컴포넌트
+async function BlogPost({ id }) {
+  const post = await db.post.findUnique({ where: { id } });
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+      
+      {/* 클라이언트 컴포넌트: 상호작용이 필요한 부분만 */}
+      <LikeButton postId={id} initialLikes={post.likes} />
+      <CommentSection postId={id} />
+    </article>
+  );
+}
+
+// 클라이언트 컴포넌트 (별도 파일)
+'use client'
+import { useState } from 'react';
+
+function LikeButton({ postId, initialLikes }) {
+  const [likes, setLikes] = useState(initialLikes);
+  const [loading, setLoading] = useState(false);
+
+  const handleLike = async () => {
+    setLoading(true);
+    await fetch(`/api/posts/${postId}/like`, { method: 'POST' });
+    setLikes(likes + 1);
+    setLoading(false);
+  };
+
+  return (
+    <button onClick={handleLike} disabled={loading}>
+      👍 {likes} {loading && '...'}
+    </button>
+  );
+}
+```
+
+이 구조의 장점:
+- 글 내용은 서버에서 미리 렌더링되어 즉시 표시
+- 좋아요 버튼만 클라이언트에서 상호작용 처리
+- 전체 페이지 중 필요한 부분만 JavaScript로 로드
+
+## Next.js App Router에서의 RSC
+
+Next.js 13의 App Router부터 RSC가 기본 설정입니다.
+
+### 기본 규칙
+
+```jsx
+// app/page.js - 기본적으로 서버 컴포넌트
+async function HomePage() {
+  const posts = await db.post.findMany();
+  return (
+    <div>
+      {posts.map(post => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </div>
+  );
+}
+
+// app/components/PostCard.js - 이것도 서버 컴포넌트
+function PostCard({ post }) {
+  return (
+    <div>
+      <h2>{post.title}</h2>
+      <p>{post.excerpt}</p>
+    </div>
+  );
+}
+
+// app/components/LikeButton.js - 클라이언트 컴포넌트 (상호작용 필요)
+'use client'
+import { useState } from 'react';
+
+function LikeButton({ postId }) {
+  const [liked, setLiked] = useState(false);
+  return (
+    <button onClick={() => setLiked(!liked)}>
+      {liked ? '❤️' : '🤍'}
+    </button>
+  );
+}
+```
+
+### 서버/클라이언트 컴포넌트 구분 기준
+
+**서버 컴포넌트 (기본):**
+- 데이터 페칭
+- 정적 콘텐츠 렌더링
+- 민감한 로직 처리
+
+**클라이언트 컴포넌트 ('use client'):**
+- `useState`, `useEffect` 등 React Hook 사용
+- 이벤트 핸들러 (`onClick`, `onChange`)
+- 브라우저 API 사용 (`localStorage`, `window`)
+
+### RSC 등장 배경
+
+React 팀이 RSC를 개발한 배경에는 다음과 같은 문제들이 있었습니다.
+
+**1. 번들 크기의 한계**
+
+모던 웹 앱이 복잡해지면서 JavaScript 번들 크기가 지속적으로 증가했습니다. 마크다운 파서, 차트 라이브러리, 이미지 처리 도구 등을 추가할 때마다 번들이 커져서 초기 로딩 속도가 저하되는 문제가 발생했습니다.
+
+**2. 데이터 페칭의 복잡성**
+
+기존 구조에서는 컴포넌트 → API 라우트 → 데이터베이스라는 복잡한 경로를 거쳐야 했습니다. 단순한 데이터 조회를 위해서도 API 엔드포인트 생성, fetch 호출, 로딩 상태 관리 등의 과정이 필요했습니다.
+
+**3. 보안 문제**
+
+클라이언트에서 실행되는 모든 코드는 브라우저에서 확인할 수 있습니다. API 키나 중요한 비즈니스 로직을 보호하려면 별도의 서버 구조가 필요했고, 이는 전체 아키텍처를 복잡하게 만들었습니다.
+
+RSC는 이러한 문제들을 해결하기 위해 "필요한 부분만 클라이언트로 전송하자"는 개념에서 출발했습니다.
+
+## 학습 정리
+
+**RSC의 핵심 개념:**
+1. **서버에서 실행되는 React 컴포넌트**
+2. **RSC Payload라는 JSON을 브라우저에 전송**
+3. **서버 컴포넌트 코드는 브라우저에 전송되지 않음**
+
+**SSR과의 차이점:**
+- SSR: HTML 문자열 생성 → 브라우저에서 hydration
+- RSC: JSON 생성 → 브라우저에서 Virtual DOM 구성
+
+**주요 장점:**
+- 무거운 라이브러리 사용 시에도 클라이언트 번들 크기 증가 없음
+- 페이지 로드와 동시에 데이터가 화면에 표시됨
+- 민감한 정보의 클라이언트 노출 방지
+- API 라우트 없이 컴포넌트에서 직접 데이터 접근 가능
+
+**개발 경험 개선:**
+RSC 도입으로 개발 과정이 크게 단순화되었습니다. 기존에는 사용자 프로필 페이지 하나를 만들기 위해 API 라우트 생성, 클라이언트 fetch 호출, 로딩 상태 처리 등의 복잡한 과정이 필요했지만, RSC에서는 컴포넌트에서 직접적인 데이터 접근이 가능합니다.
+
+Next.js 13+ App Router에서는 RSC가 기본 설정으로 제공되어 추가 구성 없이 바로 활용할 수 있습니다.
 
 ---
 
-# React Server Components의 핵심 개념
+### 참고 자료
 
-React 공식 문서에 따르면 Server Components는 빌드 타임 또는 요청 타임에 서버에서 미리 렌더링되는 새로운 형태의 컴포넌트입니다. 
-
-이는 클라이언트 애플리케이션 또는 서버 사이드 렌더링(SSR)과 별도의 환경에서 렌더링됩니다.
-
-React Server Components의 주요 특징은 다음과 같습니다.
-
-- 데이터 페칭: 서버에서 데이터를 바로 가져와 미리 렌더링할 수 있어 추가적인 API 호출 없이 초기 페이지 로딩 시 데이터를 제공합니다.
-
-- 보안: 민감한 데이터를 클라이언트로 보내지 않고 서버에서만 처리하므로 보안적인 이점을 제공합니다.
-
-- 캐싱 및 성능: 서버에서 렌더링한 결과를 캐싱하여 여러 사용자 간 공유가 가능하며, 클라이언트로 전송되는 자바스크립트 번들을 최소화하여 초기 로딩 성능을 대폭 개선합니다.
-
----
-
-# Next.js에서의 Server Components
-
-Next.js 공식 문서에서는 RSC를 활용한 서버 렌더링 방식을 더 구체적으로 소개합니다.
-
- Next.js는 기본적으로 모든 컴포넌트를 Server Components로 간주하고, 라우트 세그먼트 단위로 렌더링 작업을 나누어 수행합니다.
-
-Next.js의 렌더링 전략은 크게 다음 세 가지로 나눌 수 있습니다.
-
-- 정적 렌더링 (Static Rendering): 빌드 타임에 미리 렌더링하여 CDN에 캐싱하고 사용자 간 공유합니다. 이는 블로그 글, 제품 페이지 등 정적인 컨텐츠에 적합합니다.
-
-- 동적 렌더링 (Dynamic Rendering): 사용자별로 맞춤화된 데이터를 요청 시점에 렌더링하여 제공합니다. 개인화된 데이터가 중요한 페이지에서 사용됩니다.
-
-- 스트리밍 (Streaming): 페이지 전체가 렌더링되기 전에 미리 렌더링된 부분부터 점진적으로 클라이언트로 전송하여 빠르게 컨텐츠를 보여줍니다.
-
-Next.js는 데이터 캐싱 여부와 특정 Dynamic API(cookies, headers 등)의 사용 여부에 따라 자동으로 최적의 렌더링 전략을 선택합니다.
-
----
-
-### 참고
-
-- [https://github.com/reactwg/server-components/discussions/5](https://github.com/reactwg/server-components/discussions/5)
-- [https://nextjs.org/docs/app/building-your-application/rendering/server-components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
-- [https://react.dev/reference/rsc/server-components](https://react.dev/reference/rsc/server-components)
+- [RSC From Scratch - Dan Abramov](https://github.com/reactwg/server-components/discussions/5)
+- [Next.js Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
+- [React Server Components - React 공식 문서](https://react.dev/reference/rsc/server-components)
