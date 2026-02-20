@@ -68,7 +68,7 @@ export const contentTitle = css`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 15em;
+  width: 16em;
   min-width: 15em;
 `;
 
