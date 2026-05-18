@@ -4,6 +4,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 import { PostView } from "@/views";
 
@@ -54,6 +55,7 @@ export const getStaticProps = async ({ params: { slug } }: any) => {
   const mdxSource = await serialize(content, {
     mdxOptions: {
       development: false,
+      remarkPlugins: [remarkGfm],
       rehypePlugins: [rehypeSlug],
     },
   });

@@ -82,6 +82,37 @@ export const article = css`
     ${prose.li}
   }
 
+  table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+    color: ${theme.text.primary};
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    min-width: 120px;
+    padding: 12px 14px;
+    border: 1px solid ${theme.border.default};
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 700;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background: ${theme.background.primary};
+  }
+
   p {
     code {
       ${prose.code}
