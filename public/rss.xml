@@ -4,7 +4,7 @@
         <title><![CDATA[onschan.me]]></title>
         <link>https://www.onschan.me</link>
         <description><![CDATA[On's TechBlog]]></description>
-        <lastBuildDate>Tue, 10 Dec 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 18 May 2026 00:00:00 GMT</lastBuildDate>
         <language>ko</language>
         <atom:link href="https://www.onschan.me/rss.xml" rel="self" type="application/rss+xml"/>
         
@@ -32,6 +32,15 @@
           <description><![CDATA[Module Federation을 실무에서 사용하면서 배운 핵심 개념들과 기술적 인사이트 정리]]></description>
           <pubDate>Sat, 25 Oct 2025 00:00:00 GMT</pubDate>
           <guid>https://www.onschan.me/post/mf</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[소프트웨어 개발자가 제품 임팩트를 만드는 방식]]></title>
+          <link>https://www.onschan.me/post/product-impact-engineer</link>
+          <description><![CDATA[기능 구현을 넘어 제품 임팩트를 파악하고, 제안하고, 실제 제품에 반영하는 개발자의 일하는 방식]]></description>
+          <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/product-impact-engineer</guid>
           
         </item>
       
