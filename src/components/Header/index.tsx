@@ -67,16 +67,23 @@ export default function Header() {
               }
             `}
           >
-            <button css={styles.menuButton} onClick={toggle}>
+            <button
+              css={styles.menuButton}
+              type="button"
+              aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
+              aria-expanded={isOpen}
+              aria-controls="site-navigation-menu"
+              onClick={toggle}
+            >
               <IoMenu />
             </button>
           </div>
         </div>
       </div>
       {isOpen && (
-        <div css={styles.menu}>
+        <div id="site-navigation-menu" css={styles.menu}>
           {NAVIGATION.map(({ href, label }) => (
-            <Link key={label} href={href} onClick={toggle}>
+            <Link key={label} href={href} onClick={() => toggle(false)}>
               <span>{label}</span>
             </Link>
           ))}

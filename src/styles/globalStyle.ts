@@ -18,6 +18,11 @@ export const globalStyle = css`
     outline: none;
   }
 
+  *:focus-visible {
+    outline: 2px solid ${theme.border.focus};
+    outline-offset: 3px;
+  }
+
   html {
     scroll-behavior: smooth;
   }

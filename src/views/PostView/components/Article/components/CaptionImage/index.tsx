@@ -11,7 +11,7 @@ export default function CaptionImage(props: Props) {
 
   return (
     <div css={styles.layout}>
-      <img {...attributes} />
+      <img alt={attributes.alt || caption} {...attributes} />
       <span css={styles.caption}>{caption}</span>
     </div>
   );

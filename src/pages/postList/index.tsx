@@ -15,11 +15,22 @@ interface Props {
   tagsWithCount: { tag: string; count: number }[];
 }
 
+const getTagFromPath = (asPath: string) => {
+  const [, queryString] = asPath.split("?");
+
+  if (!queryString) {
+    return null;
+  }
+
+  return new URLSearchParams(queryString).get("tag");
+};
+
 export default function PostListPage({ allPosts, tagsWithCount }: Props) {
   const router = useRouter();
-  const { tag } = router.query as { tag?: string };
+  const tag =
+    typeof router.query.tag === "string" ? router.query.tag : getTagFromPath(router.asPath);
 
-  const postList = tag ? allPosts.filter(post => post.tags.includes(tag as string)) : allPosts;
+  const postList = tag ? allPosts.filter(post => post.tags.includes(tag)) : allPosts;
 
   return (
     <>

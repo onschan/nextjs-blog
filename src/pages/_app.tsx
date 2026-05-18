@@ -1,7 +1,8 @@
 import { css, Global } from "@emotion/react";
 import type { AppProps } from "next/app";
 
-import { ThemeModeScript, ThemeProvider } from "@/theme";
+import ThemeModeScript from "@/theme/RenderBlockScript";
+import { ThemeProvider } from "@/theme/ThemeProvider";
 
 import { Grain } from "@/components";
 

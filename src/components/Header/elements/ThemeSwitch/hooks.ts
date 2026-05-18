@@ -1,6 +1,7 @@
 import { useMount } from "react-use";
 
-import { THEME, useTheme } from "@/theme";
+import { useTheme } from "@/theme/ThemeProvider";
+import type { THEME } from "@/theme/types";
 
 const DEFAULT = "system";
 

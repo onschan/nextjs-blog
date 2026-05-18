@@ -6,7 +6,7 @@ import * as styles from "./styles";
 export default function Bio() {
   return (
     <div css={styles.container}>
-      <Link href="https://github.com/onschan/" target="_blank">
+      <Link href="https://github.com/onschan/" target="_blank" rel="noopener noreferrer">
         <img
           css={styles.avatar}
           src="https://avatars.githubusercontent.com/u/62434898?v=4"
@@ -18,13 +18,23 @@ export default function Bio() {
           <Link href="/about">온승찬</Link> | Frontend Developer
         </p>
         <div css={styles.Links}>
-          <Link href="mailto:cks3066@naver.com" target="_blank">
+          <Link href="mailto:cks3066@naver.com" target="_blank" aria-label="이메일 보내기">
             <IoMail size={20} />
           </Link>
-          <Link href="https://github.com/onschan/" target="_blank">
+          <Link
+            href="https://github.com/onschan/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub 프로필"
+          >
             <IoLogoGithub size={20} />
           </Link>
-          <Link href="https://www.linkedin.com/in/seungchan-on-a58000252/" target="_blank">
+          <Link
+            href="https://www.linkedin.com/in/seungchan-on-a58000252/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn 프로필"
+          >
             <IoLogoLinkedin size={20} />
           </Link>
         </div>

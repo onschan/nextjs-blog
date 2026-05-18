@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { THEME } from "@/theme/types";
+import type { THEME } from "./types";
 
 interface ThemeContextType {
   mode: THEME;

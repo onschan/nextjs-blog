@@ -21,6 +21,10 @@ export const tag = css`
     text-decoration: underline;
   }
 
+  &[aria-current="page"] {
+    cursor: default;
+  }
+
   @media (hover: none) {
     &:hover {
       text-decoration: none;

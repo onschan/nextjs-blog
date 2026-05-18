@@ -12,19 +12,24 @@ export default function Tag(props: Props) {
   const { tagsWithCount, currentTag, totalPosts } = props;
 
   return (
-    <div css={styles.container}>
-      <Link href={`/postList`} css={[styles.tag, !currentTag && styles.activeTag]}>
+    <nav css={styles.container} aria-label="포스트 태그">
+      <Link
+        href="/postList"
+        css={[styles.tag, !currentTag && styles.activeTag]}
+        aria-current={!currentTag ? "page" : undefined}
+      >
         All ({totalPosts})
       </Link>
       {tagsWithCount.map(({ tag, count }) => (
         <Link
           key={tag}
           css={[styles.tag, currentTag === tag && styles.activeTag]}
-          href={`/postList?tag=${tag}`}
+          href={{ pathname: "/postList", query: { tag } }}
+          aria-current={currentTag === tag ? "page" : undefined}
         >
           {tag} ({count})
         </Link>
       ))}
-    </div>
+    </nav>
   );
 }

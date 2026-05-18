@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 import * as styles from "./styles";
 
@@ -27,12 +27,7 @@ export default function Hero() {
   const title = "Solving Challenges,\nServing Users";
 
   return (
-    <motion.div
-      css={styles.layout}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <motion.div css={styles.layout} initial="hidden" animate="visible" variants={containerVariants}>
       <motion.div variants={itemVariants}>
         <ThreeJS />
       </motion.div>

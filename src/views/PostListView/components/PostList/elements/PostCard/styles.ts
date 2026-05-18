@@ -4,6 +4,8 @@ import { theme } from "@/theme";
 
 import { makeTextEllipsisByLine } from "@/utils";
 
+import { colors } from "@/styles";
+
 export const postContainer = css`
   display: flex;
   flex-direction: column;
@@ -17,6 +19,10 @@ export const postContainer = css`
 
   &:hover .title {
     text-decoration: underline;
+  }
+
+  &:hover {
+    border-color: ${theme.border.strong};
   }
 
   @media (hover: none) {
@@ -40,8 +46,28 @@ export const description = css`
   line-height: 1.5;
 `;
 
-export const date = css`
+export const meta = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
   color: ${theme.text.tertiary};
   font-size: 14px;
-  text-align: right;
+`;
+
+export const tags = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+`;
+
+export const tag = css`
+  padding: 2px 8px;
+  border: 1px solid ${theme.border.default};
+  border-radius: 9999px;
+  color: ${colors.primary[500]};
+  font-size: 12px;
+  line-height: 1.5;
 `;

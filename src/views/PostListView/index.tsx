@@ -16,7 +16,7 @@ export default function PostListView(props: Props) {
   return (
     <Layout>
       <Tag tagsWithCount={tagsWithCount} currentTag={currentTag} totalPosts={totalPosts} />
-      <PostList postList={postList} />
+      <PostList postList={postList} currentTag={currentTag} />
     </Layout>
   );
 }

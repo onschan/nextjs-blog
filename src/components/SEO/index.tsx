@@ -14,7 +14,8 @@ interface Props {
 export default function SEO(props: Props) {
   const { title, description = "Deep Reflection.", url, keywords, image } = props;
 
-  const ogImage = image ? image : `/assets/images/thumbnail.webp`;
+  const ogImage = image ? image : "/assets/images/thumbnail.webp";
+  const absoluteOgImage = ogImage.startsWith("http") ? ogImage : `${DOMAIN}${ogImage}`;
 
   return (
     <Head>
@@ -38,7 +39,7 @@ export default function SEO(props: Props) {
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}${url}`} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={absoluteOgImage} />
       <meta property="og:site_name" content="On's Tech Blog" />
       <meta property="og:locale" content="ko_KR" />
     </Head>

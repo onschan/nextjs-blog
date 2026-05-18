@@ -36,10 +36,12 @@ function generateSiteMap(posts: Post[]) {
 }
 
 export const generateRssFeed = (posts: Post[]) => {
-  const latestPubDate = posts.reduce((latest, post) => {
-    const pubDate = new Date(post.date);
-    return pubDate.getTime() > latest.getTime() ? pubDate : latest;
-  }, new Date(0)).toUTCString();
+  const latestPubDate = posts
+    .reduce((latest, post) => {
+      const pubDate = new Date(post.date);
+      return pubDate.getTime() > latest.getTime() ? pubDate : latest;
+    }, new Date(0))
+    .toUTCString();
 
   const items = posts
     .map(post => {
