@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://www.onschan.me</loc>
+        <priority>1.0</priority>
+      </url>
+      <url>
+        <loc>https://www.onschan.me/about</loc>
+        <priority>0.8</priority>
+      </url>
+      <url>
+        <loc>https://www.onschan.me/postList</loc>
+        <priority>0.8</priority>
+      </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/blog-1</loc>
+          <lastmod>2024-11-30</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/harness-engineering</loc>
+          <lastmod>2026-05-18</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/mf</loc>
+          <lastmod>2025-10-25</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/rag</loc>
+          <lastmod>2025-08-21</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/react-fiber</loc>
+          <lastmod>2024-12-26</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/reviewer</loc>
+          <lastmod>2025-07-18</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/rsc</loc>
+          <lastmod>2025-04-24</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/threejs-1</loc>
+          <lastmod>2024-12-03</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/threejs-2</loc>
+          <lastmod>2024-12-10</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.onschan.me/post/threejs-3</loc>
+          <lastmod>2025-02-08</lastmod>
+          <priority>0.8</priority>
+        </url>
+      
+    </urlset>

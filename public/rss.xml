@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+      <channel>
+        <title><![CDATA[onschan.me]]></title>
+        <link>https://www.onschan.me</link>
+        <description><![CDATA[On's TechBlog]]></description>
+        <lastBuildDate>Tue, 10 Dec 2024 00:00:00 GMT</lastBuildDate>
+        <language>ko</language>
+        <atom:link href="https://www.onschan.me/rss.xml" rel="self" type="application/rss+xml"/>
+        
+        <item>
+          <title><![CDATA[개발자에게 직접 만든 기술 블로그는 어떤 의미일까?]]></title>
+          <link>https://www.onschan.me/post/blog-1</link>
+          <description><![CDATA[기술 블로그를 만들게된 과정과 느낀점]]></description>
+          <pubDate>Sat, 30 Nov 2024 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/blog-1</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[AI 하네스, 직접 만들지 말고 조합하기]]></title>
+          <link>https://www.onschan.me/post/harness-engineering</link>
+          <description><![CDATA[Codex, Claude Code, Cursor 같은 도구의 차이를 이해하고 AI agent 작업 흐름을 직접 재발명하지 않는 방법]]></description>
+          <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/harness-engineering</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[Module Federation 이해하기]]></title>
+          <link>https://www.onschan.me/post/mf</link>
+          <description><![CDATA[Module Federation을 실무에서 사용하면서 배운 핵심 개념들과 기술적 인사이트 정리]]></description>
+          <pubDate>Sat, 25 Oct 2025 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/mf</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[RAG 아키텍처로 포트폴리오 AI 챗봇 구현하기]]></title>
+          <link>https://www.onschan.me/post/rag</link>
+          <description><![CDATA[문서 기반 RAG 시스템을 설계하고 구현하여 개인 포트폴리오 질의응답 봇을 제작한 기술적 과정]]></description>
+          <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/rag</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[React Fiber Architecture 톺아보기]]></title>
+          <link>https://www.onschan.me/post/react-fiber</link>
+          <description><![CDATA[Fiber의 개발 과정을 살펴보며 Fiber의 등장 배경과 동작 원리, 실제 동작]]></description>
+          <pubDate>Thu, 26 Dec 2024 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/react-fiber</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[우아한테크코스 리뷰어 회고록]]></title>
+          <link>https://www.onschan.me/post/reviewer</link>
+          <description><![CDATA[우테코에서 리뷰어를 하며 경험한 이야기와 느낀점]]></description>
+          <pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/reviewer</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[React Server Components (RSC)]]></title>
+          <link>https://www.onschan.me/post/rsc</link>
+          <description><![CDATA[RSC의 개념, SSR과의 차이점, 실제 구현 방법을 학습하며 정리한 내용]]></description>
+          <pubDate>Thu, 24 Apr 2025 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/rsc</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[Three.js 기본 개념 알아보기]]></title>
+          <link>https://www.onschan.me/post/threejs-1</link>
+          <description><![CDATA[(Three.js와 친해지기 1편) Three.js의 핵심 개념인 Scene, Camera, Render]]></description>
+          <pubDate>Tue, 03 Dec 2024 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/threejs-1</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[Three.js로 현실감 있는 3D 객체 만들기]]></title>
+          <link>https://www.onschan.me/post/threejs-2</link>
+          <description><![CDATA[(Three.js와 친해지기 2편) 3D 객체에 입체감을 주는 Mesh, Light]]></description>
+          <pubDate>Tue, 10 Dec 2024 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/threejs-2</guid>
+          
+        </item>
+      
+        <item>
+          <title><![CDATA[Three.js로 외부 3D 모델 불러오기]]></title>
+          <link>https://www.onschan.me/post/threejs-3</link>
+          <description><![CDATA[(Three.js와 친해지기 3편) 인터넷에서 제공되는 외부 3D 모델 파일을 Three.js로 로드하는 방법]]></description>
+          <pubDate>Sat, 08 Feb 2025 00:00:00 GMT</pubDate>
+          <guid>https://www.onschan.me/post/threejs-3</guid>
+          
+        </item>
+      
+      </channel>
+    </rss>
+  
