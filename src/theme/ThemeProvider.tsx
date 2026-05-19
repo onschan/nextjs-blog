@@ -7,7 +7,10 @@ interface ThemeContextType {
   changeMode: (mode: THEME) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  mode: "system",
+  changeMode: () => {},
+});
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -29,9 +32,5 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 };
 
 export const useTheme = (): ThemeContextType => {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  return useContext(ThemeContext);
 };

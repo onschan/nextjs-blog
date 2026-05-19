@@ -10,7 +10,12 @@ interface Props {
 
 export default function PostCard({ post }: Props) {
   return (
-    <Link key={post.slug} href={`/post/${post.slug}`} css={styles.postContainer}>
+    <Link
+      key={post.slug}
+      href={`/post/${post.slug}`}
+      css={styles.postContainer}
+      aria-label={`${post.title} 글 읽기`}
+    >
       <span className="title" css={styles.title}>
         {post.title || "무제"}
       </span>

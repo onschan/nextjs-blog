@@ -1,6 +1,5 @@
 import fs from "fs";
 import matter from "gray-matter";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import path from "path";
 
@@ -13,6 +12,7 @@ import type { Post } from "@/types";
 interface Props {
   allPosts: Post[];
   tagsWithCount: { tag: string; count: number }[];
+  latestPostDate: string | null;
 }
 
 const getTagFromPath = (asPath: string) => {
@@ -25,7 +25,7 @@ const getTagFromPath = (asPath: string) => {
   return new URLSearchParams(queryString).get("tag");
 };
 
-export default function PostListPage({ allPosts, tagsWithCount }: Props) {
+export default function PostListPage({ allPosts, tagsWithCount, latestPostDate }: Props) {
   const router = useRouter();
   const tag =
     typeof router.query.tag === "string" ? router.query.tag : getTagFromPath(router.asPath);
@@ -40,6 +40,7 @@ export default function PostListPage({ allPosts, tagsWithCount }: Props) {
         tagsWithCount={tagsWithCount}
         currentTag={tag || null}
         totalPosts={allPosts.length}
+        latestPostDate={latestPostDate}
       />
     </>
   );
@@ -72,6 +73,7 @@ export const getStaticProps = async () => {
     props: {
       allPosts,
       tagsWithCount,
+      latestPostDate: allPosts[0]?.date || null,
     },
   };
 };

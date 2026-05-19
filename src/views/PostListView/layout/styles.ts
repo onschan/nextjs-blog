@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 export const layout = css`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   align-items: center;
   width: 100%;
-  max-width: 88rem;
+  max-width: 72rem;
   padding: 20px;
 `;
