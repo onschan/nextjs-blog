@@ -72,6 +72,28 @@ export const contentTitle = css`
   min-width: 15em;
 `;
 
+export const contentBody = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  flex: 1;
+  min-width: 0;
+`;
+
+export const meta = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  ${typography.bodySmall}
+  color: ${theme.text.secondary};
+`;
+
+export const metaLabel = css`
+  ${typography.captionAccent}
+  color: ${colors.primary[500]};
+  margin-right: 0.6em;
+`;
+
 export const subContent = css`
   ${typography.caption}
   color: ${theme.text.secondary};
@@ -83,5 +105,14 @@ export const link = css`
 
   :hover {
     color: ${colors.primary[600]};
+  }
+`;
+
+export const inlineLink = css`
+  color: ${colors.primary[500]};
+
+  :hover {
+    color: ${colors.primary[600]};
+    text-decoration: underline;
   }
 `;
