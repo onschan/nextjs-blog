@@ -16,24 +16,82 @@ export default function AboutView() {
             개발자 <strong>온승찬</strong>입니다.
           </h1>
           <p>
-            4년차 프론트엔드 개발자로, 이커머스 SaaS 환경에서 백오피스와 웹빌더 제품을 개발하고
-            운영해왔습니다.
+            이커머스 SaaS의 판매자용 어드민과 웹사이트 편집기를 4년 가까이 만들고 운영해왔습니다.
             <br />
-            React, Next.js, TypeScript 기반으로 주문, 상품, 연동 상품, 웹빌더 에디터 등 복잡한
-            커머스 도메인의 사용자 흐름을 제품 경험으로 풀어내는 데 강점이 있습니다.
+            초기 화면을 만들던 때부터, 지금 판매자들이 매일 들어와 일하는 제품이 되기까지 계속
+            참여해왔습니다.
             <br />
-            단순히 화면을 구현하는 것보다, 사용자가 실제 업무 과정에서 겪는 불편을 구조화하고 이를
-            안정적인 UI 구조, 상태 관리, 데이터 흐름으로 해결하는 데 집중해왔습니다.
-            <br />
-            코드 리뷰, 기술 공유, 공통 패턴 정리에 관심이 많아 리뷰어/멘토 활동과 개인 기술 블로그
-            운영을 통해 팀 안팎으로 지식을 나누고 있습니다.
-            <br />
-            Claude Code·Codex 같은 AI 개발 도구를 코드 탐색, 리팩터링, 문서화, 리뷰 보조 등 실제
-            업무 전반에 활용하며, AI 기반 워크플로우 개선과 반복 업무 자동화를 통해 개발 속도와 코드
-            품질을 높이는 방식을 고민하고 있습니다.
+            36개 애플리케이션이 모인 제품에서 주문·상품·채널 연동·마케팅 메시지·고객 관리를 맡았고,
+            공용 컴포넌트 라이브러리와 마이크로 프론트엔드 구조 같은 공통 기반도 함께 만들었습니다.
           </p>
 
           <Bio />
+        </section>
+
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Summary</h2>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>제품</h3>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                <strong>
+                  받은 요구사항을 구현하는 데서 멈추지 않고 제품 방향에도 의견을 냅니다.
+                </strong>{" "}
+                화면을 만드는 사람이 사용자가 어디서 막히는지 가장 먼저 본다고 생각해, 문제를
+                발견하면 기획을 기다리지 않고 먼저 제안합니다. 운영자가 주문과 문의를 뒤늦게
+                알아채는 문제를 보고 브라우저 알림을 제안했고, 그 제안이 받아들여져 실제 기능으로
+                나갔습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>데이터</h3>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                <strong>판단에 필요한 데이터가 없으면, 측정할 수 있게 만드는 일부터 합니다.</strong>{" "}
+                재지 않으면 나아졌는지 알 수 없다고 생각합니다. 고치기 전에 무엇이 얼마나 문제인지
+                확인하고, 낸 뒤에는 결과를 다시 봅니다.
+              </li>
+              <li>
+                제품 전반의 이벤트는 시도·성공·실패 규칙으로 정리해왔고, 지금은 기능을 기획할 때
+                무엇을 재고 그 데이터를 누가 쓸지까지 함께 정하는 절차를 만들고 있습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>학습</h3>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                <strong>기술을 쓰는 데서 멈추지 않고 왜 그렇게 만들어졌는지까지 확인합니다.</strong>{" "}
+                어떤 문제를 풀려고 나온 기술인지 알면 어디까지 믿고 쓸 수 있는지도 함께 보인다고
+                봅니다. 그래서 정리된 자료가 없으면 GitHub의 PR·이슈 기록과 구현 코드까지
+                내려갑니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>공유</h3>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                <strong>배운 것은 팀 안에서도 밖에서도 나눕니다.</strong> 혼자 익힌 것은 그 사람이
+                떠나면 사라지지만, 정리해 내놓으면 남는다고 봅니다. 우아한테크코스·NEXTSTEP 리뷰어로
+                35명 이상에게 코드 리뷰와 페어 프로그래밍을 진행했습니다. 팀 안에서는 AI 에이전트
+                활용 방식을 워크숍과 문서로 정리해 함께 쓰도록 만들었습니다.
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section css={styles.section}>
@@ -43,12 +101,12 @@ export default function AboutView() {
               <h3 css={styles.subheading}>기술 스택</h3>
             </div>
             <ul css={styles.list}>
-              <li>Framework / Library: React, Next.js, TypeScript</li>
-              <li>State Management: React Query, Recoil, Redux, Jotai, Zustand</li>
-              <li>Build / Architecture: Webpack, Vite, Nx, Module Federation</li>
-              <li>Styling: SCSS, CSS Modules, Styled-components, Emotion, Tailwind CSS</li>
-              <li>Testing / Documentation: Cypress, Jest, React Testing Library, Storybook</li>
-              <li>Monitoring / Analytics: Sentry, Google Analytics, Lighthouse, Hotjar</li>
+              <li>Core: React, Next.js, TypeScript</li>
+              <li>State: React Query(TanStack Query), Jotai, Recoil, Redux, Zustand</li>
+              <li>Build: Nx, Module Federation, Webpack, Vite</li>
+              <li>Styling: Emotion, Styled-components, SCSS, CSS Modules, Tailwind CSS</li>
+              <li>Data: GraphQL(Apollo), WebSocket, SSE, Web Push</li>
+              <li>Testing: Cypress, Jest, React Testing Library, Storybook, Sentry, Lighthouse</li>
             </ul>
           </div>
         </section>
@@ -69,144 +127,226 @@ export default function AboutView() {
             </div>
             <ul css={styles.list}>
               <li css={styles.listItem}>
-                <strong>사용 기술 및 환경</strong>
+                <strong>담당 제품</strong>
                 <ul css={styles.list}>
                   <li>
-                    Next.js, TypeScript, Recoil, React Query, Styled-components, Nx, Module
-                    Federation, WebSocket
-                  </li>
-                  <li>Nx 기반 20개 이상 애플리케이션으로 구성된 이커머스 SaaS 모노레포 환경</li>
-                </ul>
-              </li>
-              <li css={styles.listItem}>
-                <strong>이커머스 SaaS 백오피스/웹빌더 제품 개발</strong>
-                <ul css={styles.list}>
-                  <li>
-                    서비스 초기 개발 단계부터 참여하여 주문, 상품, 연동 상품, 웹빌더 에디터 등 핵심
-                    도메인의 프론트엔드 개발과 운영을 담당
+                    성격이 다른 두 제품을 함께 맡았습니다. 주문·상품·고객을 다루는 데이터 중심의
+                    백오피스와, 코드를 모르는 사용자가 직접 끌어 놓아 사이트를 만드는 편집기입니다.
                   </li>
                   <li>
-                    사용자가 실제로 상품을 등록하고, 웹사이트를 편집하고, 주문을 처리하는 업무
-                    흐름을 기준으로 화면 구조와 인터랙션을 설계
+                    기능 개발과 함께 공용 컴포넌트 라이브러리, 마이크로 프론트엔드 구조 같은 공통
+                    기반도 만들었습니다.
                   </li>
                   <li>
-                    PM·디자이너·백엔드 엔지니어와 협업하여 요구사항을 기술 구조로 구체화하고, 사용자
-                    피드백과 행동 데이터를 기반으로 UX 개선을 반복
-                  </li>
-                  <li>매출·결제율 개선에 대한 아이디어를 제안해 실제 성과로 연결</li>
-                </ul>
-              </li>
-              <li css={styles.listItem}>
-                <strong>웹빌더 편집 경험 개선</strong>
-                <ul css={styles.list}>
-                  <li>
-                    기존 패널 중심의 웹빌더 편집 방식을, 사용자가 프리뷰 화면을 직접 조작하는
-                    온페이지 D&amp;D 구조로 전환하는 작업을 주도
-                  </li>
-                  <li>
-                    iframe 환경에서 부모 앱과 프리뷰 영역 간 이벤트 흐름이 분리되는 문제를
-                    postMessage 기반 이벤트 동기화 구조를 개선해 해결
-                  </li>
-                  <li>
-                    empty container 처리, cross-section 이동, depth 제한, width 재분배 등 복잡한
-                    편집 엣지 케이스를 안정적으로 처리하도록 상태 구조와 이벤트 흐름 개선
+                    Nx 모노레포 · 36개 애플리케이션 · Next.js, TypeScript, GraphQL(Apollo), Recoil,
+                    React Query, Module Federation
                   </li>
                 </ul>
               </li>
+
               <li css={styles.listItem}>
-                <strong>복잡한 상태 관리 시스템 최적화</strong>
+                <strong>웹사이트 편집기 드래그 편집 — 예외 분기를 규칙 엔진으로 전환</strong>
                 <ul css={styles.list}>
                   <li>
-                    600개 이상 세부 품목을 실시간으로 입력·수정하는 상품 관리 시스템에서 INP 성능
-                    병목의 원인을 직접 분석
+                    요소를 쌓아 올리는 것뿐 아니라 가로로 나란히 놓거나 그 안에 다시 요소를 넣는
+                    중첩 레이아웃까지 지원해야 했습니다. 설정 패널에서 값을 고르던 편집을
+                    미리보기에서 직접 끌어 옮기는 방식으로 바꾸면서, 편집 규칙 전반을 설계하고
+                    구현했습니다.
                   </li>
                   <li>
-                    기존 구조에서는 폼 데이터 변경 시 넓은 범위의 상태 구독이 발생해 불필요한
-                    리렌더링이 반복되는 문제를 확인
+                    문제 · 사용자에게는 요소를 끌어 옮기는 한 번의 동작이지만, 시스템에는 문서
+                    트리를 다시 짜는 일입니다. 요소 종류·놓는 방향·현재 위치·옮기는 요소가 안에 담고
+                    있는 구조가 모두 결과를 바꿔 경우의 수가 곱해집니다.
                   </li>
                   <li>
-                    상태 구독 범위를 세분화하고 변경이 필요한 영역만 반응하도록 구조를 재설계하여,
-                    주요 입력 인터랙션 기준 INP를 600ms 이상에서 60ms 이하로 개선
+                    제약 · 계층 목록을 다루는 좌측 패널과 좌표를 다루는 미리보기는 입력 성격이 전혀
+                    다른데, 같은 조작에는 같은 결과를 내야 합니다. 따로 만들면 한쪽만 고쳐지는
+                    버그가 계속 나옵니다.
                   </li>
                   <li>
-                    개선 방식을 팀에 공유하여 유사한 대규모 폼 데이터 관리 상황에서도 재사용 가능한
-                    패턴으로 정착
+                    선택 · 예외를 하나씩 막는 대신, 어느 경로로 들어오든 동일하게 동작하는 판정 →
+                    자동 래핑 → 검증 파이프라인으로 통일했습니다. 미리보기는 격리된 프레임이라
+                    메시지 통신으로 두 컨텍스트가 하나의 편집 상태를 보게 했고, 깊이 검증은 서버를
+                    오가면 타이밍이 맞지 않아 클라이언트가 맡도록 했습니다.
+                  </li>
+                  <li>
+                    결과 · 예외를 규칙으로 옮기고 나니, 새 편집 시나리오가 생겨도 두 경로에 똑같이
+                    적용됩니다. 분기문이 아니라 규칙만 늘어나는 구조가 됐습니다.
                   </li>
                 </ul>
               </li>
+
               <li css={styles.listItem}>
-                <strong>외부 앱 확장 시스템(Page Script) 설계 및 구현</strong>
+                <strong>
+                  외부 앱 확장 시스템 설계 — 제품 코드 수정 없이 외부 개발자가 기능을 얹는 구조
+                </strong>
                 <ul css={styles.list}>
                   <li>
-                    외부 협력사 앱이 스토어매니저 안에서 네이티브 UI로 기능을 제공할 수 있도록 하는
-                    확장 스크립트 시스템을 전담하여 설계·구현
+                    문제 · 협력사가 만든 앱이 백오피스 바깥의 별도 화면이 아니라 제품의 일부처럼
+                    붙어야 했습니다. 협력사가 늘 때마다 내부 코드를 고치는 방식으로는 감당할 수
+                    없었습니다.
                   </li>
                   <li>
-                    외부 개발자가 스크립트만 등록하면 런타임에 모달, 스낵바, 액션 버튼, 입력 필드 등
-                    내부 UI를 제어할 수 있는 JavaScript API 인터페이스 설계
+                    제약 · 우리가 손댈 수 없는 코드가 우리 화면 안에서 실행됩니다. DOM을 그대로
+                    열어주면 내부 구조가 곧 공개 API가 되어 이후로는 아무것도 못 바꾸고, 반대로
+                    완전히 격리하면 협력사 기능만 동떨어져 보이는 화면이 됩니다.
                   </li>
                   <li>
-                    스토어·사용자 인증 정보 등 앱 동작에 필요한 컨텍스트를 외부 스크립트에 안전하게
-                    전달하고, iframe 기반 앱 화면과 통신하는 구조 구현
+                    선택 · DOM을 열어주는 대신 무엇을 하고 싶은지만 받는 인터페이스를 만들었습니다.
+                    외부 스크립트는 모달을 띄워달라, 이 자리에 위젯을 걸어달라고 요청할 뿐, 실제로
+                    그리는 건 내부 컴포넌트입니다.
                   </li>
                   <li>
-                    내부 제품 코드와 외부 확장 기능의 경계를 명확히 분리하여, 협력사가 늘어나도 제품
-                    코드 수정 없이 기능을 확장할 수 있는 구조 확립
+                    한 번 배포한 인터페이스는 되돌릴 수 없다고 보고 설계했습니다. 식별자 누락과
+                    예약어 충돌은 등록 시점에 막고, 잘못 쓰면 조용히 실패하는 대신 이유가 그대로
+                    보이게 해 협력사가 문의 없이 스스로 원인을 찾게 했습니다.
+                  </li>
+                  <li>
+                    같은 문제를 먼저 푼 Shopify의 App Bridge와 Slot·Widget 구조를 뜯어보고 설계
+                    근거로 삼았고, 외부 개발사가 볼 연동 가이드도 직접 썼습니다.
+                  </li>
+                  <li>
+                    결과 · 협력사가 늘어도 제품 코드는 그대로 두고 스크립트만 등록하면 기능이
+                    붙습니다. 지금 10개 이상 협력사의 기능이 제품 안에서 동작하고 있습니다.
                   </li>
                 </ul>
               </li>
+
               <li css={styles.listItem}>
-                <strong>마이크로 프론트엔드 아키텍처 운영</strong>
+                <strong>
+                  수천 개 입력 필드를 다루는 어드민의 렌더링 최적화 — INP 600ms → 60ms
+                </strong>
                 <ul css={styles.list}>
                   <li>
-                    단일 애플리케이션으로 운영되던 프론트엔드를 Webpack Module Federation 기반으로
-                    20개 이상 도메인의 독립 애플리케이션으로 점진적으로 분리·운영하는 구조에 참여
+                    문제 · 상품에 색상·사이즈 같은 옵션을 넣으면 조합 수만큼 항목이 늘어 수천 개가
+                    되고, 항목마다 가격·재고·코드 입력란이 따로 붙습니다. 타이핑이 밀린다는 제보가
+                    반복됐지만 빨라졌는지는 체감으로 가릴 수 없어, 입력 응답성을 INP로 먼저 측정한
+                    뒤 원인을 찾았습니다.
                   </li>
                   <li>
-                    각 도메인이 독립적으로 개발·배포될 수 있도록 애플리케이션 경계를 나누고, 공통
-                    UI·유틸·인증 의존성을 중앙화
+                    원인 · 병목은 입력란 개수가 아니라 한 번의 변경이 미치는 범위였습니다. 값 하나가
+                    바뀌면 넓게 걸린 상태 구독이 함께 반응하면서, 방금 타이핑한 곳과 상관없는
+                    영역까지 연쇄적으로 다시 그려졌습니다.
                   </li>
                   <li>
-                    도메인별 자율성과 전체 제품의 일관성을 함께 유지하는 구조를 운영하며, 주요
-                    워크플로우 기준 빌드 시간을 20분에서 2분 이내로 단축
+                    대안 · 입력 반영을 늦추는 방법은 다시 그리는 양을 그대로 둔 채 증상만 가리고,
+                    값이 늦게 반영되는 문제까지 생겨 제외했습니다. 화면을 통째로 새로 짜는 쪽이
+                    근본에 가까웠지만, 운영 중인 핵심 화면을 한 번에 교체하는 부담이 커 나눠서
+                    적용할 수 있는 방향을 택했습니다.
+                  </li>
+                  <li>
+                    선택 · 상태 구독을 잘게 쪼개 실제로 바뀐 영역만 반응하도록 다시 설계했습니다.
+                  </li>
+                  <li>
+                    결과 · 주요 입력 동작 기준 INP 600ms 이상에서 60ms 이하로 개선했습니다. 이
+                    방식을 팀에 공유해, 비슷한 대량 입력 화면에서도 같은 패턴을 쓰고 있습니다.
+                  </li>
+                  <li>
+                    측정 · 같은 화면·같은 데이터 규모에서 개선 전후 입력 응답 지연(INP)을 각각 측정
                   </li>
                 </ul>
               </li>
+
               <li css={styles.listItem}>
-                <strong>실시간 수신함 및 알림 기능 개발</strong>
+                <strong>
+                  웹사이트 편집기 부팅 성능 개선 — 91개 페이지를 통째로 받던 부팅을 1페이지로
+                </strong>
                 <ul css={styles.list}>
                   <li>
-                    WebSocket 기반 수신함을 설계·구현하고, 실시간 이벤트를 사용자에게 안정적으로
-                    전달하는 이벤트 처리 구조 구축
+                    문제 · 편집기가 느리다는 문의를 받고 그 스토어를 직접 열어보니, 편집기를 켤 때
+                    사이트에 있는 91개 페이지의 구성 요소를 전부 한 번에 불러오고 있었습니다. 지금
+                    편집하는 한 페이지가 아니라 사이트 전체가 부팅 비용에 들어가는 구조라, 페이지를
+                    많이 만든 고객일수록 편집기가 느려졌습니다.
                   </li>
                   <li>
-                    Web Push 연동을 통해 주문, 문의, 시스템 이벤트 등 주요 이슈를 브라우저 알림으로
-                    전달하는 기능을 새롭게 구현
+                    선택 · 조회를 빠르게 만드는 대신 언제 불러올지를 바꾸는 쪽을 택했습니다. 다만
+                    필요한 필드 목록이 여러 화면에서 함께 쓰는 조각에 묶여 있어, 거기서 지우면 그걸
+                    참조하는 20여 곳이 같이 깨집니다. 조각 자체를 목록용과 편집용으로 나누는 것
+                    말고는 길이 없었습니다.
                   </li>
                   <li>
-                    실시간 데이터 반영, 알림 상태, 사용자 피드백 처리를 고려한 이벤트 기반 UI를
-                    구현해 백오피스 사용자가 중요한 이벤트를 더 빠르게 인지하도록 개선
+                    결과 · 부팅 응답 11.2MB에서 0.37MB로, 브라우저가 메모리에 들고 있는 화면 구성
+                    요소 3,076개에서 25개로 줄었습니다. 대신 페이지를 처음 열 때 170ms짜리 요청이
+                    하나 늘었는데, 두 번째부터는 요청이 없고 체감으로도 걸리지 않아 감수할 만한
+                    비용이라고 봤습니다.
+                  </li>
+                  <li>
+                    측정 · 문의가 들어온 스토어에서, 변경분을 되돌려 같은 서버·같은 데이터로 전후를
+                    각각 실측
                   </li>
                 </ul>
               </li>
+
               <li css={styles.listItem}>
-                <strong>AI 활용 및 개발 생산성 개선</strong>
+                <strong>판매자 사이트 폰트 로딩 최적화 — 페이지 HTML 95.6% 감소</strong>
                 <ul css={styles.list}>
                   <li>
-                    Claude Code, Codex 등 AI 개발 도구를 코드 탐색, 리팩터링, 문서화, 코드 리뷰
-                    보조, 반복 업무 자동화 등 개발 워크플로우 전반에 적용
+                    문제 · 판매자가 우리 서비스로 만든 사이트는 페이지마다 폰트 CSS 1.86MB를 HTML에
+                    그대로 담아 내보내고 있었습니다. 그 사이트가 실제로 쓰는 폰트와는 상관없는
+                    양이었고, 캐시도 타지 못해 페이지를 열 때마다 다시 내려갔습니다.
                   </li>
                   <li>
-                    AI 결과물을 그대로 사용하지 않고, 현재 코드베이스의 제약과 운영 맥락을 기준으로
-                    검증해 실제 개발 프로세스에 통합
+                    원인 · 두 가지가 겹쳐 있었습니다. 프레임워크의 폰트 인라인 최적화가 기본으로
+                    켜져 있어 폰트 CSS를 HTML에 직접 넣고 있었고, 공통 문서 템플릿에는 폰트 60개가
+                    하드코딩돼 사이트가 무엇을 쓰든 전부 따라 내려갔습니다.
                   </li>
                   <li>
-                    프로젝트별 AGENTS.md, 협업 가드레일, 검증 기준을 정리해 AI가 작업 맥락을 놓치지
-                    않도록 관리
+                    선택 · 인라인을 끄고 링크 방식으로 되돌려 브라우저 캐시를 타게 한 뒤, 서버에서
+                    그릴 때 그 사이트가 실제로 쓰는 폰트만 골라 링크를 걸도록 바꿨습니다. 디자인
+                    설정값만 봐서는 사용자가 CSS에 직접 적어둔 폰트를 놓치기 때문에, 사용자가 쓴
+                    코드까지 훑어 폰트 선언을 모았습니다.
                   </li>
                   <li>
-                    팀 AI 활용 워크숍을 주도하고, AI 지침·Agent 활용법·하네스 엔지니어링 사례를
-                    정리해 공유하며 팀 전체의 AI 활용도 향상
+                    결과 · 페이지 HTML 2,513KB에서 110KB로(95.6% 감소), 미리보기 1,863KB에서
+                    7KB로(99.6% 감소), HTML 내 @font-face 3,423개에서 0개로 줄었습니다.
+                  </li>
+                  <li>측정 · 같은 사이트에서 배포 전후 HTML 응답 크기를 각각 실측</li>
+                </ul>
+              </li>
+
+              <li css={styles.listItem}>
+                <strong>
+                  사내 공용 컴포넌트 라이브러리 — 헤드리스 구조와 AI가 먼저 찾게 만든 문서
+                </strong>
+                <ul css={styles.list}>
+                  <li>
+                    문제 · 달력·탭·표 컬럼 필터처럼 여러 화면에 반복되는 UI를 화면마다 새로 만들고
+                    있었습니다. 공용으로 묶으려니 화면마다 요구가 달라 옵션이 계속 늘었고, 옵션이
+                    늘수록 한 화면을 위해 넣은 분기가 다른 화면의 동작까지 건드리게 됩니다.
+                  </li>
+                  <li>
+                    선택 · 동작과 표현을 분리하는 헤드리스 방식을 택했습니다. 열림·선택·포커스 같은
+                    상태와 상호작용은 라이브러리가 맡고, 화면에 어떻게 보일지는 쓰는 쪽이
+                    조립합니다. Storybook으로 동작을 문서화해 물어보지 않고도 확인할 수 있게
+                    했습니다.
+                  </li>
+                  <li>
+                    결과 · 같은 UI를 다시 짜지 않고 가져다 조립하게 됐고, 동작이 어긋나면 한곳만
+                    고치면 됩니다. 이후 AI 에이전트가 이미 있는 컴포넌트를 두고 새 UI를 만들어내는
+                    문제가 생겨, UI를 만들기 전에 같은 컴포넌트가 있는지 먼저 확인하도록 규칙과 탐색
+                    방법을 에이전트가 읽는 문서로 남겼습니다.
+                  </li>
+                </ul>
+              </li>
+
+              <li css={styles.listItem}>
+                <strong>AI 에이전트를 팀 개발 워크플로우에 도입</strong>
+                <ul css={styles.list}>
+                  <li>
+                    문제 · 팀원마다 쓰는 도구와 설정이 달랐습니다. 누구는 Claude Code, 누구는
+                    Codex를 쓰고 각자의 하네스와 프롬프트를 따로 두다 보니, 같은 코드베이스를 두고도
+                    나오는 결과물의 품질이 사람마다 달랐습니다.
+                  </li>
+                  <li>
+                    선택 · 도구를 잘 쓰는 법 대신, 도구가 일할 환경을 만드는 쪽으로 방향을
+                    틀었습니다. 어떤 에이전트를 쓰든 어떤 하네스를 얹든 같은 코드베이스에서는 같은
+                    품질이 나와야 한다고 보고, 규칙과 검증 기준을 각자의 도구가 아니라 저장소에
+                    뒀습니다.
+                  </li>
+                  <li>
+                    결과 · 결과물 편차가 줄어든 뒤로는 팀의 AI 활용을 앞장서 이끌었습니다. 워크숍을
+                    열어 활용 지침과 스킬 셋, 워크플로우, 참고 자료를 직접 정리해 나눴고, 각자 같은
+                    시행착오를 겪는 대신 검증된 설정이 팀에 쌓이도록 만들었습니다.
                   </li>
                 </ul>
               </li>
@@ -242,39 +382,169 @@ export default function AboutView() {
               </p>
             </div>
             <ul css={styles.list}>
-              <li css={styles.listItem}>
-                <strong>사용 기술</strong>
-                <ul css={styles.list}>
-                  <li>
-                    React, TypeScript, Recoil, React Query, Emotion, Cypress, React-transition-group
-                  </li>
-                </ul>
+              <li>React, TypeScript, Recoil, React Query, Emotion, Cypress</li>
+              <li>
+                여러 사람이 같은 체크리스트를 동시에 보기 때문에, 상태가 늦게 반영되면 서비스를 믿을
+                수 없게 된다고 보고 Polling → SSE → WebSocket으로 차례로 옮기며 각 방식의
+                트레이드오프를 직접 확인했습니다.
               </li>
-              <li css={styles.listItem}>
-                <strong>프론트엔드 성능 최적화</strong>
-                <ul css={styles.list}>
-                  <li>
-                    Lighthouse 기반 병목 분석 후 코드 스플리팅, WebP, Lazy Loading을 적용하여 LCP를
-                    8초에서 3초로 개선
-                  </li>
-                  <li>Lighthouse 성능 점수를 40점대에서 80점대 후반으로 개선</li>
-                </ul>
+              <li>
+                Lighthouse로 병목을 진단한 뒤 코드 분할, WebP, 지연 로딩을 적용해 LCP 8초에서 3초로,
+                Lighthouse 40점대에서 80점대 후반으로 개선했습니다.
               </li>
-              <li css={styles.listItem}>
-                <strong>실시간 통신 구조 개선</strong>
-                <ul css={styles.list}>
-                  <li>Polling, SSE, WebSocket의 트레이드오프를 비교하며 실시간 동기화 구조 개선</li>
-                </ul>
+              <li>
+                Webpack·Babel·Cypress로 개발·테스트 환경을 꾸리고 CI/CD에 E2E 테스트를 물려, 주요
+                사용자 흐름이 깨지면 바로 걸리도록 했습니다.
               </li>
-              <li css={styles.listItem}>
-                <strong>개발 환경/테스트 자동화</strong>
-                <ul css={styles.list}>
-                  <li>Webpack, Babel, Cypress 기반 개발/테스트 환경 구성</li>
-                  <li>
-                    CI/CD 파이프라인에 E2E 테스트를 연동하여 주요 사용자 플로우의 회귀 테스트 기반
-                    마련
-                  </li>
-                </ul>
+            </ul>
+          </div>
+        </section>
+
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Other Experiences</h2>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>우아한테크코스 FE 7기 리뷰어</h3>
+              <p css={styles.subContent}>2025.02 ~ 2025.06</p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                수강생 30명 이상에게 코드 리뷰와 페어 프로그래밍을 진행했습니다. 답을 알려주기보다
+                질문을 던져, 리뷰이가 스스로 구조 문제를 찾도록 리뷰했습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>코드잇 프론트엔드 멘토</h3>
+              <p css={styles.subContent}>2025.02 ~ 2025.04</p>
+            </div>
+            <ul css={styles.list}>
+              <li>수강생 대상 기술 공유와 프로젝트 멘토링을 진행했습니다.</li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>NEXTSTEP 리뷰어</h3>
+              <p css={styles.subContent}>2024.02 ~ 2024.06</p>
+            </div>
+            <ul css={styles.list}>
+              <li>수강생 5명 이상에게 코드 리뷰와 페어 프로그래밍을 진행했습니다.</li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>개인 기술 블로그 운영</h3>
+              <p css={styles.subContent}>2024.11 ~ 현재</p>
+              <p css={styles.link}>
+                <a href="https://www.onschan.me" target="_blank" rel="noopener noreferrer">
+                  https://www.onschan.me
+                </a>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>Next.js로 직접 만들어 운영하며 SEO, RSS, 콘텐츠 구조화까지 붙였습니다.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section css={styles.section}>
+          <h2 css={styles.heading}>Article &amp; Presentation</h2>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>React Fiber Architecture 톺아보기</h3>
+              <p css={styles.link}>
+                <Link href="/post/react-fiber">글 보러가기</Link>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                리액트를 만든 사람들이 어떤 흐름으로 Fiber에 도달했는지가 궁금했습니다. 저장소의
+                PR과 이슈를 2016년 첫 논의부터 따라 읽고, 설계자들이 실제로 주고받은 말을 근거로
+                Fiber가 탄생한 배경과 어떻게 발전해왔는지를 정리했습니다. 동작 원리는 원본 코드를
+                직접 읽어 확인했고, 문단마다 원문 링크를 달아 제 해석을 건너뛰고 바로 확인할 수 있게
+                했습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>Module Federation 이해하기</h3>
+              <p css={styles.link}>
+                <Link href="/post/mf">글 보러가기</Link>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                직접 쓰는 기술인 만큼 더 정확하게 남기고 싶었습니다. 동작 원리를 처음부터 다시
+                확인하고, 트리쉐이킹 한계나 Next.js 지원 중단처럼 실무에서 실제로 부딪힌 문제를 함께
+                담았습니다. 쓸 만한 경우와 굳이 쓸 필요 없는 경우를 나눈 기준까지 정리했습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>소프트웨어 개발자가 제품 임팩트를 만드는 방식</h3>
+              <p css={styles.link}>
+                <Link href="/post/product-impact-engineer">글 보러가기</Link>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                기능을 구현하는 데서 멈추지 않고 제품 관점에서 임팩트를 내려면 무엇을 봐야 하는지
+                정리했습니다. 구현하면서 마주치는 사실을 제품 판단의 재료로 바꾸는 관점과, 그것을
+                제안하고 실제 반영까지 끌고 가는 방법을 다뤘습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>10분 테코톡 · 온스타의 상태관리</h3>
+              <p css={styles.link}>
+                <a
+                  href="https://www.youtube.com/watch?v=jqir73Lourk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  발표 보러가기
+                </a>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                개별 라이브러리 사용법 대신, 상태 관리 도구가 지금의 모습에 이른 흐름을
+                따라갔습니다. 도구 비교는 몇 달이면 낡지만 그 흐름은 남는다고 봤습니다. DOM을 직접
+                만지던 시절부터 데이터가 화면을 만드는 방식으로 넘어오기까지, 각 단계에서 무엇이
+                불편했고 그래서 다음 도구가 왜 나왔는지를 정리했습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div css={styles.content}>
+            <div css={styles.contentTitle}>
+              <h3 css={styles.subheading}>오픈소스 기여</h3>
+              <p css={styles.link}>
+                <a
+                  href="https://github.com/reactjs/ko.react.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  React 공식 문서 한국어 번역
+                </a>
+              </p>
+            </div>
+            <ul css={styles.list}>
+              <li>
+                가장 오래 써온 프레임워크라 문서를 깊이 볼 일이 많았고, 읽고 넘어가는 대신 번역으로
+                남기고 싶어 참여했습니다.
               </li>
             </ul>
           </div>
@@ -298,7 +568,7 @@ export default function AboutView() {
               <p css={styles.subContent}>2022.02 ~ 2022.12</p>
             </div>
             <ul css={styles.list}>
-              <li>클린 코드, 테스트 자동화, 협업 프로세스, 서비스 개발 및 운영 학습</li>
+              <li>클린 코드, 테스트 자동화, 협업 프로세스, 서비스 개발·운영 학습</li>
               <li>
                 <a
                   href="https://github.com/onschan/2022-woowacourse-fe-onstar"
@@ -309,104 +579,6 @@ export default function AboutView() {
                   학습 및 활동 내역
                 </a>
               </li>
-            </ul>
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <h2 css={styles.heading}>Other Experiences</h2>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>우아한테크코스 FE 7기 리뷰어</h3>
-              <p css={styles.subContent}>2025.02 ~ 2025.06</p>
-            </div>
-            <ul css={styles.list}>
-              <li>30명 이상 수강생을 대상으로 코드 리뷰와 페어 프로그래밍 진행</li>
-              <li>
-                단순한 정답 제시보다, 리뷰이가 스스로 구조적 문제를 발견하고 개선 방향을 잡을 수
-                있도록 질문과 피드백 중심으로 리뷰 진행
-              </li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>코드잇 프론트엔드 멘토</h3>
-              <p css={styles.subContent}>2025.02 ~ 2025.04</p>
-            </div>
-            <ul css={styles.list}>
-              <li>수강생 대상 기술 공유와 프로젝트 멘토링 진행</li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>NEXTSTEP 리뷰어</h3>
-              <p css={styles.subContent}>2024.02 ~ 2024.06</p>
-            </div>
-            <ul css={styles.list}>
-              <li>5명 이상 수강생을 대상으로 코드 리뷰와 페어 프로그래밍 진행</li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>개인 기술 블로그 운영</h3>
-              <p css={styles.subContent}>2024.11 ~ 현재</p>
-              <p css={styles.link}>
-                <a href="https://www.onschan.me" target="_blank" rel="noopener noreferrer">
-                  https://www.onschan.me
-                </a>
-              </p>
-            </div>
-            <ul css={styles.list}>
-              <li>
-                Next.js 기반으로 개인 기술 블로그를 직접 구현하고 운영하며, SEO, RSS, 콘텐츠
-                구조화까지 직접 구현
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <h2 css={styles.heading}>Article &amp; Presentation</h2>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>React Fiber Architecture 톺아보기</h3>
-              <p css={styles.link}>
-                <Link href="/post/react-fiber">글 보러가기</Link>
-              </p>
-            </div>
-            <ul css={styles.list}>
-              <li>
-                라이브러리 내부 구현체와 실제 PR 히스토리까지 파고들며 기술의 탄생 배경과 설계
-                의도를 깊이 있게 탐구
-              </li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>Module Federation 이해하기</h3>
-              <p css={styles.link}>
-                <Link href="/post/mf">글 보러가기</Link>
-              </p>
-            </div>
-            <ul css={styles.list}>
-              <li>
-                실무에 적용한 기술 스택을 딥다이브 학습하며 동작 원리와 제약사항까지 정리해 공유
-              </li>
-            </ul>
-          </div>
-
-          <div css={styles.content}>
-            <div css={styles.contentTitle}>
-              <h3 css={styles.subheading}>오픈소스 기여</h3>
-            </div>
-            <ul css={styles.list}>
-              <li>React 공식 문서 한국어 번역 참여 | 2023.06.26</li>
             </ul>
           </div>
         </section>
