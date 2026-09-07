@@ -14,6 +14,7 @@ export const title = css`
 
 export const date = css`
   ${typography.bodySmall}
+  display: block;
   padding-top: 16px;
   color: ${theme.text.secondary};
   text-align: end;

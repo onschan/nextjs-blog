@@ -33,10 +33,11 @@ export default function Hero() {
       </motion.div>
 
       <motion.div css={styles.content} variants={containerVariants}>
-        <motion.h1 css={styles.title} variants={itemVariants}>
+        <motion.h1 css={styles.title} variants={itemVariants} aria-label={title.replace("\n", " ")}>
           {title.split("").map((char, index) => (
             <motion.span
               key={index}
+              aria-hidden
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: {

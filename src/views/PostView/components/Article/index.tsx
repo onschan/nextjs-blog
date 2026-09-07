@@ -2,21 +2,22 @@ import { MDXRemote, MDXRemoteProps, MDXRemoteSerializeResult } from "next-mdx-re
 import { ReactElement } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
-import type { Post } from "@/types";
+import type { Post, RelatedPost } from "@/types";
 
 import * as styles from "./styles";
 
-import { Bio, CaptionImage, Comment } from "./components";
+import { Bio, CaptionImage, Comment, RelatedPosts } from "./components";
 import { ThreeHeartExample, ThreeHeartExample2, ThreeHeartExample3 } from "./examples";
 import { useArticleAnchor } from "./hooks";
 
 interface Props {
   post: Post;
   mdxSource: MDXRemoteSerializeResult;
+  relatedPosts: RelatedPost[];
 }
 
 export default function Article(props: Props) {
-  const { post, mdxSource } = props;
+  const { post, mdxSource, relatedPosts } = props;
   const { title, date } = post;
 
   const { articleRef } = useArticleAnchor();
@@ -53,11 +54,14 @@ export default function Article(props: Props) {
   return (
     <section css={styles.section}>
       <h1 css={styles.title}>{title}</h1>
-      <h2 css={styles.date}>{date}</h2>
+      <time css={styles.date} dateTime={date}>
+        {date}
+      </time>
       <article ref={articleRef} css={styles.article}>
         <MDXRemote components={components} {...mdxSource} />
       </article>
       <Bio />
+      <RelatedPosts posts={relatedPosts} />
       <Comment />
     </section>
   );

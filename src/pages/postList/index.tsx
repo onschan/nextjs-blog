@@ -34,7 +34,13 @@ export default function PostListPage({ allPosts, tagsWithCount, latestPostDate }
 
   return (
     <>
-      <SEO title="Post List" url="/postList" />
+      <SEO
+        fullTitle="전체 글 | On's Tech Blog"
+        title="Posts"
+        description="React, Next.js, Three.js, AI 에이전트까지 프론트엔드 개발자 온승찬이 직접 만들고 배운 것을 정리한 기술 블로그 글 목록입니다."
+        url="/postList"
+        breadcrumb={[{ name: "Posts", url: "/postList" }]}
+      />
       <PostListView
         postList={postList}
         tagsWithCount={tagsWithCount}

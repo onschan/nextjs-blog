@@ -6,3 +6,5 @@ export type Post = {
   tags: string[];
   slug: string;
 };
+
+export type RelatedPost = Pick<Post, "slug" | "title" | "description">;
