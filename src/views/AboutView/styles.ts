@@ -142,6 +142,25 @@ export const entryHead = css`
 export const entryTitle = css`
   ${typography.subsection}
   font-size: 18px;
+
+  a {
+    color: ${colors.primary[500]};
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: ${colors.primary[500]}66;
+
+    &:hover {
+      color: ${colors.primary[600]};
+      text-decoration-color: ${colors.primary[600]};
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${colors.primary[500]};
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  }
 `;
 
 export const entryNote = css`
@@ -162,13 +181,15 @@ export const block = css`
 `;
 
 export const blockLabel = css`
-  ${typography.captionAccent}
-  color: ${theme.text.secondary};
-  padding-top: 0.4em;
-  letter-spacing: 0.04em;
+  ${typography.bodySmall}
+  font-weight: 700;
+  color: ${theme.text.primary};
+  padding-top: 0.25em;
+  letter-spacing: 0.02em;
 
   @media screen and (max-width: ${BREAK_POINT}px) {
     padding-top: 0;
+    color: ${colors.primary[500]};
   }
 `;
 
