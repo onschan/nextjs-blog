@@ -64,6 +64,19 @@ export const content = css`
   }
 `;
 
+export const contentLong = css`
+  display: flex;
+  gap: 20px;
+  border-left: 1px solid ${theme.border.default};
+  padding-left: 1.2em;
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    flex-direction: column;
+    border-left: none;
+    padding-left: 0;
+  }
+`;
+
 export const contentTitle = css`
   display: flex;
   flex-direction: column;
@@ -83,5 +96,108 @@ export const link = css`
 
   :hover {
     color: ${colors.primary[600]};
+  }
+`;
+
+export const lede = css`
+  ${typography.bodyLarge}
+  max-width: 40em;
+  color: ${theme.text.secondary};
+
+  strong {
+    color: ${theme.text.primary};
+    font-weight: 600;
+  }
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    ${typography.body}
+  }
+`;
+
+export const entryStack = css`
+  display: flex;
+  flex-direction: column;
+  gap: 2.25em;
+`;
+
+export const entry = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding-bottom: 2.25em;
+  border-bottom: 1px solid ${theme.border.default};
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+`;
+
+export const entryHead = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+`;
+
+export const entryTitle = css`
+  ${typography.subsection}
+  font-size: 18px;
+`;
+
+export const entryNote = css`
+  ${typography.bodySmall}
+  color: ${colors.primary[500]};
+`;
+
+export const block = css`
+  display: grid;
+  grid-template-columns: 3.5em 1fr;
+  gap: 1.25em;
+  align-items: start;
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    grid-template-columns: 1fr;
+    gap: 0.2em;
+  }
+`;
+
+export const blockLabel = css`
+  ${typography.captionAccent}
+  color: ${theme.text.secondary};
+  padding-top: 0.4em;
+  letter-spacing: 0.04em;
+
+  @media screen and (max-width: ${BREAK_POINT}px) {
+    padding-top: 0;
+  }
+`;
+
+export const blockBody = css`
+  ${typography.body}
+  max-width: 42em;
+  color: ${theme.text.secondary};
+  word-break: keep-all;
+
+  strong {
+    color: ${theme.text.primary};
+    font-weight: 600;
+  }
+`;
+
+export const measure = css`
+  ${typography.caption}
+  color: ${theme.text.tertiary};
+  max-width: 42em;
+  word-break: keep-all;
+
+  &::before {
+    content: "측정";
+    display: inline-block;
+    margin-right: 0.5em;
+    padding: 0 0.4em;
+    border: 1px solid ${theme.border.default};
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
   }
 `;
