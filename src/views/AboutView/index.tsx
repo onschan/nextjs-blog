@@ -249,6 +249,46 @@ export default function AboutView() {
 
               <div css={styles.entry}>
                 <div css={styles.entryHead}>
+                  <h4 css={styles.entryTitle}>제품 계측·지표 파이프라인 자동화</h4>
+                  <p css={styles.entryNote}>매번 사람이 챙기던 계측을 절차가 대신하도록</p>
+                </div>
+                <div css={styles.block}>
+                  <span css={styles.blockLabel}>문제</span>
+                  <p css={styles.blockBody}>
+                    <strong>
+                      무엇을 잴지 정하는 일도, 제대로 심겼는지 확인하는 일도, 지표를 뽑는 일도 매번
+                      사람 손에 달려 있었습니다.
+                    </strong>{" "}
+                    그래서 제품 전반에 200개 가까운 이벤트가 쌓였지만 대부분 1년 넘게 조회되지
+                    않았고, 결제 신청 한 경로는 이벤트가 아예 나가지 않는 등 코드와 태그 관리 도구가
+                    어긋나 있었습니다. 지표를 보려 해도 믿을 수 없는 상태였습니다.
+                  </p>
+                </div>
+                <div css={styles.block}>
+                  <span css={styles.blockLabel}>선택</span>
+                  <p css={styles.blockBody}>
+                    한 번 정리하고 끝내는 대신 <strong>반복되지 않을 구조를 만들었습니다.</strong>{" "}
+                    기능 작업을 계측 스펙으로 바꾸는 절차를 만들어 기대 효과 지표와 이벤트를 심을
+                    위치를 먼저 정하고, PR 시점에 실제 변경과 대조하게 했습니다. 지표 쪽은 주 단위로
+                    읽어 활성화 단계·기능별 성과·급변·신규 및 소멸 이벤트를 계산하는 파이프라인으로
+                    자동화했습니다.
+                  </p>
+                </div>
+                <div css={styles.block}>
+                  <span css={styles.blockLabel}>결과</span>
+                  <p css={styles.blockBody}>
+                    <strong>
+                      새 기능이 나오면 정의 한 줄만 추가하면 다음 주 리포트에 반영됩니다.
+                    </strong>{" "}
+                    정합성 문제는 이 과정에서 드러나 성격별로 PR을 나눠 정리했고, 리포트는 팀에 매주
+                    공유하고 있습니다. 실패가 잦은 기능은 원인을 나눌 계측을 먼저 넣고, 단계 간
+                    낙차가 큰 지점에는 성공 기준을 정한 실험을 제안합니다.
+                  </p>
+                </div>
+              </div>
+
+              <div css={styles.entry}>
+                <div css={styles.entryHead}>
                   <h4 css={styles.entryTitle}>수천 개 입력 필드를 다루는 어드민의 렌더링 최적화</h4>
                   <p css={styles.entryNote}>INP 600ms → 60ms</p>
                 </div>
