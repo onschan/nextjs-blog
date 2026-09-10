@@ -158,16 +158,17 @@ export default function AboutView() {
                       다시 짜는 일입니다.
                     </strong>{" "}
                     옆으로 나란히 놓으려면 두 요소를 묶는 컨테이너가 새로 생겨야 하고, 그만큼 중첩이
-                    깊어져 허용 한계를 넘길 수도 있습니다. 요소 종류·놓는 방향·현재 위치·옮기는
-                    요소가 안에 담고 있는 구조가 모두 결과를 바꿔 경우의 수가 곱해집니다.
+                    깊어져 허용 한계를 넘길 수도 있습니다. 놓을 때마다 어떤 트리로 바꿀지 계산해야
+                    하는데, 요소 종류·놓는 방향·현재 위치·옮기는 요소의 내부 구조가 모두 결과를
+                    바꿉니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>제약</span>
                   <p css={styles.blockBody}>
-                    계층 목록을 다루는 좌측 패널과 좌표를 다루는 미리보기는 입력 성격이 전혀 다른데,
-                    같은 조작에는 같은 결과를 내야 합니다. 따로 만들면 한쪽만 고쳐지는 버그가 계속
-                    나옵니다.
+                    편집 경로가 둘이었습니다. 계층 목록을 다루는 좌측 패널과 좌표를 다루는
+                    미리보기는 입력 성격이 전혀 다른데, 같은 조작에는 같은 결과를 내야 합니다. 따로
+                    만들면 한쪽만 고쳐지는 버그가 반복될 수밖에 없었습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
@@ -176,24 +177,24 @@ export default function AboutView() {
                     예외를 하나씩 막는 대신, 어느 경로로 들어오든 동일하게 동작하는{" "}
                     <strong>판정 → 자동 래핑 → 검증</strong> 파이프라인으로 통일했습니다. 미리보기는
                     격리된 프레임이라 드래그를 시작하는 곳과 놓을 위치를 판정하는 곳의 실행
-                    컨텍스트가 달라, 메시지 통신으로 두 곳이 하나의 편집 상태를 보게 했습니다. 깊이
+                    컨텍스트가 달라, 메시지 통신으로 두 곳이 하나의 편집 상태를 보게 했고, 깊이
                     검증은 서버를 오가면 타이밍이 맞지 않아 클라이언트가 맡도록 했습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>비동기</span>
                   <p css={styles.blockBody}>
-                    서버 API에는 요소를 다른 위치로 옮긴다는 개념이 아예 없어, 생성과 순서 변경 같은
-                    기본 연산을 조합해 만들었습니다. 새로 만든 컨테이너의 식별자가 다음 요청에
-                    필요해 한꺼번에 보낼 수 없었고, 그동안 화면이 멈춰 보이지 않도록 낙관적
-                    업데이트로 결과를 먼저 그렸습니다.
+                    서버 API에는 &ldquo;요소를 다른 위치로 옮긴다&rdquo;는 개념이 아예 없어, 생성과
+                    순서 변경 같은 기본 연산을 조합해 만들었습니다. 새로 만든 컨테이너의 식별자가
+                    다음 요청에 필요해 한꺼번에 보낼 수 없었습니다. 그동안 화면이 멈춰 보이지 않도록
+                    낙관적 업데이트로 결과를 먼저 그렸습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>결과</span>
                   <p css={styles.blockBody}>
-                    예외를 규칙으로 옮기고 나니, 새 편집 시나리오가 생겨도 두 경로에 똑같이
-                    적용됩니다. 분기문이 아니라 규칙만 늘어나는 구조가 됐습니다.
+                    예외를 규칙으로 옮겨, 새 시나리오가 생겨도 두 경로에 똑같이 적용되는 구조로
+                    만들었습니다.
                   </p>
                 </div>
               </div>
@@ -213,36 +214,37 @@ export default function AboutView() {
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>제약</span>
                   <p css={styles.blockBody}>
-                    우리가 손댈 수 없는 코드가 우리 화면 안에서 실행됩니다. DOM을 그대로 열어주면
-                    내부 구조가 곧 공개 API가 되어 이후로는 아무것도 못 바꾸고, 반대로 완전히
-                    격리하면 협력사 기능만 동떨어져 보이는 화면이 됩니다.
+                    우리가 손댈 수 없는 코드가 우리 화면 안에서 실행되는 구조였습니다. DOM을 그대로
+                    열어주면 내부 구조가 곧 공개 API가 되어 이후로는 아무것도 못 바꾸고, 반대로
+                    완전히 격리하면 협력사 기능만 동떨어져 보이는 화면이 됩니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>선택</span>
                   <p css={styles.blockBody}>
                     DOM을 열어주는 대신 <strong>무엇을 하고 싶은지만 받는 인터페이스</strong>를
-                    만들었습니다. 외부 스크립트는 모달을 띄워달라, 이 자리에 위젯을 걸어달라고
-                    요청할 뿐, 실제로 그리는 건 내부 컴포넌트입니다. 확장을 허용할 자리를 화면마다
-                    미리 정해두고, 화면을 통째로 쓰는 기능은 격리된 프레임에 띄우되 동작에 꼭 필요한
-                    인증 정보만 골라 넘겼습니다.
+                    만들었습니다. 외부 스크립트는 &ldquo;모달을 띄워달라&rdquo;, &ldquo;이 자리에
+                    위젯을 걸어달라&rdquo;고 요청할 뿐, 실제로 그리는 건 내부 컴포넌트입니다. 내부
+                    UI를 바꿔도 외부 앱은 깨지지 않고, 협력사가 따로 맞추지 않아도 우리 디자인을
+                    따르게 했습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>설계</span>
                   <p css={styles.blockBody}>
-                    한 번 배포한 인터페이스는 되돌릴 수 없다고 보고 설계했습니다. 식별자 누락과
-                    예약어 충돌은 등록 시점에 막고, 잘못 쓰면 조용히 실패하는 대신 이유가 그대로
-                    보이게 해 협력사가 문의 없이 스스로 원인을 찾게 했습니다. 같은 문제를 먼저 푼
-                    Shopify의 App Bridge와 Slot·Widget 구조를 뜯어보고 설계 근거로 삼았고, 외부
-                    개발사가 볼 연동 가이드도 직접 썼습니다.
+                    화면을 통째로 쓰는 기능은 격리된 프레임에 띄우고, 동작에 꼭 필요한 인증 정보만
+                    골라 넘겼습니다. 한 번 배포한 인터페이스는 되돌릴 수 없다고 보고 설계했습니다.
+                    식별자 누락과 예약어 충돌은 등록 시점에 막고, 잘못 쓰면 조용히 실패하는 대신
+                    이유가 그대로 보이게 해 협력사가 문의 없이 스스로 원인을 찾게 했습니다. 같은
+                    문제를 먼저 푼 Shopify의 App Bridge와 Slot·Widget 구조를 뜯어보고 설계 근거로
+                    삼았고, 외부 개발사가 볼 연동 가이드도 직접 썼습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>결과</span>
                   <p css={styles.blockBody}>
-                    협력사가 늘어도 제품 코드는 그대로 두고 스크립트만 등록하면 기능이 붙습니다.
-                    지금 <strong>10개 이상 협력사</strong>의 기능이 제품 안에서 동작하고 있습니다.
+                    협력사가 늘어도 스크립트 등록만으로 기능이 붙도록 했습니다. 지금{" "}
+                    <strong>10개 이상 협력사</strong>의 기능이 제품 안에서 동작하고 있습니다.
                   </p>
                 </div>
               </div>
@@ -278,11 +280,12 @@ export default function AboutView() {
                   <span css={styles.blockLabel}>결과</span>
                   <p css={styles.blockBody}>
                     <strong>
-                      새 기능이 나오면 정의 한 줄만 추가하면 다음 주 리포트에 반영됩니다.
+                      새 기능이 나오면 정의 한 줄만 추가하면 다음 주 리포트에 반영되도록
+                      만들었습니다.
                     </strong>{" "}
                     정합성 문제는 이 과정에서 드러나 성격별로 PR을 나눠 정리했고, 리포트는 팀에 매주
                     공유하고 있습니다. 실패가 잦은 기능은 원인을 나눌 계측을 먼저 넣고, 단계 간
-                    낙차가 큰 지점에는 성공 기준을 정한 실험을 제안합니다.
+                    낙차가 큰 지점에는 성공 기준을 정한 실험을 제안했습니다.
                   </p>
                 </div>
               </div>
@@ -295,8 +298,8 @@ export default function AboutView() {
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>문제</span>
                   <p css={styles.blockBody}>
-                    상품에 색상·사이즈 같은 옵션을 넣으면 조합 수만큼 항목이 늘어 수천 개가 되고,
-                    항목마다 가격·재고·코드 입력란이 따로 붙습니다.{" "}
+                    상품에 색상·사이즈 옵션을 넣으면 조합 수만큼 항목이 늘고, 항목마다
+                    가격·재고·코드 입력란이 따로 붙습니다.{" "}
                     <strong>
                       수천 개의 입력란이 한 화면에 동시에 놓이고, 판매자는 이를 하나씩 고치기도 하고
                       여러 개를 한 번에 바꾸기도 합니다.
@@ -314,17 +317,13 @@ export default function AboutView() {
                   </p>
                 </div>
                 <div css={styles.block}>
-                  <span css={styles.blockLabel}>대안</span>
-                  <p css={styles.blockBody}>
-                    입력 반영을 늦추는 방법은 다시 그리는 양을 그대로 둔 채 증상만 가려 제외했고,
-                    화면을 통째로 새로 짜는 쪽은 운영 중인 핵심 화면을 한 번에 교체하는 부담이 커
-                    나눠서 적용할 수 있는 방향을 택했습니다.
-                  </p>
-                </div>
-                <div css={styles.block}>
                   <span css={styles.blockLabel}>선택</span>
                   <p css={styles.blockBody}>
-                    상태 구독을 잘게 쪼개 실제로 바뀐 영역만 반응하도록 다시 설계했습니다.
+                    입력 반영을 늦추는 방법은 다시 그리는 양을 그대로 둔 채 증상만 가려 제외했고,
+                    화면을 통째로 새로 짜는 쪽은 운영 중인 핵심 화면을 한 번에 교체하는 부담이
+                    컸습니다. 대신{" "}
+                    <strong>상태 구독을 잘게 쪼개 실제로 바뀐 영역만 반응하도록</strong> 다시
+                    설계했습니다. 영역별로 나눠 적용할 수 있어 부담도 낮췄습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
@@ -359,9 +358,10 @@ export default function AboutView() {
                   <span css={styles.blockLabel}>선택</span>
                   <p css={styles.blockBody}>
                     조회를 빠르게 만드는 대신 <strong>언제 불러올지를 바꾸는</strong> 쪽을
-                    택했습니다. 다만 필요한 필드 목록이 여러 화면에서 함께 쓰는 조각에 묶여 있어,
-                    거기서 지우면 그걸 참조하는 20여 곳이 같이 깨집니다. 조각 자체를 목록용과
-                    편집용으로 나누는 것 말고는 길이 없었습니다.
+                    택했습니다. 사용자는 한 번에 한 페이지만 편집하니, 켜는 순간 전부 필요하다는
+                    전제부터 틀렸다고 봤습니다. 다만 필요한 필드 목록이 여러 화면에서 함께 쓰는
+                    조각에 묶여 있어, 거기서 지우면 그걸 참조하는 20여 곳이 같이 깨지는
+                    상태였습니다. 조각 자체를 목록용과 편집용으로 나누는 것 말고는 길이 없었습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
@@ -369,55 +369,13 @@ export default function AboutView() {
                   <p css={styles.blockBody}>
                     부팅 응답 <strong>11.2MB → 0.37MB</strong>, 브라우저가 메모리에 들고 있는 화면
                     구성 요소 <strong>3,076개 → 25개</strong>. 대신 페이지를 처음 열 때 170ms짜리
-                    요청이 하나 늘었는데, 두 번째부터는 요청이 없고 체감으로도 걸리지 않아 감수할
+                    요청이 하나 늘었습니다. 두 번째부터는 요청이 없고 체감으로도 걸리지 않아, 감수할
                     만한 비용이라고 봤습니다.
                   </p>
                 </div>
                 <p css={styles.measure}>
                   문의가 들어온 스토어에서, 변경분을 되돌려 같은 서버·같은 데이터로 전후를 각각 실측
                 </p>
-              </div>
-
-              <div css={styles.entry}>
-                <div css={styles.entryHead}>
-                  <h4 css={styles.entryTitle}>판매자 사이트 폰트 로딩 최적화</h4>
-                  <p css={styles.entryNote}>페이지 HTML 95.6% 감소</p>
-                </div>
-                <div css={styles.block}>
-                  <span css={styles.blockLabel}>문제</span>
-                  <p css={styles.blockBody}>
-                    판매자가 우리 서비스로 만든 사이트는 페이지마다 폰트 CSS <strong>1.86MB</strong>
-                    를 HTML에 그대로 담아 내보내고 있었습니다. 그 사이트가 실제로 쓰는 폰트와는
-                    상관없는 양이었고, 캐시도 타지 못해 페이지를 열 때마다 다시 내려갔습니다.
-                  </p>
-                </div>
-                <div css={styles.block}>
-                  <span css={styles.blockLabel}>원인</span>
-                  <p css={styles.blockBody}>
-                    두 가지가 겹쳐 있었습니다. 프레임워크의 폰트 인라인 최적화가 기본으로 켜져 있어
-                    폰트 CSS를 HTML에 직접 넣고 있었고, 공통 문서 템플릿에는 폰트 60개가 하드코딩돼
-                    사이트가 무엇을 쓰든 전부 따라 내려갔습니다.
-                  </p>
-                </div>
-                <div css={styles.block}>
-                  <span css={styles.blockLabel}>선택</span>
-                  <p css={styles.blockBody}>
-                    인라인을 끄고 링크 방식으로 되돌려 브라우저 캐시를 타게 한 뒤, 서버에서 그릴 때
-                    그 사이트가 실제로 쓰는 폰트만 골라 링크를 걸도록 바꿨습니다. 디자인 설정값만
-                    봐서는 사용자가 CSS에 직접 적어둔 폰트를 놓치기 때문에, 사용자가 쓴 코드까지
-                    훑어 폰트 선언을 모았습니다.
-                  </p>
-                </div>
-                <div css={styles.block}>
-                  <span css={styles.blockLabel}>결과</span>
-                  <p css={styles.blockBody}>
-                    페이지 HTML <strong>2,513KB → 110KB</strong>(95.6% 감소), 미리보기{" "}
-                    <strong>1,863KB → 7KB</strong>(99.6% 감소), HTML 내 @font-face{" "}
-                    <strong>3,423개 → 0개</strong>. 바꾼 곳이 전부 서버라, 사용자가 내려받는
-                    자바스크립트는 그대로 두고 전송량만 줄였습니다.
-                  </p>
-                </div>
-                <p css={styles.measure}>같은 사이트에서 배포 전후 HTML 응답 크기를 각각 실측</p>
               </div>
 
               <div css={styles.entry}>
@@ -449,8 +407,7 @@ export default function AboutView() {
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>결과</span>
                   <p css={styles.blockBody}>
-                    주요 워크플로우 기준 빌드 시간 <strong>20분 → 2분 이내</strong>. 36개
-                    애플리케이션이 각자 개발·배포하는 구조를 운영하고 있습니다.
+                    주요 워크플로우 기준 빌드 시간 <strong>20분 → 2분 이내</strong>.
                   </p>
                 </div>
               </div>
@@ -466,26 +423,26 @@ export default function AboutView() {
                     달력·탭·표 컬럼 필터처럼 여러 화면에 반복되는 UI를 화면마다 새로 만들고
                     있었습니다. 이름은 같은데 화면마다 동작이 달라졌고, 그렇다고 공용으로 묶으려니
                     이번에는 <strong>화면마다 요구가 달라 옵션이 계속 늘었습니다.</strong> 옵션이
-                    늘수록 한 화면을 위해 넣은 분기가 다른 화면의 동작까지 건드리게 됩니다.
+                    늘수록 한 화면을 위해 넣은 분기가 다른 화면의 동작까지 건드렸습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>선택</span>
                   <p css={styles.blockBody}>
-                    동작과 표현을 분리하는 <strong>헤드리스 방식</strong>을 택했습니다. 열림·선택·
-                    포커스 같은 상태와 상호작용은 라이브러리가 맡고, 화면에 어떻게 보일지는 쓰는
-                    쪽이 조립합니다. Storybook으로 동작을 문서화해 물어보지 않고도 확인할 수 있게
-                    했습니다.
+                    동작과 표현을 분리하는 <strong>헤드리스 방식</strong>을 택했습니다. 상태와
+                    상호작용은 라이브러리가 맡고, 화면에 어떻게 보일지는 쓰는 쪽이 조립하도록
+                    나눴습니다. 새 요구를 옵션이 아니라 조합으로 풀도록 했습니다. Storybook으로
+                    동작을 문서화해 물어보지 않고도 확인할 수 있게 했습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
                   <span css={styles.blockLabel}>결과</span>
                   <p css={styles.blockBody}>
                     같은 UI를 다시 짜지 않고 가져다 조립하게 됐고, 동작이 어긋나면 한곳만 고치면
-                    됩니다. 이후{" "}
+                    되게 했습니다. 이후{" "}
                     <strong>AI 에이전트가 이미 있는 컴포넌트를 두고 새 UI를 만들어내는 문제</strong>
-                    가 생겨, UI를 만들기 전에 같은 컴포넌트가 있는지 먼저 확인하도록 규칙과 탐색
-                    방법을 에이전트가 읽는 문서로 남겼습니다.
+                    가 생겼습니다. UI를 만들기 전에 같은 컴포넌트가 있는지 먼저 확인하도록, 규칙과
+                    탐색 방법을 에이전트가 읽는 문서로 남겼습니다.
                   </p>
                 </div>
               </div>
@@ -510,9 +467,13 @@ export default function AboutView() {
                   <span css={styles.blockLabel}>선택</span>
                   <p css={styles.blockBody}>
                     <strong>도구를 잘 쓰는 법 대신, 도구가 일할 환경을 만드는</strong> 쪽으로 방향을
-                    틀었습니다. 어떤 에이전트를 쓰든 어떤 하네스를 얹든 같은 코드베이스에서는 같은
-                    품질이 나와야 한다고 보고, 규칙과 검증 기준을 각자의 도구가 아니라 저장소에
-                    뒀습니다.
+                    틀었습니다.{" "}
+                    <strong>
+                      어떤 에이전트를 쓰든 어떤 하네스를 얹든 같은 코드베이스에서는 같은 품질이
+                      나와야 한다
+                    </strong>
+                    고 보고, 규칙과 검증 기준을 각자의 도구가 아니라 저장소에 뒀습니다. 프로젝트별
+                    작업 규칙, 협업 가드레일, 작업 후 검증 기준을 문서로 정리했습니다.
                   </p>
                 </div>
                 <div css={styles.block}>
@@ -655,10 +616,8 @@ export default function AboutView() {
                 <strong>
                   리액트를 만든 사람들이 어떤 흐름으로 Fiber에 도달했는지가 궁금했습니다.
                 </strong>{" "}
-                저장소의 PR과 이슈를 2016년 첫 논의부터 따라 읽고, 설계자들이 실제로 주고받은 말을
-                근거로 Fiber가 탄생한 배경과 어떻게 발전해왔는지를 정리했습니다. 동작 원리는 원본
-                코드를 직접 읽어 확인했고, 문단마다 원문 링크를 달아 제 해석을 건너뛰고 바로 확인할
-                수 있게 했습니다.
+                저장소의 PR과 이슈를 2016년 첫 논의부터 따라 읽어 탄생 배경과 발전 과정을 정리했고,
+                동작 원리는 원본 코드를 직접 읽어 확인했습니다. 문단마다 원문 링크를 달았습니다.
               </p>
             </div>
 
@@ -670,9 +629,8 @@ export default function AboutView() {
               </div>
               <p css={styles.blockBody}>
                 <strong>직접 쓰는 기술인 만큼 더 정확하게 남기고 싶었습니다.</strong> 동작 원리를
-                처음부터 다시 확인하고, 트리쉐이킹 한계나 Next.js 지원 중단처럼 실무에서 실제로
-                부딪힌 문제를 함께 담았습니다. 쓸 만한 경우와 굳이 쓸 필요 없는 경우를 나눈 기준까지
-                정리했습니다.
+                다시 확인하고, 트리쉐이킹 한계나 Next.js 지원 중단처럼 실무에서 부딪힌 문제와 쓸
+                만한 경우·굳이 쓸 필요 없는 경우를 나눈 기준까지 담았습니다.
               </p>
             </div>
 
@@ -693,30 +651,6 @@ export default function AboutView() {
                 반영까지 끌고 가는 방법을 다뤘습니다.
               </p>
             </div>
-
-            <div css={styles.entry}>
-              <div css={styles.entryHead}>
-                <h4 css={styles.entryTitle}>
-                  <a
-                    href="https://www.youtube.com/watch?v=jqir73Lourk"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    10분 테코톡 · 온스타의 상태관리
-                  </a>
-                </h4>
-              </div>
-              <p css={styles.blockBody}>
-                <strong>
-                  개별 라이브러리 사용법 대신, 상태 관리 도구가 지금의 모습에 이른 흐름을
-                  따라갔습니다.
-                </strong>{" "}
-                도구 비교는 몇 달이면 낡지만 그 흐름은 남는다고 봤습니다. DOM을 직접 만지던 시절부터
-                데이터가 화면을 만드는 방식으로 넘어오기까지, 각 단계에서 무엇이 불편했고 그래서
-                다음 도구가 왜 나왔는지를 정리했습니다.
-              </p>
-            </div>
-
             <div css={styles.entry}>
               <div css={styles.entryHead}>
                 <h4 css={styles.entryTitle}>
@@ -730,8 +664,7 @@ export default function AboutView() {
                 </h4>
               </div>
               <p css={styles.blockBody}>
-                가장 오래 써온 프레임워크라 문서를 깊이 볼 일이 많았고, 읽고 넘어가는 대신 번역으로
-                남기고 싶어 참여했습니다.
+                가장 오래 써온 프레임워크라, 읽고 넘어가는 대신 번역으로 남기고 싶어 참여했습니다.
               </p>
             </div>
           </div>
